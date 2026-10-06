@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{meta.title}}</title>
+  <meta name="description" content="{{meta.description}}" />
+  <link rel="canonical" href="{{meta.url}}" />
+  <link rel="alternate" hreflang="it" href="https://www.neurocart.it/" />
+  <link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/" />
+  <meta name="theme-color" content="#0A0613" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="{{meta.locale}}" />
+  <meta property="og:site_name" content="Neurocart" />
+  <meta property="og:url" content="{{meta.url}}" />
+  <meta property="og:title" content="{{meta.title}}" />
+  <meta property="og:description" content="{{meta.description}}" />
+  <meta property="og:image" content="{{meta.image}}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="{{meta.ogAlt}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{meta.title}}" />
+  <meta name="twitter:description" content="{{meta.description}}" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <script>document.documentElement.classList.add("js");</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AI-Commerce S.r.l.","brand":{"@type":"Brand","name":"Neurocart"},"url":"https://www.neurocart.it/","logo":"https://www.neurocart.it/logo.svg","vatID":"IT08978880725","email":"sales@neurocart.it","address":{"@type":"PostalAddress","streetAddress":"Via Giorgio de Chirico 37","postalCode":"70056","addressLocality":"Molfetta","addressRegion":"BA","addressCountry":"IT"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Neurocart","inLanguage":"{{lang}}","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"{{ld.app}}","offers":{"@type":"Offer","price":"79","priceCurrency":"EUR","priceSpecification":{"@type":"UnitPriceSpecification","price":"79","priceCurrency":"EUR","unitCode":"MON"}}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"{{lang}}","mainEntity":[
+    {"@type":"Question","name":"{{faq.02}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.03}}"}},
+    {"@type":"Question","name":"{{faq.04}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.05}}"}},
+    {"@type":"Question","name":"{{faq.06}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.07}} {{faq.08}}"}},
+    {"@type":"Question","name":"{{faq.09}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.10}}"}},
+    {"@type":"Question","name":"{{faq.11}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.12}}"}},
+    {"@type":"Question","name":"{{faq.13}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.14}}"}}
+  ]}</script>
+  <script type="module" src="/src/main.ts"></script>
+</head>
+<body>
+  <header id="nav" class="nav scrolled">
+    <div class="wrap flex h-16 items-center justify-between gap-4 md:h-20">
+      <a href="#top" class="flex items-center gap-2 font-display text-xl font-bold"><span class="mark"></span>{{nav.01}}</a>
+      <nav class="hidden items-center gap-8 text-[0.95rem] lg:flex" aria-label="{{nav.aria}}">
+        <a href="#motore">{{nav.02}}</a><a href="#chat">{{nav.03}}</a><a href="#piattaforma">{{nav.04}}</a><a href="#prezzi">{{nav.05}}</a><a href="#in-arrivo">{{nav.06}}</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="{{switch.href}}" hreflang="{{switch.lang}}" lang="{{switch.lang}}" class="text-[0.95rem] font-semibold">{{switch.label}}</a>
+        <a href="%VITE_APP_URL%/auth" class="btn btn-ghost hidden sm:inline-flex">{{nav.07}}</a>
+        <a href="#accesso" class="btn btn-primary" data-cta data-install="{{cta.install}}">{{nav.08}}</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section id="hero" class="night flex min-h-[100svh] items-center pb-16 pt-32">
+      <div class="hero-graph" data-hero-bg aria-hidden="true"></div>
+      <div class="wrap w-full" data-hero-fade>
+        <p class="eyebrow">{{hero.01}}</p>
+        <h1 class="h1" data-split>{{hero.02}}<br /> <em>{{hero.03}}</em></h1>
+        <div class="mt-10 grid gap-10 lg:grid-cols-12">
+          <div class="lg:col-span-6 lg:col-start-7">
+            <p class="prose-p text-lg text-cream/90 md:text-xl" data-reveal>{{hero.04}}</p>
+            <div class="mt-8 flex flex-wrap gap-3" data-reveal>
+              <a href="#accesso" class="btn btn-primary" data-cta data-install="{{cta.install}}">{{nav.08}}</a>
+              <a href="#motore" class="btn btn-ghost">{{hero.05}}</a>
+            </div>
+            <p class="muted mt-6 text-sm" data-reveal>{{hero.06}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap">
+        <h2 class="sr-only">{{numbers.01}}</h2>
+        <div class="grid gap-6 md:grid-cols-3" data-reveal-stagger>
+          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat"><span data-count="20">20</span>{{numbers.pct}}</p><p class="mt-3 max-w-[28ch]">{{numbers.02}}</p><p class="muted mt-6 text-xs">{{numbers.03}}</p></article>
+          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat">+<span data-count="50">50</span>{{numbers.pct}}</p><p class="mt-3 max-w-[28ch]">{{numbers.04}}</p><p class="muted mt-6 text-xs">{{numbers.05}}</p></article>
+          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat"><span data-count="87">87</span>{{numbers.pct}}</p><p class="mt-3 max-w-[28ch]">{{numbers.06}}</p><p class="muted mt-6 text-xs">{{numbers.07}}</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="motore" class="night">
+      <div id="engine" class="pin">
+        <div class="stick">
+          <div class="engine-graph" aria-hidden="true">
+<svg class="graph" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><defs><filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<line class="e e-sim" data-p="1" x1="120" y1="140" x2="260" y2="90" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="260" y1="90" x2="400" y2="170" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="400" y1="170" x2="540" y2="100" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="540" y1="100" x2="680" y2="160" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="180" y1="320" x2="330" y2="300" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="330" y1="300" x2="480" y2="330" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="90" y1="440" x2="180" y2="320" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="250" y1="470" x2="330" y2="300" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="250" y1="470" x2="400" y2="480" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="560" y1="480" x2="480" y2="330" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="560" y1="480" x2="400" y2="480" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="720" y1="440" x2="640" y2="310" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="720" y1="440" x2="480" y2="330" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="90" y1="440" x2="330" y2="300" pathLength="1"/>
+<line class="e e-rec" data-p="3" x1="400" y1="170" x2="330" y2="300" pathLength="1"/>
+<line class="e e-rec" data-p="3" x1="400" y1="170" x2="480" y2="330" pathLength="1"/>
+<line class="e e-rec" data-p="3" x1="540" y1="100" x2="480" y2="330" pathLength="1"/>
+<line class="e e-rec" data-p="3" x1="260" y1="90" x2="180" y2="320" pathLength="1"/>
+<circle class="n-prod" data-p="1" cx="120" cy="140" r="6"/>
+<circle class="n-prod" data-p="1" cx="260" cy="90" r="6"/>
+<circle class="n-prod" data-p="1" cx="400" cy="170" r="6"/>
+<circle class="n-prod" data-p="1" cx="540" cy="100" r="6"/>
+<circle class="n-prod" data-p="1" cx="680" cy="160" r="6"/>
+<circle class="n-prod" data-p="1" cx="180" cy="320" r="6"/>
+<circle class="n-prod" data-p="1" cx="330" cy="300" r="6"/>
+<circle class="n-prod" data-p="1" cx="480" cy="330" r="6"/>
+<circle class="n-prod" data-p="1" cx="640" cy="310" r="6"/>
+<circle class="n-prod" data-p="1" cx="400" cy="480" r="6"/>
+<circle class="n-user" data-p="2" cx="90" cy="440" r="5"/>
+<circle class="n-user" data-p="2" cx="250" cy="470" r="5"/>
+<circle class="n-user" data-p="2" cx="560" cy="480" r="5"/>
+<circle class="n-user" data-p="2" cx="720" cy="440" r="5"/>
+<g data-p="4"><circle class="n-prod" cx="120" cy="140" r="6"/><circle class="n-prod" cx="260" cy="90" r="6"/><circle class="n-prod" cx="400" cy="170" r="6"/><circle class="n-prod" cx="540" cy="100" r="6"/><circle class="n-prod" cx="680" cy="160" r="6"/><circle class="n-prod" cx="180" cy="320" r="6"/><circle class="n-prod" cx="330" cy="300" r="6"/><circle class="n-prod" cx="480" cy="330" r="6"/><circle class="n-prod" cx="640" cy="310" r="6"/><circle class="n-prod" cx="400" cy="480" r="6"/></g>
+</svg>
+          </div>
+          <div class="wrap grid w-full gap-8 lg:grid-cols-12 lg:gap-0">
+            <div class="lg:col-span-5">
+              <p class="eyebrow">{{engine.01}}</p>
+              <h2 class="h2" data-split>{{engine.02}}</h2>
+              <div class="rail4"><i class="track"><i class="fill"></i></i>
+                <ol>
+                  <li><span>01</span>{{engine.03}}</li>
+                  <li><span>02</span>{{engine.04}}</li>
+                  <li><span>03</span>{{engine.05}}</li>
+                  <li><span>04</span>{{engine.06}}</li>
+                </ol>
+              </div>
+            </div>
+            <div class="phases lg:col-span-6 lg:col-start-7">
+              <article data-p="1" class="cur on"><p class="font-display text-sm font-semibold text-dusk">01</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">{{engine.03}}</h3><p class="prose-p mt-4 text-cream/85">{{engine.07}}</p></article>
+              <article data-p="2"><p class="font-display text-sm font-semibold text-dusk">02</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">{{engine.04}}</h3><p class="prose-p mt-4 text-cream/85">{{engine.08}}</p></article>
+              <article data-p="3"><p class="font-display text-sm font-semibold text-dusk">03</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">{{engine.05}}</h3><p class="prose-p mt-4 text-cream/85">{{engine.09}}</p></article>
+              <article data-p="4"><p class="font-display text-sm font-semibold text-dusk">04</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">{{engine.06}}</h3><p class="prose-p mt-4 text-cream/85">{{engine.10}}</p></article>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap pb-24 md:pb-40">
+        <div class="why grid gap-8 md:grid-cols-3" data-reveal-stagger aria-hidden="true">
+          <div><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">{{engine.11}}</b><span>{{engine.12}}</span></p><i class="pbrand">{{engine.13}}</i></div></article><span class="chip mt-4">{{engine.14}}</span></div>
+          <div><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></div><div class="pmeta"><p><b class="font-medium">{{engine.15}}</b><span>{{engine.16}}</span></p><i class="pbrand">{{engine.13}}</i></div></article><span class="chip mt-4">{{engine.17}}</span></div>
+          <div><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></div><div class="pmeta"><p><b class="font-medium">{{engine.18}}</b><span>{{engine.19}}</span></p><i class="pbrand">{{engine.13}}</i></div></article><span class="chip mt-4">{{engine.20}}</span></div>
+        </div>
+        <p class="mt-16 max-w-[24ch] font-serif text-3xl md:text-5xl" data-reveal>{{engine.21}}</p>
+      </div>
+    </section>
+
+    <section id="consigli" class="sec">
+      <div class="wrap">
+        <p class="eyebrow">{{consigli.01}}</p>
+        <h2 class="h2 max-w-[18ch]" data-split>{{consigli.02}}</h2>
+        <div class="mt-16 grid gap-8 md:grid-cols-12 md:items-start">
+          <div class="stage frame min-w-0 md:order-2 md:col-span-7" data-scene="pdp" data-type="similar" aria-hidden="true">
+            <div class="fakebar"><i></i><i></i><i></i></div>
+            <div class="scene">
+              <div class="ctx ctx-pdp"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div><b>{{engine.11}}</b><p>{{engine.12}}</p></div></div>
+              <div class="ctx ctx-home"><i style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></i><i style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></i><i style="--g:linear-gradient(135deg,#e4ebdd,#bfcdb3)"></i><i style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></i></div>
+              <div class="ctx ctx-cart"><p><span>{{engine.15}}</span><span>{{engine.16}}</span></p><p><span>{{engine.18}}</span><span>{{engine.19}}</span></p><p><b>{{consigli.03}}</b><b>{{consigli.04}}</b></p></div>
+              <div class="ctx ctx-thanks"><b>{{consigli.05}}</b><p><span>{{engine.11}}</span><span>{{engine.12}}</span></p></div>
+              <div class="ctx ctx-account"><b>{{consigli.06}}</b></div>
+            </div>
+            <div class="recs">
+              <p class="reclabel">{{consigli.07}}</p>
+              <div class="rail">
+                <article class="pcard"><div class="pimg"></div><div class="pmeta"><p><b class="font-medium">{{engine.11}}</b><span>{{engine.12}}</span></p></div></article>
+                <article class="pcard"><div class="pimg"></div><div class="pmeta"><p><b class="font-medium">{{engine.15}}</b><span>{{engine.16}}</span></p></div></article>
+                <article class="pcard"><div class="pimg"></div><div class="pmeta"><p><b class="font-medium">{{engine.18}}</b><span>{{engine.19}}</span></p></div></article>
+              </div>
+            </div>
+          </div>
+          <div class="min-w-0 md:order-1 md:col-span-5">
+            <div class="tablist" role="tablist" aria-orientation="vertical" aria-label="{{consigli.aria}}">
+              <i class="tabbar"></i>
+            <div class="tabitem" role="none">
+              <button role="tab" type="button" id="tab-similar" aria-controls="tp-similar" aria-selected="true" tabindex="0" data-scene="pdp" data-type="similar">{{consigli.07}}</button>
+              <div role="tabpanel" id="tp-similar" aria-labelledby="tab-similar" class="tabpanel"><div><p class="muted text-base">{{consigli.08}}</p><span class="chip mt-3">{{consigli.09}}</span></div></div>
+            </div>
+            <div class="tabitem" role="none">
+              <button role="tab" type="button" id="tab-together" aria-controls="tp-together" aria-selected="false" tabindex="-1" data-scene="pdp" data-type="together">{{consigli.10}}</button>
+              <div role="tabpanel" id="tp-together" aria-labelledby="tab-together" class="tabpanel"><div><p class="muted text-base">{{consigli.11}}</p><span class="chip mt-3">{{consigli.09}}</span></div></div>
+            </div>
+            <div class="tabitem" role="none">
+              <button role="tab" type="button" id="tab-complementary" aria-controls="tp-complementary" aria-selected="false" tabindex="-1" data-scene="pdp" data-type="complementary">{{consigli.12}}</button>
+              <div role="tabpanel" id="tp-complementary" aria-labelledby="tab-complementary" class="tabpanel"><div><p class="muted text-base">{{consigli.13}}</p><span class="chip mt-3">{{consigli.09}}</span></div></div>
+            </div>
+            <div class="tabitem" role="none">
+              <button role="tab" type="button" id="tab-new" aria-controls="tp-new" aria-selected="false" tabindex="-1" data-scene="home" data-type="new">{{consigli.14}}</button>
+              <div role="tabpanel" id="tp-new" aria-labelledby="tab-new" class="tabpanel"><div><p class="muted text-base">{{consigli.15}}</p><span class="chip mt-3">{{consigli.16}}</span></div></div>
+            </div>
+            <div class="tabitem" role="none">
+              <button role="tab" type="button" id="tab-cart" aria-controls="tp-cart" aria-selected="false" tabindex="-1" data-scene="cart" data-type="cart">{{consigli.17}}</button>
+              <div role="tabpanel" id="tp-cart" aria-labelledby="tab-cart" class="tabpanel"><div><p class="muted text-base">{{consigli.18}}</p><span class="chip mt-3">{{consigli.19}}</span></div></div>
+            </div>
+            <div class="tabitem" role="none">
+              <button role="tab" type="button" id="tab-post" aria-controls="tp-post" aria-selected="false" tabindex="-1" data-scene="thanks" data-type="post">{{consigli.20}}</button>
+              <div role="tabpanel" id="tp-post" aria-labelledby="tab-post" class="tabpanel"><div><p class="muted text-base">{{consigli.21}}</p><span class="chip mt-3">{{consigli.22}}</span></div></div>
+            </div>
+            <div class="tabitem" role="none">
+              <button role="tab" type="button" id="tab-foryou" aria-controls="tp-foryou" aria-selected="false" tabindex="-1" data-scene="account" data-type="foryou">{{consigli.23}}</button>
+              <div role="tabpanel" id="tp-foryou" aria-labelledby="tab-foryou" class="tabpanel"><div><p class="muted text-base">{{consigli.24}}</p><span class="chip mt-3">{{consigli.25}}</span></div></div>
+            </div>
+            </div>
+            <div class="explain md:hidden" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="chat" class="sec pt-0" data-preset="editorial">
+      <div class="wrap">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">{{chat.01}}</p>
+            <h2 class="h2" data-split>{{chat.02}}</h2>
+          </div>
+          <div class="lg:col-span-6 lg:col-start-7" data-reveal>
+            <ul class="prose-p list-disc space-y-2 pl-5 marker:text-primary">
+              <li>{{chat.03}}</li>
+              <li>{{chat.04}}</li>
+              <li>{{chat.05}}</li>
+              <li>{{chat.06}}</li>
+              <li>{{chat.07}}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-20 grid gap-8 lg:grid-cols-12" aria-hidden="true">
+          <div class="frame lg:col-span-7 lg:self-start" data-reveal>
+            <div class="rail">
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">{{engine.11}}</b><span>{{engine.12}}</span></p><i class="pbrand">{{engine.13}}</i></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></div><div class="pmeta"><p><b class="font-medium">{{engine.15}}</b><span>{{engine.16}}</span></p><i class="pbrand">{{engine.13}}</i></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></div><div class="pmeta"><p><b class="font-medium">{{engine.18}}</b><span>{{engine.19}}</span></p><i class="pbrand">{{engine.13}}</i></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e4ebdd,#bfcdb3)"></div><div class="pmeta"><p><b class="font-medium">{{chat.08}}</b><span>{{chat.09}}</span></p><i class="pbrand">{{engine.13}}</i></div></article>
+            </div>
+          </div>
+          <div class="frame flex flex-col gap-3 p-5 lg:col-span-5" data-reveal>
+            <p class="bubble bubble-user">{{chat.10}}</p>
+            <p class="bubble bubble-bot">{{chat.11}}</p>
+            <div class="rail p-0"><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">{{engine.11}}</b><span>{{engine.12}}</span></p><i class="pbrand">{{engine.13}}</i></div></article></div>
+            <p class="bubble bubble-user">{{chat.12}}</p>
+          </div>
+        </div>
+
+        <div class="mt-24 grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">{{chat.13}}</p>
+            <p class="prose-p" data-reveal>{{chat.14}}</p>
+          </div>
+          <div class="lg:col-span-6 lg:col-start-7">
+            <ul class="space-y-4" data-reveal-stagger>
+              <li data-for="editorial"><b class="font-display">{{chat.15}}</b> {{chat.16}}</li>
+              <li data-for="glass"><b class="font-display">{{chat.17}}</b> {{chat.18}}</li>
+              <li data-for="minimal"><b class="font-display">{{chat.19}}</b> {{chat.20}}</li>
+              <li data-for="frame"><b class="font-display">{{chat.21}}</b> {{chat.22}}</li>
+            </ul>
+            <p class="mt-8 font-serif text-2xl" data-reveal>{{chat.23}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec pt-0" aria-labelledby="attivazione">
+      <div class="wrap">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">{{setup.01}}</p>
+            <h2 id="attivazione" class="h2" data-split>{{setup.02}}</h2>
+          </div>
+          <div class="lg:col-span-6 lg:col-start-7">
+            <ol class="space-y-8" data-reveal-stagger>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">1</span><p>{{setup.03}}</p></li>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">2</span><p>{{setup.04}}</p></li>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">3</span><p>{{setup.05}}</p></li>
+            </ol>
+            <p class="muted mt-8 text-base" data-reveal>{{setup.06}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec pt-0" aria-labelledby="umano">
+      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
+        <div class="lg:col-span-5">
+          <p class="eyebrow">{{human.01}}</p>
+          <h2 id="umano" class="h2" data-split>{{human.02}}</h2>
+        </div>
+        <p class="prose-p lg:col-span-6 lg:col-start-7" data-reveal>{{human.03}}</p>
+      </div>
+    </section>
+
+    <section id="piattaforma" class="sec pt-0">
+      <div class="wrap">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">{{platform.01}}</p>
+            <h2 class="h2" data-split>{{platform.02}}</h2>
+          </div>
+        </div>
+        <div class="mt-16 grid gap-6 md:grid-cols-2" data-reveal-stagger>
+          <article class="card"><h3>{{platform.03}}</h3><p>{{platform.04}}</p></article>
+          <article class="card"><h3>{{platform.05}}</h3><p>{{platform.06}}</p></article>
+          <article class="card">
+            <h3>{{platform.07}}</h3>
+            <div class="mb-4 grid grid-cols-2 gap-2" aria-hidden="true">
+              <div class="kpi">{{platform.08}}<b>{{platform.k1}}</b></div><div class="kpi">{{platform.09}}<b>{{platform.k2}}</b></div><div class="kpi">{{platform.10}}<b>96</b></div><div class="kpi">{{platform.11}}<b>{{platform.12}}</b></div>
+            </div>
+            <svg class="mb-4 h-10 w-full text-primary" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,32 25,26 50,30 75,18 100,22 125,12 150,16 175,6 200,9" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
+            <p>{{platform.13}}</p>
+          </article>
+          <article class="card"><h3>{{platform.14}}</h3><p>{{platform.15}}</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="prezzi" class="sec pt-0">
+      <div class="wrap">
+        <p class="eyebrow">{{nav.05}}</p>
+        <h2 class="h2 max-w-[20ch]" data-split>{{pricing.01}}</h2>
+        <div class="mt-16 grid gap-6 lg:grid-cols-3" data-reveal-stagger>
+          <article class="card"><h3>{{pricing.02}}</h3><p class="font-serif text-5xl">{{engine.16}} <span class="font-sans text-base text-muted">{{pricing.03}}</span></p><p class="muted mt-4 text-base">{{pricing.04}}</p></article>
+          <article class="card border-2 border-accent"><h3 class="flex items-center justify-between">{{pricing.05}} <span class="badge">{{pricing.06}}</span></h3><p class="font-serif text-5xl">{{pricing.07}} <span class="font-sans text-base text-muted">{{pricing.03}}</span></p><p class="muted mt-4 text-base">{{pricing.08}}</p></article>
+          <article class="card"><h3>{{pricing.09}}</h3><p class="font-serif text-5xl">{{pricing.10}}</p><p class="muted mt-4 text-base">{{pricing.11}}</p></article>
+        </div>
+        <p class="muted mt-10 max-w-[68ch] text-base" data-reveal>{{pricing.12}}</p>
+      </div>
+    </section>
+
+    <section id="in-arrivo" class="sec pt-0">
+      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
+        <div class="lg:col-span-5">
+          <p class="eyebrow">{{nav.06}}</p>
+          <h2 class="h2" data-split>{{soon.01}}</h2>
+        </div>
+        <ul class="lg:col-span-6 lg:col-start-7" data-reveal-stagger>
+          <li class="flex flex-col gap-3 border-b border-line py-6"><span class="badge self-start">{{nav.06}}</span><p><b class="font-display">{{soon.02}}</b> {{soon.03}}</p></li>
+          <li class="flex flex-col gap-3 border-b border-line py-6"><span class="badge self-start">{{nav.06}}</span><p><b class="font-display">{{soon.04}}</b> {{soon.05}}</p></li>
+          <li class="flex flex-col gap-3 py-6"><span class="badge self-start">{{nav.06}}</span><p><b class="font-display">{{soon.06}}</b> {{soon.07}}</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec pt-0" aria-labelledby="faq">
+      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
+        <h2 id="faq" class="h2 lg:col-span-5" data-split>{{faq.01}}</h2>
+        <div class="lg:col-span-6 lg:col-start-7" data-reveal>
+          <details><summary>{{faq.02}}</summary><p class="prose-p pb-6">{{faq.03}}</p></details>
+          <details><summary>{{faq.04}}</summary><p class="prose-p pb-6">{{faq.05}}</p></details>
+          <details><summary>{{faq.06}}</summary><p class="prose-p pb-6">{{faq.07}} <a class="text-primary underline" href="%VITE_APP_URL%/privacy">{{faq.08}}</a></p></details>
+          <details><summary>{{faq.09}}</summary><p class="prose-p pb-6">{{faq.10}}</p></details>
+          <details><summary>{{faq.11}}</summary><p class="prose-p pb-6">{{faq.12}}</p></details>
+          <details><summary>{{faq.13}}</summary><p class="prose-p pb-6">{{faq.14}}</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="night sec">
+      <div class="wrap">
+        <h2 class="h2 max-w-[18ch]" data-split>{{cta.01}} <em>{{cta.02}}</em></h2>
+        <div class="mt-10 flex flex-wrap gap-3" data-reveal>
+          <a href="#accesso" class="btn btn-primary" data-cta data-install="{{cta.install}}">{{nav.08}}</a>
+          <a href="mailto:sales@neurocart.it?subject=Demo%20Neurocart" class="btn btn-ghost">{{cta.03}}</a>
+        </div>
+        <form id="accesso" class="card mt-20 max-w-xl" data-reveal data-ok="{{cta.ok}}" data-err="{{cta.err}}">
+          <h3 class="font-display">{{nav.08}}</h3>
+          <p class="muted mb-6 text-base">{{cta.04}}</p>
+          <label for="email" class="mb-2 block text-sm font-medium">{{cta.05}}</label>
+          <input id="email" name="email" type="email" required autocomplete="email" class="field" />
+          <label class="mt-4 flex items-start gap-3 text-sm"><input type="checkbox" name="consent" required class="mt-1 size-4 accent-primary" /><span>{{cta.06}} <a class="underline" href="%VITE_APP_URL%/privacy">{{faq.08}}</a></span></label>
+          <button type="submit" class="btn btn-primary mt-6">{{nav.08}}</button>
+          <p role="status" class="text-base"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="night border-t border-white/10 py-16">
+    <div class="wrap grid gap-8 text-sm lg:grid-cols-12">
+      <p class="muted lg:col-span-6">{{footer.01}}</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 lg:col-span-6 lg:justify-end">
+        <li><a href="{{switch.href}}" hreflang="{{switch.lang}}" lang="{{switch.lang}}" class="underline">{{switch.label}}</a></li>
+        <li><a href="%VITE_APP_URL%/privacy" class="underline">{{footer.02}}</a></li>
+        <li><a href="%VITE_APP_URL%/auth" class="underline">{{nav.07}}</a></li>
+        <li><a href="mailto:privacy@neurocart.it" class="underline">{{footer.03}}</a></li>
+        <li><a href="mailto:sales@neurocart.it" class="underline">{{footer.04}}</a></li>
+      </ul>
+      <p class="muted lg:col-span-12">{{footer.05}} <a href="https://www.shopify.com" class="underline" rel="noopener">{{footer.06}}</a></p>
+    </div>
+  </footer>
+</body>
+</html>

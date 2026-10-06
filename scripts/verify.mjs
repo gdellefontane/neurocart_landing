@@ -12,13 +12,21 @@ const check = (name, condition) => {
 
 const server = await preview({ preview: { port: 4173, strictPort: true } });
 const browser = await chromium.launch();
-const url = "http://localhost:4173/";
+const keys = (code) => Object.keys(JSON.parse(readFileSync(`locales/${code}.json`, "utf8"))).sort().join();
+const langs = [
+  { code: "it", path: "/", last: "vende.", canonical: "https://www.neurocart.it/", ok: "Grazie" },
+  { code: "en", path: "/en/", last: "sells.", canonical: "https://www.neurocart.it/en/", ok: "Thank you" },
+];
 
 try {
+  check("it.json ed en.json hanno le stesse chiavi", keys("it") === keys("en"));
+  for (const { code, path, last, canonical, ok } of langs) {
+    const url = `http://localhost:4173${path}`;
   for (const [width, height] of [[1280, 800], [390, 844], [568, 320]]) {
     const page = await (await browser.newContext({ viewport: { width, height } })).newPage();
     await page.goto(url);
-    const label = `${width}x${height}`;
+    const label = `${code} ${width}x${height}`;
+    check(`${label} lang, canonical e 3 hreflang`, (await page.getAttribute("html", "lang")) === code && (await page.getAttribute("link[rel=canonical]", "href")) === canonical && (await page.locator("link[rel=alternate][hreflang]").count()) === 3);
     check(`${label} un solo h1`, (await page.locator("h1").count()) === 1);
     check(`${label} JSON-LD parsabile (3 blocchi)`, await page.$$eval('script[type="application/ld+json"]', (nodes) => nodes.length === 3 && nodes.every((n) => JSON.parse(n.textContent))));
     const title = await page.evaluate((nodes) => {
@@ -34,7 +42,7 @@ try {
       return { words: wordEls.length, hits: hits.length, clipped: clipped.length, text: document.querySelector("h1").textContent };
     }, graphNodes);
     check(`${label} h1 splittata, nessun nodo del grafo sopra`, title.words > 0 && title.hits === 0);
-    check(`${label} h1 contiene "vende." e nessuna parola clippata`, title.text.includes("vende.") && title.clipped === 0);
+    check(`${label} h1 termina con "${last}" e nessuna parola clippata`, title.text.trim().endsWith(last) && title.clipped === 0);
     await page.evaluate(() => scrollTo(0, 120));
     await page.waitForTimeout(300);
     check(`${label} nav scrolled dopo 120px`, await page.locator("#nav.scrolled").count() === 1);
@@ -64,7 +72,7 @@ try {
     const shown = width >= 768 ? page.locator("#consigli [role=tabpanel]").nth(4) : page.locator("#consigli .explain");
     check(`${label} click sul 5° tab: scena cart e spiegazione visibile`, (await page.locator("#consigli .stage").getAttribute("data-scene")) === "cart" && (await shown.isVisible()) && (await shown.textContent()).trim().length > 0);
     check(`${label} rail motore: 4 voci, una sola aria-current`, (await page.locator("#engine ol li").count()) === 4 && (await page.locator("#engine ol li[aria-current]").count()) === 1);
-    check(`${label} nessun prezzo per chat in pagina`, !(await page.content()).includes("0,50"));
+    check(`${label} nessun prezzo per chat in pagina`, !/0[,.]50/.test(await page.content()));
     check(`${label} i 4 preset card ciclano`, presets.size === 4);
     check(`${label} overflow orizzontale zero a fine scroll`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
   }
@@ -73,16 +81,16 @@ try {
   await faq.goto(url);
   const visible = await faq.$$eval("details", (nodes) => nodes.map((d) => [d.querySelector("summary").textContent.trim(), d.querySelector("p").textContent.trim()]));
   const ld = await faq.$$eval('script[type="application/ld+json"]', (nodes) => JSON.parse(nodes[2].textContent).mainEntity.map((q) => [q.name, q.acceptedAnswer.text]));
-  check("JSON-LD FAQ coincide con il testo visibile", JSON.stringify(visible) === JSON.stringify(ld));
+  check(`${code} JSON-LD FAQ coincide con il testo visibile`, JSON.stringify(visible) === JSON.stringify(ld));
 
   const reduced = await (await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1280, height: 800 } })).newPage();
   await reduced.goto(url);
   const dimmed = await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", (nodes) => nodes.filter((n) => getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden").length);
-  check("reduced-motion: nessun elemento nascosto al load", dimmed === 0);
+  check(`${code} reduced-motion: nessun elemento nascosto al load`, dimmed === 0);
   await reduced.evaluate(() => document.querySelector("#consigli").scrollIntoView());
   await reduced.waitForTimeout(6000);
-  check("reduced-motion: nessun autoplay nei consigli", (await reduced.locator("#consigli [role=tab]").first().getAttribute("aria-selected")) === "true");
-  check("reduced-motion: nessuna parola splittata", (await reduced.locator(".wi").count()) === 0);
+  check(`${code} reduced-motion: nessun autoplay nei consigli`, (await reduced.locator("#consigli [role=tab]").first().getAttribute("aria-selected")) === "true");
+  check(`${code} reduced-motion: nessuna parola splittata`, (await reduced.locator(".wi").count()) === 0);
 
   const page = await (await browser.newContext()).newPage();
   await page.route("**/waitlist", (route) => route.fulfill({ status: 200, contentType: "application/json", body: '{"ok":true}' }));
@@ -91,7 +99,8 @@ try {
   await page.check("input[name=consent]");
   await page.click("form#accesso button[type=submit]");
   await page.waitForSelector("form#accesso.done");
-  check("form waitlist: testo di successo", (await page.locator("form#accesso [role=status]").textContent()).startsWith("Grazie"));
+  check(`${code} form waitlist: testo di successo`, (await page.locator("form#accesso [role=status]").textContent()).startsWith(ok));
+  }
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

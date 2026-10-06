@@ -32,7 +32,7 @@ const nav = $("#nav");
 scroll((_, { y }) => nav.classList.toggle("scrolled", y.current > 80));
 
 if (import.meta.env.VITE_INSTALL_URL) {
-  $$<HTMLAnchorElement>("[data-cta]").forEach((a) => Object.assign(a, { href: import.meta.env.VITE_INSTALL_URL, textContent: "Installa su Shopify" }));
+  $$<HTMLAnchorElement>("[data-cta]").forEach((a) => Object.assign(a, { href: import.meta.env.VITE_INSTALL_URL, textContent: a.dataset.install }));
 }
 
 const form = $<HTMLFormElement>("#accesso");
@@ -118,7 +118,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   let timer = 0;
   const stopAutoplay = () => (clearInterval(timer), (timer = -1));
   inView("#consigli", () => {
-    if (timer !== -1) timer = setInterval(() => select((current + 1) % tabs.length), 5000);
+    if (timer !== -1) timer = window.setInterval(() => select((current + 1) % tabs.length), 5000);
     return () => timer !== -1 && clearInterval(timer);
   });
   ["click", "mouseenter", "focusin"].forEach((type) => $("#consigli [role=tablist]").addEventListener(type, stopAutoplay, { once: true }));
