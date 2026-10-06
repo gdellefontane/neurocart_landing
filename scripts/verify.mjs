@@ -21,18 +21,20 @@ try {
     const label = `${width}x${height}`;
     check(`${label} un solo h1`, (await page.locator("h1").count()) === 1);
     check(`${label} JSON-LD parsabile (3 blocchi)`, await page.$$eval('script[type="application/ld+json"]', (nodes) => nodes.length === 3 && nodes.every((n) => JSON.parse(n.textContent))));
-    if (width !== 568) {
-      const onTitle = await page.evaluate((nodes) => {
-        const box = document.querySelector(".hero-graph").getBoundingClientRect();
-        const scale = Math.min(box.width / 800, box.height / 600);
-        const words = [...document.querySelectorAll("h1 .w")].map((w) => w.getBoundingClientRect());
-        return nodes.filter(([x, y]) => {
-          const [px, py] = [box.right - (800 - x) * scale, box.top + y * scale];
-          return words.some((r) => px > r.left - 8 && px < r.right + 8 && py > r.top - 8 && py < r.bottom + 8);
-        }).length;
-      }, graphNodes);
-      check(`${label} nessun nodo del grafo hero sulla h1`, onTitle === 0);
-    }
+    const title = await page.evaluate((nodes) => {
+      const box = document.querySelector(".hero-graph").getBoundingClientRect();
+      const scale = Math.min(box.width / 800, box.height / 600);
+      const wordEls = [...document.querySelectorAll("h1 .w")];
+      const rects = wordEls.map((w) => w.getBoundingClientRect());
+      const hits = nodes.filter(([x, y]) => {
+        const [px, py] = [box.right - (800 - x) * scale, box.top + y * scale];
+        return rects.some((r) => px > r.left - 8 && px < r.right + 8 && py > r.top - 8 && py < r.bottom + 8);
+      });
+      const clipped = wordEls.filter((w) => w.scrollWidth > w.clientWidth + 2);
+      return { words: wordEls.length, hits: hits.length, clipped: clipped.length, text: document.querySelector("h1").textContent };
+    }, graphNodes);
+    check(`${label} h1 splittata, nessun nodo del grafo sopra`, title.words > 0 && title.hits === 0);
+    check(`${label} h1 contiene "chat." e nessuna parola clippata`, title.text.includes("chat.") && title.clipped === 0);
     await page.evaluate(() => scrollTo(0, 120));
     await page.waitForTimeout(300);
     check(`${label} nav scrolled dopo 120px`, await page.locator("#nav.scrolled").count() === 1);

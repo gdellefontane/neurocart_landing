@@ -81,7 +81,7 @@
   .nav a:not(.btn):hover { color: var(--color-primary); }
   .mark { display: inline-block; width: 1.75rem; height: 1.3rem; background: currentColor; mask: url(/logo.svg) center / contain no-repeat; }
 
-  .hero-graph { position: absolute; inset: 0 0 auto 0; height: 12.5rem; z-index: -1; opacity: 0.28; background: url(./graph.svg) right top / contain no-repeat; mask-image: radial-gradient(ellipse 80% 90% at 80% 10%, #000 30%, transparent 100%); animation: breathe 9s ease-in-out infinite alternate; }
+  .hero-graph { position: absolute; inset: 0 0 auto 0; height: min(12.5rem, 40svh); z-index: -1; opacity: 0.28; background: url(./graph.svg) right top / contain no-repeat; mask-image: radial-gradient(ellipse 80% 90% at 80% 10%, #000 30%, transparent 100%); animation: breathe 9s ease-in-out infinite alternate; }
   @media (min-width: 768px) { .hero-graph { inset: 0 0 auto 40%; height: 40%; } }
   @keyframes breathe { to { transform: scale(1.04); opacity: 0.35; } }
 
@@ -141,7 +141,7 @@
   html { scroll-behavior: smooth; }
   html.js [data-reveal], html.js [data-reveal-stagger] > * { opacity: 0; transform: translateY(28px) scale(0.98); filter: blur(10px); }
   html.js [data-split] { visibility: hidden; }
-  .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+  .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.12em 0.12em 0; margin: 0 -0.12em -0.12em 0; }
   .wi { display: inline-block; transform: translateY(100%); }
   html.js .pin { height: 400vh; }
   html.js .stick { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
