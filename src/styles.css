@@ -85,7 +85,21 @@
   @media (min-width: 768px) { .hero-graph { inset: 0 0 auto 40%; height: 40%; } }
   @keyframes breathe { to { transform: scale(1.04); opacity: 0.35; } }
 
-  .stat { font: 400 clamp(3.5rem, 7vw, 6rem) / 1 var(--font-serif); letter-spacing: -0.02em; color: var(--color-primary); }
+  .stat-card { box-shadow: var(--shadow-card-hover); }
+  .bar { display: block; width: 48px; height: 2px; margin-bottom: 1.5rem; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); }
+  .stat { font: 600 clamp(3.5rem, 6vw, 6rem) / 1 var(--font-display); letter-spacing: -0.02em; color: var(--color-primary); }
+  .chip { display: inline-block; font: 600 0.75rem/1 var(--font-display); padding: 0.45rem 0.75rem; border-radius: 9999px; background: color-mix(in srgb, var(--color-primary) 8%, transparent); color: var(--color-primary); }
+  .night .chip { background: rgba(255, 255, 255, 0.08); color: var(--color-cream); }
+  .pbrand { display: block; margin-top: 0.2rem; font: 500 0.68rem/1.2 var(--font-sans); font-style: normal; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); }
+  [data-preset="minimal"] .pbrand { display: none; }
+  .why .pcard { flex: none; max-width: 17rem; border-radius: var(--radius-lg); }
+  .rail4 { position: relative; display: flex; gap: 1.25rem; margin-top: 2.5rem; }
+  .rail4 .track { width: 2px; flex: none; background: rgba(255, 255, 255, 0.12); }
+  .rail4 .fill { display: block; height: 100%; background: var(--color-cream); transform-origin: top; }
+  .rail4 ol { display: grid; gap: 0.75rem; }
+  .rail4 li { font: 600 0.95rem var(--font-display); color: var(--color-dusk); transition: color 0.4s; }
+  .rail4 li span { margin-right: 0.75rem; opacity: 0.6; }
+  .rail4 li[aria-current] { color: var(--color-cream); }
 
   .frame { border: 1px solid var(--color-line); border-radius: var(--radius-xl); background: #fff; overflow: hidden; }
   .night .frame { border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.5); }
@@ -134,7 +148,6 @@
   .graph circle { filter: url(#glow); }
   .engine-graph { position: absolute; inset: 0; z-index: -1; }
   .engine-graph .graph { width: 100%; height: 100%; }
-  .why p { font: 500 0.8rem var(--font-sans); color: var(--color-dusk); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -143,17 +156,18 @@
   html.js [data-split] { visibility: hidden; }
   .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 0.12em 0.12em 0; margin: 0 -0.12em -0.12em 0; }
   .wi { display: inline-block; transform: translateY(100%); }
-  html.js .pin { height: 400vh; }
+  html.js .pin { height: 320vh; }
   html.js .stick { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
   html.js .phases { display: grid; }
-  html.js .phases > * { grid-area: 1 / 1; opacity: 0; transition: opacity 0.6s; pointer-events: none; }
-  html.js .phases > .cur { opacity: 1; pointer-events: auto; }
-  html.js .graph [data-p] { opacity: 0.25; transition: opacity 0.8s, stroke-dashoffset 1.2s; }
+  html.js .phases > * { grid-area: 1 / 1; opacity: 0; translate: 0 24px; transition: opacity 0.6s, translate 0.6s; pointer-events: none; }
+  html.js .phases > .cur { opacity: 1; translate: 0 0; pointer-events: auto; }
+  html.js .graph [data-p] { opacity: 0.25; transition: opacity 0.6s, stroke-dashoffset 0.6s; }
   html.js .graph .e { stroke-dashoffset: 1; }
   html.js .graph .on { opacity: 1; stroke-dashoffset: 0; }
   html.js [data-for] { transition: color 0.4s; color: var(--color-muted); }
   html.js [data-preset="editorial"] [data-for="editorial"], html.js [data-preset="glass"] [data-for="glass"], html.js [data-preset="minimal"] [data-for="minimal"], html.js [data-preset="frame"] [data-for="frame"] { color: var(--color-ink); }
-  [data-phase="4"] .n-prod { animation: glow-pulse 3s ease-in-out infinite alternate; }
+  html.js .graph circle.on { animation: glow-pulse 0.9s ease-out; transform-box: fill-box; transform-origin: center; }
+  html.js [data-grow] { transform: scaleX(0); transform-origin: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -163,4 +177,4 @@
 /* identiche: due nomi diversi servono a far ripartire l'animazione a ogni cambio di preset */
 @keyframes swap-a { from { opacity: 0.2; } }
 @keyframes swap-b { from { opacity: 0.2; } }
-@keyframes glow-pulse { to { opacity: 0.45; } }
+@keyframes glow-pulse { 40% { transform: scale(2.2); } }

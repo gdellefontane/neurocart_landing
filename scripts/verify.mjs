@@ -34,7 +34,7 @@ try {
       return { words: wordEls.length, hits: hits.length, clipped: clipped.length, text: document.querySelector("h1").textContent };
     }, graphNodes);
     check(`${label} h1 splittata, nessun nodo del grafo sopra`, title.words > 0 && title.hits === 0);
-    check(`${label} h1 contiene "chat." e nessuna parola clippata`, title.text.includes("chat.") && title.clipped === 0);
+    check(`${label} h1 contiene "vende." e nessuna parola clippata`, title.text.includes("vende.") && title.clipped === 0);
     await page.evaluate(() => scrollTo(0, 120));
     await page.waitForTimeout(300);
     check(`${label} nav scrolled dopo 120px`, await page.locator("#nav.scrolled").count() === 1);
@@ -49,14 +49,17 @@ try {
     for (let y = 0; y < total; y += height / 3) {
       await page.evaluate((top) => scrollTo(0, top), y);
       await page.waitForTimeout(120);
-      phases.add(await page.locator("#engine").getAttribute("data-phase"));
+      phases.add(await page.evaluate(() => [...document.querySelectorAll("#engine ol li")].findIndex((li) => li.ariaCurrent === "step") + 1));
       presets.add(await page.locator("#chat").getAttribute("data-preset"));
     }
     await page.waitForTimeout(1500);
     const hidden = await page.$$eval("[data-reveal], [data-reveal-stagger] > *", (nodes) =>
       nodes.filter((n) => { const s = getComputedStyle(n); return s.opacity !== "1" || !["none", "blur(0px)"].includes(s.filter) || !["none", "matrix(1, 0, 0, 1, 0, 0)"].includes(s.transform); }).length);
     check(`${label} ogni reveal finisce a opacity 1, senza blur e a scala 1`, hidden === 0);
-    check(`${label} le 4 fasi del motore si alternano`, ["1", "2", "3", "4"].every((p) => phases.has(p)));
+    check(`${label} le 4 fasi del motore si alternano`, [1, 2, 3, 4].every((p) => phases.has(p)));
+    check(`${label} #consigli con 7 tile`, (await page.locator("#consigli article.card").count()) === 7);
+    check(`${label} rail motore: 4 voci, una sola aria-current`, (await page.locator("#engine ol li").count()) === 4 && (await page.locator("#engine ol li[aria-current]").count()) === 1);
+    check(`${label} nessun prezzo per chat in pagina`, !(await page.content()).includes("0,50"));
     check(`${label} i 4 preset card ciclano`, presets.size === 4);
     check(`${label} overflow orizzontale zero a fine scroll`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
   }

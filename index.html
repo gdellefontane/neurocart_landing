@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://www.neurocart.it/og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Neurocart — Una sola intelligenza. Per la vetrina e per la chat." />
+  <meta property="og:image:alt" content="Neurocart — Una sola intelligenza. Consiglia, risponde, vende." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Neurocart — Raccomandazioni e chat AI per store Shopify" />
   <meta name="twitter:description" content="Un solo motore per il carosello e per la chat: Neurocart impara dagli acquisti reali del tuo negozio Shopify e sa spiegare ogni consiglio." />
@@ -32,7 +32,7 @@
     {"@type":"Question","name":"Dove vanno i miei dati?","acceptedAnswer":{"@type":"Answer","text":"Ogni negozio ha il suo modello e il suo grafo, isolati dagli altri. Gestiamo i webhook di conformità GDPR di Shopify: la cancellazione di un cliente o del negozio si propaga a tutta la piattaforma. Siamo un'azienda italiana. Leggi l'informativa privacy."}},
     {"@type":"Question","name":"Posso gestire più negozi?","acceptedAnswer":{"@type":"Answer","text":"Sì. Un solo account, più negozi Shopify, con ruoli proprietario e collaboratore. Ogni negozio ha piano e crediti propri e il tuo team può seguire più negozi dalla stessa console."}},
     {"@type":"Question","name":"Cosa succede se il bot non sa rispondere?","acceptedAnswer":{"@type":"Answer","text":"Se un operatore del tuo team è online, il cliente può chiedere di parlargli; altrimenti lascia un messaggio e tu ricevi una mail. Se nessuno risponde entro il tempo che decidi, la chat torna al bot."}},
-    {"@type":"Question","name":"Quanto costa una conversazione?","acceptedAnswer":{"@type":"Answer","text":"Ogni piano ne include una quota: 30 nel Base, 100 nel Pro. Oltre, 0,50 € a conversazione, in pacchetti da 10 che non scadono. Si paga per conversazione, non per messaggio."}}
+    {"@type":"Question","name":"Quanto costa una conversazione?","acceptedAnswer":{"@type":"Answer","text":"Ogni piano include una quota di conversazioni: 30 nel Base, 100 nel Pro. Oltre, acquisti pacchetti da 10 dal pannello, che non scadono. Si conta per conversazione, non per messaggio."}}
   ]}</script>
   <script type="module" src="/src/main.ts"></script>
 </head>
@@ -55,10 +55,10 @@
       <div class="hero-graph" data-hero-bg aria-hidden="true"></div>
       <div class="wrap w-full" data-hero-fade>
         <p class="eyebrow">Per store Shopify</p>
-        <h1 class="h1" data-split>Una sola intelligenza.<br /> Per la vetrina <em>e per la chat</em>.</h1>
+        <h1 class="h1" data-split>Una sola intelligenza.<br /> <em>Consiglia, risponde, vende.</em></h1>
         <div class="mt-10 grid gap-10 lg:grid-cols-12">
           <div class="lg:col-span-6 lg:col-start-7">
-            <p class="prose-p text-lg text-cream/90 md:text-xl" data-reveal>Neurocart impara dagli acquisti reali del tuo negozio e consiglia gli stessi prodotti nel carosello e in conversazione. Niente a caso: ogni consiglio ha un perché misurabile.</p>
+            <p class="prose-p text-lg text-cream/90 md:text-xl" data-reveal>Neurocart impara dagli acquisti reali del tuo negozio Shopify: gli stessi consigli nel carosello e nella chat, ogni volta con un perché misurabile.</p>
             <div class="mt-8 flex flex-wrap gap-3" data-reveal>
               <a href="#accesso" class="btn btn-primary" data-cta>Richiedi accesso</a>
               <a href="#motore" class="btn btn-ghost">Guarda come funziona</a>
@@ -72,12 +72,11 @@
     <section class="sec">
       <div class="wrap">
         <h2 class="sr-only">I numeri</h2>
-        <div class="grid gap-12 md:grid-cols-3" data-reveal-stagger>
-          <figure><p class="stat"><span data-count="20">20</span> %</p><figcaption class="mt-3 max-w-[28ch]">delle vendite online delle feste 2025 influenzate dall'AI¹</figcaption></figure>
-          <figure><p class="stat">+<span data-count="50">50</span> %</p><figcaption class="mt-3 max-w-[28ch]">conversione dei visitatori che arrivano da una ricerca AI²</figcaption></figure>
-          <figure><p class="stat"><span data-count="87">87</span> %</p><figcaption class="mt-3 max-w-[28ch]">dei clienti vuole poter parlare con una persona³</figcaption></figure>
+        <div class="grid gap-6 md:grid-cols-3" data-reveal-stagger>
+          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat"><span data-count="20">20</span> %</p><p class="mt-3 max-w-[28ch]">delle vendite online delle feste 2025 influenzate dall'AI</p><p class="muted mt-6 text-xs">Salesforce, Holiday Shopping Data 2025</p></article>
+          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat">+<span data-count="50">50</span> %</p><p class="mt-3 max-w-[28ch]">conversione dei visitatori che arrivano da una ricerca AI</p><p class="muted mt-6 text-xs">Shopify, AI Search Insights, Q1 2026</p></article>
+          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat"><span data-count="87">87</span> %</p><p class="mt-3 max-w-[28ch]">dei clienti vuole poter parlare con una persona</p><p class="muted mt-6 text-xs">Gartner, agosto 2026</p></article>
         </div>
-        <p class="muted mt-16 text-sm" data-reveal>¹ Salesforce, Holiday Shopping Data 2025 · ² Shopify, AI Search Insights, Q1 2026 · ³ Gartner, agosto 2026</p>
       </div>
     </section>
 
@@ -124,6 +123,14 @@
             <div class="lg:col-span-5">
               <p class="eyebrow">Il motore</p>
               <h2 class="h2" data-split>Consigli che sai spiegare.</h2>
+              <div class="rail4"><i class="track"><i class="fill"></i></i>
+                <ol>
+                  <li aria-current="step"><span>01</span>Legge il tuo catalogo</li>
+                  <li><span>02</span>Impara dagli acquisti reali</li>
+                  <li><span>03</span>Spiega ogni consiglio</li>
+                  <li><span>04</span>Si riallena ogni giorno</li>
+                </ol>
+              </div>
             </div>
             <div class="phases lg:col-span-6 lg:col-start-7">
               <article data-p="1" class="cur on"><p class="font-display text-sm font-semibold text-dusk">01</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">Legge il tuo catalogo</h3><p class="prose-p mt-4 text-cream/85">Normalizza tipi e varianti, trasforma ogni prodotto in un punto in uno spazio di 1024 dimensioni e costruisce il grafo del tuo negozio.</p></article>
@@ -135,16 +142,32 @@
         </div>
       </div>
       <div class="wrap pb-24 md:pb-40">
-        <div class="why grid gap-6 md:grid-cols-3" data-reveal-stagger aria-hidden="true">
-          <div class="card"><div class="frame mb-4 border-0"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div></div><p>Simile per materiale e taglio</p></div>
-          <div class="card"><div class="frame mb-4 border-0"><div class="pimg" style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></div></div><p>Acquistato insieme da clienti simili</p></div>
-          <div class="card"><div class="frame mb-4 border-0"><div class="pimg" style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></div></div><p>Consigliato per te</p></div>
+        <div class="why grid gap-8 md:grid-cols-3" data-reveal-stagger aria-hidden="true">
+          <div><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">Cappotto in lana</b><span>189 €</span></p><i class="pbrand">Atelier Nord</i></div></article><span class="chip mt-4">Simile per materiale e taglio</span></div>
+          <div><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></div><div class="pmeta"><p><b class="font-medium">Camicia in lino</b><span>79 €</span></p><i class="pbrand">Atelier Nord</i></div></article><span class="chip mt-4">Acquistato insieme da clienti simili</span></div>
+          <div><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></div><div class="pmeta"><p><b class="font-medium">Borsa in pelle</b><span>145 €</span></p><i class="pbrand">Atelier Nord</i></div></article><span class="chip mt-4">Consigliato per te</span></div>
         </div>
         <p class="mt-16 max-w-[24ch] font-serif text-3xl md:text-5xl" data-reveal>Niente estrazioni casuali. Niente modello generico condiviso tra negozi.</p>
       </div>
     </section>
 
-    <section id="chat" class="sec" data-preset="editorial">
+    <section id="consigli" class="sec">
+      <div class="wrap">
+        <p class="eyebrow">Cosa consiglia</p>
+        <h2 class="h2 max-w-[18ch]" data-split>Sette tipi di consiglio. Un solo motore.</h2>
+        <div class="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3" data-reveal-stagger>
+          <article class="card"><h3>Prodotti simili</h3><p class="muted mb-6 text-base">Stesso tipo, stesse caratteristiche, tag e descrizione affini.</p><span class="chip">Pagina prodotto</span></article>
+          <article class="card"><h3>Acquistati insieme</h3><p class="muted mb-6 text-base">Ciò che i clienti con gusti simili hanno comprato nello stesso ordine.</p><span class="chip">Pagina prodotto</span></article>
+          <article class="card"><h3>Prodotti complementari</h3><p class="muted mb-6 text-base">Un altro tipo di prodotto che completa quello che stai guardando.</p><span class="chip">Pagina prodotto</span></article>
+          <article class="card"><h3>Nuovi arrivi</h3><p class="muted mb-6 text-base">Gli ultimi prodotti entrati a catalogo.</p><span class="chip">Homepage</span></article>
+          <article class="card"><h3>Cross-sell dal carrello</h3><p class="muted mb-6 text-base">Suggerimenti calcolati su tutto ciò che c'è nel carrello.</p><span class="chip">Carrello</span></article>
+          <article class="card"><h3>Consigli post-acquisto</h3><p class="muted mb-6 text-base">Cosa proporre dopo l'ordine, in base a ciò che è stato comprato.</p><span class="chip">Post-acquisto</span></article>
+          <article class="card"><h3>Consigliati per te</h3><p class="muted mb-6 text-base">Una selezione personale per il cliente riconosciuto, dalla sua storia d'acquisto.</p><span class="chip">Per il cliente riconosciuto</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="chat" class="sec pt-0" data-preset="editorial">
       <div class="wrap">
         <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
           <div class="lg:col-span-5">
@@ -159,23 +182,22 @@
               <li>Risponde nella lingua del cliente.</li>
               <li>Propone solo prodotti disponibili.</li>
             </ul>
-            <p class="muted mt-6 text-base">0,50 € a conversazione oltre la quota inclusa nel piano.</p>
           </div>
         </div>
 
         <div class="mt-20 grid gap-8 lg:grid-cols-12" aria-hidden="true">
           <div class="frame lg:col-span-7 lg:self-start" data-reveal>
             <div class="rail">
-              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">Cappotto in lana</b><span>189 €</span></p></div></article>
-              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></div><div class="pmeta"><p><b class="font-medium">Camicia in lino</b><span>79 €</span></p></div></article>
-              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></div><div class="pmeta"><p><b class="font-medium">Borsa in pelle</b><span>145 €</span></p></div></article>
-              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e4ebdd,#bfcdb3)"></div><div class="pmeta"><p><b class="font-medium">Sneaker bianca</b><span>110 €</span></p></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">Cappotto in lana</b><span>189 €</span></p><i class="pbrand">Atelier Nord</i></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></div><div class="pmeta"><p><b class="font-medium">Camicia in lino</b><span>79 €</span></p><i class="pbrand">Atelier Nord</i></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></div><div class="pmeta"><p><b class="font-medium">Borsa in pelle</b><span>145 €</span></p><i class="pbrand">Atelier Nord</i></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e4ebdd,#bfcdb3)"></div><div class="pmeta"><p><b class="font-medium">Sneaker bianca</b><span>110 €</span></p><i class="pbrand">Atelier Nord</i></div></article>
             </div>
           </div>
           <div class="frame flex flex-col gap-3 p-5 lg:col-span-5" data-reveal>
             <p class="bubble bubble-user">Cerco un cappotto caldo, sotto i 200 €.</p>
             <p class="bubble bubble-bot">Ti consiglio questo: lana, taglio dritto, disponibile.</p>
-            <div class="rail p-0"><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">Cappotto in lana</b><span>189 €</span></p></div></article></div>
+            <div class="rail p-0"><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">Cappotto in lana</b><span>189 €</span></p><i class="pbrand">Atelier Nord</i></div></article></div>
             <p class="bubble bubble-user">E con cosa lo abbino?</p>
           </div>
         </div>
@@ -193,6 +215,25 @@
               <li data-for="frame"><b class="font-display">Frame</b> — bordo 4 px nel colore del brand, foto «contain», animazione «tilt».</li>
             </ul>
             <p class="mt-8 font-serif text-2xl" data-reveal>Oppure la card del tuo tema, riconosciuta in automatico.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec pt-0" aria-labelledby="attivazione">
+      <div class="wrap">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">Come si attiva</p>
+            <h2 id="attivazione" class="h2" data-split>Semplice come installare un'app.</h2>
+          </div>
+          <div class="lg:col-span-6 lg:col-start-7">
+            <ol class="space-y-8" data-reveal-stagger>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">1</span><p>Installi l'app dallo Shopify App Store e colleghi il negozio al pannello.</p></li>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">2</span><p>Aggiungi i blocchi al tema dall'editor di Shopify, senza toccare il codice.</p></li>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">3</span><p>Ti godi tutto: caroselli, chat e dashboard lavorano da soli.</p></li>
+            </ol>
+            <p class="muted mt-8 text-base" data-reveal>Nessuna modifica al codice del tema.</p>
           </div>
         </div>
       </div>
@@ -232,24 +273,6 @@
       </div>
     </section>
 
-    <section class="sec pt-0" aria-labelledby="attivazione">
-      <div class="wrap">
-        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
-          <div class="lg:col-span-5">
-            <p class="eyebrow">Come si attiva</p>
-            <h2 id="attivazione" class="h2" data-split>Tre passi. Nessuno sviluppo.</h2>
-          </div>
-          <div class="lg:col-span-6 lg:col-start-7">
-            <ol class="space-y-8" data-reveal-stagger>
-              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">1</span><p>Installa l'app sul tuo store Shopify.</p></li>
-              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">2</span><p>Collega il negozio al pannello con un codice.</p></li>
-              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">3</span><p>Scegli lo stile delle card e la voce del chatbot.</p></li>
-            </ol>
-            <p class="muted mt-8 text-base" data-reveal>Nessuna modifica al codice del tema.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section id="prezzi" class="sec pt-0">
       <div class="wrap">
@@ -260,7 +283,7 @@
           <article class="card border-2 border-accent"><h3 class="flex items-center justify-between">Pro <span class="badge">Consigliato</span></h3><p class="font-serif text-5xl">99 € <span class="font-sans text-base text-muted">/ mese</span></p><p class="muted mt-4 text-base">Raccomandazioni + chat · 100 conversazioni al mese · 1.000 crediti per immagini e contenuti</p></article>
           <article class="card"><h3>Enterprise</h3><p class="font-serif text-5xl">Su misura</p><p class="muted mt-4 text-base">Volumi, SLA e integrazioni dedicate</p></article>
         </div>
-        <p class="muted mt-10 max-w-[68ch] text-base" data-reveal>14 giorni gratuiti, disdici quando vuoi. Conversazioni extra 0,50 € l'una, in pacchetti da 10 che non scadono. Dall'App Store di Shopify i prezzi sono in dollari.</p>
+        <p class="muted mt-10 max-w-[68ch] text-base" data-reveal>14 giorni gratuiti, disdici quando vuoi. Conversazioni extra in pacchetti da 10 che non scadono. Dall'App Store di Shopify i prezzi sono in dollari.</p>
       </div>
     </section>
 
@@ -288,7 +311,7 @@
           <details><summary>Dove vanno i miei dati?</summary><p class="prose-p pb-6">Ogni negozio ha il suo modello e il suo grafo, isolati dagli altri. Gestiamo i webhook di conformità GDPR di Shopify: la cancellazione di un cliente o del negozio si propaga a tutta la piattaforma. Siamo un'azienda italiana. <a class="text-primary underline" href="%VITE_APP_URL%/privacy">Leggi l'informativa privacy.</a></p></details>
           <details><summary>Posso gestire più negozi?</summary><p class="prose-p pb-6">Sì. Un solo account, più negozi Shopify, con ruoli proprietario e collaboratore. Ogni negozio ha piano e crediti propri e il tuo team può seguire più negozi dalla stessa console.</p></details>
           <details><summary>Cosa succede se il bot non sa rispondere?</summary><p class="prose-p pb-6">Se un operatore del tuo team è online, il cliente può chiedere di parlargli; altrimenti lascia un messaggio e tu ricevi una mail. Se nessuno risponde entro il tempo che decidi, la chat torna al bot.</p></details>
-          <details><summary>Quanto costa una conversazione?</summary><p class="prose-p pb-6">Ogni piano ne include una quota: 30 nel Base, 100 nel Pro. Oltre, 0,50 € a conversazione, in pacchetti da 10 che non scadono. Si paga per conversazione, non per messaggio.</p></details>
+          <details><summary>Quanto costa una conversazione?</summary><p class="prose-p pb-6">Ogni piano include una quota di conversazioni: 30 nel Base, 100 nel Pro. Oltre, acquisti pacchetti da 10 dal pannello, che non scadono. Si conta per conversazione, non per messaggio.</p></details>
         </div>
       </div>
     </section>

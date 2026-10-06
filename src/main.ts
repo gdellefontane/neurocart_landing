@@ -58,6 +58,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   inView("[data-reveal]", (el) => void show([el]), { amount: 0.3 });
   inView("[data-reveal-stagger]", (el) => void show([...el.children]), { margin: "0px 0px -30% 0px" });
 
+  inView("[data-grow]", (bar) => void animate(bar, { transform: "scaleX(1)" }, { duration: 0.9, ease: EASE }));
   $$("[data-count]").forEach((counter) =>
     inView(counter, () => {
       animate(0, Number(counter.dataset.count), { duration: 1.8, ease: "easeOut", onUpdate: (value) => (counter.textContent = String(Math.round(value))) });
@@ -76,12 +77,14 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
     { target: hero, offset: ["start start", "end start"] },
   );
 
-  const engine = $("#engine");
+  const [engine, fill] = [$("#engine"), $("#engine .fill")];
   const phased = $$("[data-p]");
+  const railItems = $$("#engine ol li");
   scroll(
     (progress) => {
       const phase = Math.min(4, 1 + Math.floor(progress * 4));
-      engine.dataset.phase = String(phase);
+      fill.style.transform = `scaleY(${progress})`;
+      railItems.forEach((item, i) => (item.ariaCurrent = i + 1 === phase ? "step" : null));
       phased.forEach((el) => {
         el.classList.toggle("on", Number(el.dataset.p) <= phase);
         el.classList.toggle("cur", Number(el.dataset.p) === phase);
