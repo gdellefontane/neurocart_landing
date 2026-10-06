@@ -57,7 +57,12 @@ try {
       nodes.filter((n) => { const s = getComputedStyle(n); return s.opacity !== "1" || !["none", "blur(0px)"].includes(s.filter) || !["none", "matrix(1, 0, 0, 1, 0, 0)"].includes(s.transform); }).length);
     check(`${label} ogni reveal finisce a opacity 1, senza blur e a scala 1`, hidden === 0);
     check(`${label} le 4 fasi del motore si alternano`, [1, 2, 3, 4].every((p) => phases.has(p)));
-    check(`${label} #consigli con 7 tile`, (await page.locator("#consigli article.card").count()) === 7);
+    const tabs = page.locator("#consigli [role=tab]");
+    check(`${label} #consigli: 7 tab, uno solo selezionato`, (await tabs.count()) === 7 && (await page.locator('#consigli [aria-selected="true"]').count()) === 1);
+    await tabs.nth(4).click();
+    await page.waitForTimeout(700);
+    const shown = width >= 768 ? page.locator("#consigli [role=tabpanel]").nth(4) : page.locator("#consigli .explain");
+    check(`${label} click sul 5° tab: scena cart e spiegazione visibile`, (await page.locator("#consigli .stage").getAttribute("data-scene")) === "cart" && (await shown.isVisible()) && (await shown.textContent()).trim().length > 0);
     check(`${label} rail motore: 4 voci, una sola aria-current`, (await page.locator("#engine ol li").count()) === 4 && (await page.locator("#engine ol li[aria-current]").count()) === 1);
     check(`${label} nessun prezzo per chat in pagina`, !(await page.content()).includes("0,50"));
     check(`${label} i 4 preset card ciclano`, presets.size === 4);
@@ -74,6 +79,9 @@ try {
   await reduced.goto(url);
   const dimmed = await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", (nodes) => nodes.filter((n) => getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden").length);
   check("reduced-motion: nessun elemento nascosto al load", dimmed === 0);
+  await reduced.evaluate(() => document.querySelector("#consigli").scrollIntoView());
+  await reduced.waitForTimeout(6000);
+  check("reduced-motion: nessun autoplay nei consigli", (await reduced.locator("#consigli [role=tab]").first().getAttribute("aria-selected")) === "true");
   check("reduced-motion: nessuna parola splittata", (await reduced.locator(".wi").count()) === 0);
 
   const page = await (await browser.newContext()).newPage();

@@ -7,6 +7,27 @@ const PRESETS = ["editorial", "glass", "minimal", "frame"];
 const $ = <T extends HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
 const $$ = <T extends HTMLElement>(selector: string) => [...document.querySelectorAll<T>(selector)];
 
+const tabs = $$("#consigli [role=tab]");
+const [stage, bar, label, explain] = [$("#consigli .stage"), $("#consigli .tabbar"), $("#consigli .reclabel"), $("#consigli .explain")];
+let current = 0;
+const select = (index: number) => {
+  current = index;
+  tabs.forEach((tab, i) => Object.assign(tab, { ariaSelected: String(i === index), tabIndex: i === index ? 0 : -1 }));
+  Object.assign(stage.dataset, tabs[index].dataset);
+  label.textContent = tabs[index].textContent;
+  explain.innerHTML = document.getElementById(tabs[index].getAttribute("aria-controls")!)!.innerHTML;
+  bar.style.transform = `translateY(${index * tabs[0].offsetHeight}px)`;
+};
+tabs.forEach((tab, i) => tab.addEventListener("click", () => select(i)));
+select(0);
+$("#consigli [role=tablist]").addEventListener("keydown", (event) => {
+  const step = ({ ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 } as Record<string, number>)[event.key];
+  if (!step) return;
+  event.preventDefault();
+  select((current + step + tabs.length) % tabs.length);
+  tabs[current].focus();
+});
+
 const nav = $("#nav");
 scroll((_, { y }) => nav.classList.toggle("scrolled", y.current > 80));
 
@@ -93,6 +114,14 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
     },
     { target: engine, offset: ["start start", "end end"] },
   );
+
+  let timer = 0;
+  const stopAutoplay = () => (clearInterval(timer), (timer = -1));
+  inView("#consigli", () => {
+    if (timer !== -1) timer = setInterval(() => select((current + 1) % tabs.length), 5000);
+    return () => timer !== -1 && clearInterval(timer);
+  });
+  ["click", "mouseenter", "focusin"].forEach((type) => $("#consigli [role=tablist]").addEventListener(type, stopAutoplay, { once: true }));
 
   const surfaces = $("#chat");
   scroll((progress) => (surfaces.dataset.preset = PRESETS[Math.min(3, Math.floor(progress * 4))]), {
