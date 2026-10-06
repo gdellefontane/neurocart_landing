@@ -176,5 +176,13 @@
  "switch.lang": "en",
  "switch.label": "EN",
  "platform.k1": "1.284",
- "platform.k2": "4,2 %"
+ "platform.k2": "4,2 %",
+ "consigli.lbl1": "Prodotti simili",
+ "consigli.lbl2": "Acquistati insieme",
+ "consigli.lbl3": "Completa il look",
+ "consigli.lbl4": "Nuovi arrivi",
+ "consigli.lbl5": "Completa il look",
+ "consigli.lbl6": "Potrebbe interessarti",
+ "consigli.lbl7": "Consigliati per te",
+ "pricing.base": "79 €"
 }

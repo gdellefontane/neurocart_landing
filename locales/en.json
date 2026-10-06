@@ -12,7 +12,7 @@
  "hero.03": "Recommends, answers, sells.",
  "hero.04": "Neurocart learns from the real purchases in your Shopify store: the same recommendations in the carousel and in the chat, each with a measurable reason.",
  "hero.05": "See how it works",
- "hero.06": "14 days free · Set up in minutes · Italian company",
+ "hero.06": "14 days free · Set up in minutes · Based in Italy",
  "numbers.01": "The numbers",
  "numbers.02": "of holiday 2025 online sales influenced by AI",
  "numbers.03": "Salesforce, Holiday Shopping Data 2025",
@@ -64,7 +64,7 @@
  "consigli.21": "What to offer after the order, based on what was bought.",
  "consigli.22": "Post-purchase",
  "consigli.23": "Recommended for you",
- "consigli.24": "A personal selection for the recognized customer, based on their purchase history.",
+ "consigli.24": "A personal selection for each signed-in customer, based on their purchase history.",
  "consigli.25": "For signed-in customers",
  "chat.01": "One engine, two surfaces",
  "chat.02": "The same recommendation, in the carousel and in the chat.",
@@ -176,5 +176,13 @@
  "ld.app": "AI recommendations and chat for Shopify stores: one engine for the carousel and the chat.",
  "switch.href": "/",
  "switch.lang": "it",
- "switch.label": "IT"
+ "switch.label": "IT",
+ "consigli.lbl1": "Similar products",
+ "consigli.lbl2": "Bought together",
+ "consigli.lbl3": "Complete the look",
+ "consigli.lbl4": "New arrivals",
+ "consigli.lbl5": "Complete the look",
+ "consigli.lbl6": "You may also like",
+ "consigli.lbl7": "Recommended for you",
+ "pricing.base": "€79"
 }

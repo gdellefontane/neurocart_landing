@@ -69,8 +69,8 @@ try {
     check(`${label} #consigli: 7 tab, uno solo selezionato`, (await tabs.count()) === 7 && (await page.locator('#consigli [aria-selected="true"]').count()) === 1);
     await tabs.nth(4).click();
     await page.waitForTimeout(700);
-    const shown = width >= 768 ? page.locator("#consigli [role=tabpanel]").nth(4) : page.locator("#consigli .explain");
-    check(`${label} click sul 5° tab: scena cart e spiegazione visibile`, (await page.locator("#consigli .stage").getAttribute("data-scene")) === "cart" && (await shown.isVisible()) && (await shown.textContent()).trim().length > 0);
+    const shown = width >= 768 ? tabs.nth(4).locator(".tabtext") : page.locator("#consigli .explain");
+    check(`${label} click sul 5° tab: scena cart e spiegazione visibile`, (await page.locator("#consigli .stage").getAttribute("data-scene")) === "cart" && (await shown.isVisible()) && (await shown.textContent()).trim().length > 0 && (await page.getAttribute("#consigli-panel", "aria-labelledby")) === "tab-cart" && (await page.locator("#consigli [role=tablist] [role=tabpanel]").count()) === 0);
     check(`${label} rail motore: 4 voci, una sola aria-current`, (await page.locator("#engine ol li").count()) === 4 && (await page.locator("#engine ol li[aria-current]").count()) === 1);
     check(`${label} nessun prezzo per chat in pagina`, !/0[,.]50/.test(await page.content()));
     check(`${label} i 4 preset card ciclano`, presets.size === 4);
