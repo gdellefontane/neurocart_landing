@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neurocart — Raccomandazioni e chat AI per store Shopify</title>
+  <meta name="description" content="Un solo motore per il carosello e per la chat: Neurocart impara dagli acquisti reali del tuo negozio Shopify e sa spiegare ogni consiglio. Multi-negozio, operatori umani, contenuti dal tuo catalogo." />
+  <link rel="canonical" href="https://www.neurocart.it/" />
+  <meta name="theme-color" content="#0A0613" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:site_name" content="Neurocart" />
+  <meta property="og:url" content="https://www.neurocart.it/" />
+  <meta property="og:title" content="Neurocart — Raccomandazioni e chat AI per store Shopify" />
+  <meta property="og:description" content="Un solo motore per il carosello e per la chat: Neurocart impara dagli acquisti reali del tuo negozio Shopify e sa spiegare ogni consiglio. Multi-negozio, operatori umani, contenuti dal tuo catalogo." />
+  <meta property="og:image" content="https://www.neurocart.it/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <script>document.documentElement.classList.add("js");</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AI-Commerce S.r.l.","brand":"Neurocart","url":"https://www.neurocart.it/","logo":"https://www.neurocart.it/logo.svg","vatID":"IT08978880725","email":"sales@neurocart.it","address":{"@type":"PostalAddress","streetAddress":"Via Giorgio de Chirico 37","postalCode":"70056","addressLocality":"Molfetta","addressRegion":"BA","addressCountry":"IT"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Neurocart","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Raccomandazioni e chat AI per store Shopify: un solo motore per il carosello e per la chat.","offers":{"@type":"Offer","price":"79","priceCurrency":"EUR","priceSpecification":{"@type":"UnitPriceSpecification","price":"79","priceCurrency":"EUR","unitCode":"MON"}}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Funziona con il mio tema?","acceptedAnswer":{"@type":"Answer","text":"Sì. I blocchi si aggiungono dall'editor del tema di Shopify. Le card possono ereditare lo stile della card prodotto del tuo tema, riconosciuta in automatico, oppure usare uno dei sei stili Neurocart."}},
+    {"@type":"Question","name":"Serve uno sviluppatore?","acceptedAnswer":{"@type":"Answer","text":"No. Installi l'app, colleghi il negozio al pannello con un codice e scegli le impostazioni. Il codice del tema non si tocca."}},
+    {"@type":"Question","name":"Dove vanno i miei dati?","acceptedAnswer":{"@type":"Answer","text":"Ogni negozio ha il suo modello e il suo grafo, isolati dagli altri. Gestiamo i webhook di conformità GDPR di Shopify: la cancellazione di un cliente o del negozio si propaga a tutta la piattaforma. Siamo un'azienda italiana."}},
+    {"@type":"Question","name":"Posso gestire più negozi?","acceptedAnswer":{"@type":"Answer","text":"Sì. Un solo account, più negozi Shopify, con ruoli proprietario e collaboratore. Ogni negozio ha piano e crediti propri e il tuo team può seguire più negozi dalla stessa console."}},
+    {"@type":"Question","name":"Cosa succede se il bot non sa rispondere?","acceptedAnswer":{"@type":"Answer","text":"Se un operatore del tuo team è online, il cliente può chiedere di parlargli; altrimenti lascia un messaggio e tu ricevi una mail. Se nessuno risponde entro il tempo che decidi, la chat torna al bot."}},
+    {"@type":"Question","name":"Quanto costa una conversazione?","acceptedAnswer":{"@type":"Answer","text":"Ogni piano ne include una quota: 30 nel Base, 100 nel Pro. Oltre, 0,50 € a conversazione, in pacchetti da 10 che non scadono. Si paga per conversazione, non per messaggio."}}
+  ]}</script>
+  <script type="module" src="/src/main.ts"></script>
+</head>
+<body>
+  <header id="nav" class="nav scrolled">
+    <div class="wrap flex h-16 items-center justify-between gap-4 md:h-20">
+      <a href="#top" class="flex items-center gap-2 font-display text-xl font-bold" aria-label="Neurocart"><span class="mark"></span>Neurocart</a>
+      <nav class="hidden items-center gap-8 text-[0.95rem] lg:flex" aria-label="Sezioni">
+        <a href="#motore">Motore</a><a href="#chat">Chat</a><a href="#piattaforma">Piattaforma</a><a href="#prezzi">Prezzi</a><a href="#in-arrivo">In arrivo</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <a href="%VITE_APP_URL%/auth" class="btn btn-ghost hidden sm:inline-flex">Accedi</a>
+        <a href="#accesso" class="btn btn-primary" data-cta>Richiedi accesso</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section id="hero" class="night flex min-h-[100svh] items-center pb-16 pt-32">
+      <div class="hero-graph" data-hero-bg aria-hidden="true"></div>
+      <div class="wrap w-full" data-hero-fade>
+        <p class="eyebrow">Per store Shopify</p>
+        <h1 class="h1" data-split>Una sola intelligenza.<br /> Per la vetrina <em>e per la chat</em>.</h1>
+        <div class="mt-10 grid gap-10 lg:grid-cols-12">
+          <div class="lg:col-span-6 lg:col-start-7">
+            <p class="prose-p text-lg text-cream/90 md:text-xl" data-reveal>Neurocart impara dagli acquisti reali del tuo negozio e consiglia gli stessi prodotti nel carosello e in conversazione. Niente a caso: ogni consiglio ha un perché misurabile.</p>
+            <div class="mt-8 flex flex-wrap gap-3" data-reveal>
+              <a href="#accesso" class="btn btn-primary" data-cta>Richiedi accesso</a>
+              <a href="#motore" class="btn btn-ghost">Guarda come funziona</a>
+            </div>
+            <p class="muted mt-6 text-sm" data-reveal>14 giorni gratuiti · Si attiva in pochi minuti · Azienda italiana</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" aria-label="Numeri">
+      <div class="wrap">
+        <div class="grid gap-12 md:grid-cols-3" data-reveal-stagger>
+          <figure><p class="stat"><span data-count="20">20</span> %</p><figcaption class="mt-3 max-w-[28ch]">delle vendite online delle feste 2025 influenzate dall'AI¹</figcaption></figure>
+          <figure><p class="stat">+<span data-count="50">50</span> %</p><figcaption class="mt-3 max-w-[28ch]">conversione dei visitatori che arrivano da una ricerca AI²</figcaption></figure>
+          <figure><p class="stat"><span data-count="87">87</span> %</p><figcaption class="mt-3 max-w-[28ch]">dei clienti vuole poter parlare con una persona³</figcaption></figure>
+        </div>
+        <p class="muted mt-16 text-sm" data-reveal>¹ Salesforce, Holiday Shopping Data 2025 · ² Shopify, AI Search Insights, Q1 2026 · ³ Gartner, agosto 2026</p>
+      </div>
+    </section>
+
+    <section id="motore" class="night">
+      <div id="engine" class="pin">
+        <div class="stick">
+          <div class="engine-graph" aria-hidden="true">
+<svg class="graph" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+<line class="e e-sim" data-p="1" x1="120" y1="140" x2="260" y2="90" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="260" y1="90" x2="400" y2="170" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="400" y1="170" x2="540" y2="100" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="540" y1="100" x2="680" y2="160" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="180" y1="320" x2="330" y2="300" pathLength="1"/>
+<line class="e e-sim" data-p="1" x1="330" y1="300" x2="480" y2="330" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="90" y1="440" x2="180" y2="320" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="250" y1="470" x2="330" y2="300" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="250" y1="470" x2="400" y2="480" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="560" y1="480" x2="480" y2="330" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="560" y1="480" x2="400" y2="480" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="720" y1="440" x2="640" y2="310" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="720" y1="440" x2="480" y2="330" pathLength="1"/>
+<line class="e e-buy" data-p="2" x1="90" y1="440" x2="330" y2="300" pathLength="1"/>
+<line class="e e-rec" data-p="3" x1="400" y1="170" x2="330" y2="300" pathLength="1"/>
+<line class="e e-rec" data-p="3" x1="400" y1="170" x2="480" y2="330" pathLength="1"/>
+<line class="e e-rec" data-p="3" x1="540" y1="100" x2="480" y2="330" pathLength="1"/>
+<line class="e e-rec" data-p="3" x1="260" y1="90" x2="180" y2="320" pathLength="1"/>
+<circle class="n n-prod" data-p="1" cx="120" cy="140" r="6"/>
+<circle class="n n-prod" data-p="1" cx="260" cy="90" r="6"/>
+<circle class="n n-prod" data-p="1" cx="400" cy="170" r="6"/>
+<circle class="n n-prod" data-p="1" cx="540" cy="100" r="6"/>
+<circle class="n n-prod" data-p="1" cx="680" cy="160" r="6"/>
+<circle class="n n-prod" data-p="1" cx="180" cy="320" r="6"/>
+<circle class="n n-prod" data-p="1" cx="330" cy="300" r="6"/>
+<circle class="n n-prod" data-p="1" cx="480" cy="330" r="6"/>
+<circle class="n n-prod" data-p="1" cx="640" cy="310" r="6"/>
+<circle class="n n-prod" data-p="1" cx="400" cy="480" r="6"/>
+<circle class="n n-user" data-p="2" cx="90" cy="440" r="5"/>
+<circle class="n n-user" data-p="2" cx="250" cy="470" r="5"/>
+<circle class="n n-user" data-p="2" cx="560" cy="480" r="5"/>
+<circle class="n n-user" data-p="2" cx="720" cy="440" r="5"/>
+</svg>
+          </div>
+          <div class="wrap grid w-full gap-8 lg:grid-cols-12 lg:gap-0">
+            <div class="lg:col-span-5">
+              <p class="eyebrow">Il motore</p>
+              <h2 class="h2" data-split>Consigli che sai spiegare.</h2>
+            </div>
+            <div class="phases lg:col-span-6 lg:col-start-7">
+              <article data-p="1" class="cur on"><p class="font-display text-sm font-semibold text-dusk">01</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">Legge il tuo catalogo</h3><p class="prose-p mt-4 text-cream/85">Normalizza tipi e varianti, trasforma ogni prodotto in un punto in uno spazio di 1024 dimensioni e costruisce il grafo del tuo negozio.</p></article>
+              <article data-p="2"><p class="font-display text-sm font-semibold text-dusk">02</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">Impara dagli acquisti reali</h3><p class="prose-p mt-4 text-cream/85">Ordini pagati e checkout abbandonati degli ultimi 12 mesi, pesati per spesa e quantità, con decadimento nel tempo (filtraggio collaborativo).</p></article>
+              <article data-p="3"><p class="font-display text-sm font-semibold text-dusk">03</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">Spiega ogni consiglio</h3><p class="prose-p mt-4 text-cream/85">Simili, acquistati insieme, consigliati per te, complementari, dal carrello: ciascuno con un punteggio e un motivo, e con quote di varietà perché non vedi dieci volte lo stesso prodotto.</p></article>
+              <article data-p="4"><p class="font-display text-sm font-semibold text-dusk">04</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">Si riallena ogni giorno</h3><p class="prose-p mt-4 text-cream/85">Modelli statistici proprietari, calibrati sul tuo negozio e sul tuo inventario: i pesi, il grafo e il filtro sulla disponibilità sono i tuoi, i dati di un brand non alimentano mai un altro.</p></article>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrap pb-24 md:pb-40">
+        <div class="why grid gap-6 md:grid-cols-3" data-reveal-stagger aria-hidden="true">
+          <div class="card"><div class="frame mb-4 border-0"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div></div><p>Simile per materiale e taglio</p></div>
+          <div class="card"><div class="frame mb-4 border-0"><div class="pimg" style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></div></div><p>Acquistato insieme da clienti simili</p></div>
+          <div class="card"><div class="frame mb-4 border-0"><div class="pimg" style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></div></div><p>Consigliato per te</p></div>
+        </div>
+        <p class="mt-16 max-w-[24ch] font-serif text-3xl md:text-5xl" data-reveal>Niente estrazioni casuali. Niente modello generico condiviso tra negozi.</p>
+      </div>
+    </section>
+
+    <section id="chat" class="sec" data-preset="editorial">
+      <div class="wrap">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">Un motore, due superfici</p>
+            <h2 class="h2" data-split>Lo stesso consiglio, nel carosello e in chat.</h2>
+          </div>
+          <div class="lg:col-span-6 lg:col-start-7" data-reveal>
+            <ul class="prose-p list-disc space-y-2 pl-5 marker:text-primary">
+              <li>Capisce taglie, prezzi, materiali del tuo catalogo.</li>
+              <li>Chiede chiarimenti quando la richiesta è vaga.</li>
+              <li>Abbina: «cosa ci sta bene con…».</li>
+              <li>Risponde nella lingua del cliente.</li>
+              <li>Propone solo prodotti disponibili.</li>
+            </ul>
+            <p class="muted mt-6 text-base">0,50 € a conversazione oltre la quota inclusa nel piano.</p>
+          </div>
+        </div>
+
+        <div class="mt-20 grid gap-8 lg:grid-cols-12" aria-hidden="true">
+          <div class="frame lg:col-span-7 lg:self-start" data-reveal>
+            <div class="rail">
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">Cappotto in lana</b><span>189 €</span></p><small>Simile per materiale e taglio</small></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#f1e6da,#d9c3aa)"></div><div class="pmeta"><p><b class="font-medium">Camicia in lino</b><span>79 €</span></p><small>Simile per materiale e taglio</small></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#dce6ee,#b6c9d9)"></div><div class="pmeta"><p><b class="font-medium">Borsa in pelle</b><span>145 €</span></p><small>Simile per materiale e taglio</small></div></article>
+              <article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e4ebdd,#bfcdb3)"></div><div class="pmeta"><p><b class="font-medium">Sneaker bianca</b><span>110 €</span></p><small>Simile per materiale e taglio</small></div></article>
+            </div>
+          </div>
+          <div class="frame flex flex-col gap-3 p-5 lg:col-span-5" data-reveal>
+            <p class="bubble bubble-user">Cerco un cappotto caldo, sotto i 200 €.</p>
+            <p class="bubble bubble-bot">Ti consiglio questo: lana, taglio dritto, disponibile.</p>
+            <div class="rail p-0"><article class="pcard"><div class="pimg" style="--g:linear-gradient(135deg,#e9e1f2,#c9b6dd)"></div><div class="pmeta"><p><b class="font-medium">Cappotto in lana</b><span>189 €</span></p><small>Simile per materiale e taglio</small></div></article></div>
+            <p class="bubble bubble-user">E con cosa lo abbino?</p>
+          </div>
+        </div>
+
+        <div class="mt-24 grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">Il tuo brand, non il nostro</p>
+            <p class="prose-p" data-reveal>Eredita la card del tuo tema, oppure scegli uno dei sei stili Neurocart e regola ogni dettaglio: formato, raggio, bordo, colori con opacità, ombra, font, animazione al passaggio, cosa mostrare.</p>
+          </div>
+          <div class="lg:col-span-6 lg:col-start-7">
+            <ul class="space-y-4" data-reveal-stagger>
+              <li data-for="editorial"><b class="font-display">Editorial</b> — verticale, serif, senza bordo, solo titolo e prezzo, animazione «reveal».</li>
+              <li data-for="glass"><b class="font-display">Glass</b> — sfondo semitrasparente sulla foto, angoli 24 px, animazione «lift».</li>
+              <li data-for="minimal"><b class="font-display">Minimal</b> — quadrata, bordo 1 px, sans, animazione «zoom», brand nascosto.</li>
+              <li data-for="frame"><b class="font-display">Frame</b> — bordo 4 px nel colore del brand, foto «contain», animazione «tilt».</li>
+            </ul>
+            <p class="mt-8 font-serif text-2xl" data-reveal>Oppure la card del tuo tema, riconosciuta in automatico.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec pt-0 md:pt-0 xl:pt-0" aria-labelledby="umano">
+      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
+        <div class="lg:col-span-5">
+          <p class="eyebrow">Quando serve una persona</p>
+          <h2 id="umano" class="h2" data-split>Il bot sa quando fermarsi.</h2>
+        </div>
+        <p class="prose-p lg:col-span-6 lg:col-start-7" data-reveal>Se qualcuno del tuo team è online, il cliente può chiedere di parlargli. L'operatore vede la conversazione, risponde, invia card prodotto, chiude con un esito. Se nessuno risponde nel tempo che decidi tu, la chat torna al bot. Più negozi, una sola console.</p>
+      </div>
+    </section>
+
+    <section id="piattaforma" class="sec pt-0 md:pt-0 xl:pt-0">
+      <div class="wrap">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">Una piattaforma</p>
+            <h2 class="h2" data-split>Un pannello. Tutti i tuoi negozi.</h2>
+          </div>
+        </div>
+        <div class="mt-16 grid gap-6 md:grid-cols-2" data-reveal-stagger>
+          <article class="card"><h3>Multi-negozio</h3><p>Un account, più negozi Shopify. Ruoli proprietario e collaboratore, piano e crediti per negozio, operatori che seguono più brand.</p></article>
+          <article class="card"><h3>Contenuti dal tuo catalogo</h3><p>Da una foto prodotto a immagini professionali: quattro settori, ventisei sfondi, quindici inquadrature. Schede con titolo, descrizioni e tag nel linguaggio del tuo store, caricate in bozza su Shopify.</p></article>
+          <article class="card">
+            <h3>Dashboard</h3>
+            <div class="mb-4 grid grid-cols-2 gap-2" aria-hidden="true">
+              <div class="kpi">Click<b>1.284</b></div><div class="kpi">CTR<b>4,2 %</b></div><div class="kpi">Ordini<b>96</b></div><div class="kpi">Ricavo<b>8.340 €</b></div>
+            </div>
+            <svg class="mb-4 h-10 w-full text-primary" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,32 25,26 50,30 75,18 100,22 125,12 150,16 175,6 200,9" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
+            <p>Click, tasso di click, ordini e ricavo attribuito alle raccomandazioni. Conversazioni, esiti e soddisfazione della chat. Code e tempi degli operatori.</p>
+          </article>
+          <article class="card"><h3>Parla con il tuo negozio</h3><p>Domande in italiano su ordini, clienti, prodotti e incassi. Risposte come testo, tabella o grafico. Report che si rilanciano in un click.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec pt-0 md:pt-0 xl:pt-0" aria-labelledby="attivazione">
+      <div class="wrap">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
+          <div class="lg:col-span-5">
+            <p class="eyebrow">Come si attiva</p>
+            <h2 id="attivazione" class="h2" data-split>Tre passi. Nessuno sviluppo.</h2>
+          </div>
+          <div class="lg:col-span-6 lg:col-start-7">
+            <ol class="space-y-8" data-reveal-stagger>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">1</span><p>Installa l'app sul tuo store Shopify.</p></li>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">2</span><p>Collega il negozio al pannello con un codice.</p></li>
+              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">3</span><p>Scegli lo stile delle card e la voce del chatbot.</p></li>
+            </ol>
+            <p class="muted mt-8 text-base" data-reveal>Nessuna modifica al codice del tema.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prezzi" class="sec pt-0 md:pt-0 xl:pt-0">
+      <div class="wrap">
+        <p class="eyebrow">Prezzi</p>
+        <h2 class="h2 max-w-[20ch]" data-split>Raccomandazioni e chat, in ogni piano.</h2>
+        <div class="mt-16 grid gap-6 lg:grid-cols-3" data-reveal-stagger>
+          <article class="card"><h3>Base</h3><p class="font-serif text-5xl">79 € <span class="font-sans text-base text-muted">/ mese</span></p><p class="muted mt-4 text-base">Raccomandazioni + chat · 30 conversazioni al mese · 500 crediti per immagini e contenuti</p></article>
+          <article class="card border-2 border-primary"><h3 class="flex items-center justify-between">Pro <span class="badge">Consigliato</span></h3><p class="font-serif text-5xl">99 € <span class="font-sans text-base text-muted">/ mese</span></p><p class="muted mt-4 text-base">Raccomandazioni + chat · 100 conversazioni al mese · 1.000 crediti per immagini e contenuti</p></article>
+          <article class="card"><h3>Enterprise</h3><p class="font-serif text-5xl">Su misura</p><p class="muted mt-4 text-base">Volumi, SLA e integrazioni dedicate</p></article>
+        </div>
+        <p class="muted mt-10 max-w-[68ch] text-base" data-reveal>14 giorni gratuiti, disdici quando vuoi. Conversazioni extra 0,50 € l'una, in pacchetti da 10 che non scadono. Dall'App Store di Shopify i prezzi sono in dollari.</p>
+      </div>
+    </section>
+
+    <section id="in-arrivo" class="sec pt-0 md:pt-0 xl:pt-0">
+      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
+        <div class="lg:col-span-5">
+          <p class="eyebrow">In arrivo</p>
+          <h2 class="h2" data-split>Lo stesso motore, su più canali.</h2>
+        </div>
+        <ul class="lg:col-span-6 lg:col-start-7" data-reveal-stagger>
+          <li class="flex flex-col gap-3 border-b border-line py-6"><span class="badge self-start">In arrivo</span><p><b class="font-display">Chat su WhatsApp, Telegram, Instagram e Messenger</b> — lo stesso assistente, fuori dal sito.</p></li>
+          <li class="flex flex-col gap-3 border-b border-line py-6"><span class="badge self-start">In arrivo</span><p><b class="font-display">Ordini in chat</b> — link d'acquisto, stato dell'ordine e tracking per il cliente che ha fatto l'accesso.</p></li>
+          <li class="flex flex-col gap-3 border-b border-line py-6"><span class="badge self-start">In arrivo</span><p><b class="font-display">Klaviyo</b> — i prodotti consigliati a ciascun cliente e i segmenti RFM dentro i tuoi flussi email.</p></li>
+          <li class="flex flex-col gap-3 py-6"><span class="badge self-start">In arrivo</span><p><b class="font-display">Vetrina in inglese.</b></p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="sec pt-0 md:pt-0 xl:pt-0" aria-labelledby="faq">
+      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
+        <h2 id="faq" class="h2 lg:col-span-5" data-split>Domande frequenti</h2>
+        <div class="lg:col-span-6 lg:col-start-7" data-reveal>
+          <details><summary>Funziona con il mio tema?</summary><p class="prose-p pb-6">Sì. I blocchi si aggiungono dall'editor del tema di Shopify. Le card possono ereditare lo stile della card prodotto del tuo tema, riconosciuta in automatico, oppure usare uno dei sei stili Neurocart.</p></details>
+          <details><summary>Serve uno sviluppatore?</summary><p class="prose-p pb-6">No. Installi l'app, colleghi il negozio al pannello con un codice e scegli le impostazioni. Il codice del tema non si tocca.</p></details>
+          <details><summary>Dove vanno i miei dati?</summary><p class="prose-p pb-6">Ogni negozio ha il suo modello e il suo grafo, isolati dagli altri. Gestiamo i webhook di conformità GDPR di Shopify: la cancellazione di un cliente o del negozio si propaga a tutta la piattaforma. Siamo un'azienda italiana. <a class="text-primary underline" href="%VITE_APP_URL%/privacy">Leggi l'informativa privacy.</a></p></details>
+          <details><summary>Posso gestire più negozi?</summary><p class="prose-p pb-6">Sì. Un solo account, più negozi Shopify, con ruoli proprietario e collaboratore. Ogni negozio ha piano e crediti propri e il tuo team può seguire più negozi dalla stessa console.</p></details>
+          <details><summary>Cosa succede se il bot non sa rispondere?</summary><p class="prose-p pb-6">Se un operatore del tuo team è online, il cliente può chiedere di parlargli; altrimenti lascia un messaggio e tu ricevi una mail. Se nessuno risponde entro il tempo che decidi, la chat torna al bot.</p></details>
+          <details><summary>Quanto costa una conversazione?</summary><p class="prose-p pb-6">Ogni piano ne include una quota: 30 nel Base, 100 nel Pro. Oltre, 0,50 € a conversazione, in pacchetti da 10 che non scadono. Si paga per conversazione, non per messaggio.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="night sec">
+      <div class="wrap">
+        <h2 class="h2 max-w-[18ch]" data-split>Il tuo negozio sa già cosa consigliare. <em>Dagli voce.</em></h2>
+        <div class="mt-10 flex flex-wrap gap-3" data-reveal>
+          <a href="#accesso" class="btn btn-primary" data-cta>Richiedi accesso</a>
+          <a href="mailto:sales@neurocart.it?subject=Demo%20Neurocart" class="btn btn-ghost">Prenota una demo</a>
+        </div>
+        <form id="accesso" class="card mt-20 max-w-xl" data-reveal data-ok="Grazie. Ti scriviamo appena si apre un posto." data-err="Qualcosa non ha funzionato, riprova tra poco.">
+          <h3 class="font-display">Richiedi accesso</h3>
+          <p class="muted mb-6 text-base">Neurocart è in accesso su invito. Lascia la tua email: ti scriviamo noi.</p>
+          <label for="email" class="mb-2 block text-sm font-medium">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" class="field" />
+          <label class="mt-4 flex items-start gap-3 text-sm"><input type="checkbox" name="consent" required class="mt-1 size-4 accent-primary" /><span>Acconsento al trattamento della mia email per essere ricontattato. <a class="underline" href="%VITE_APP_URL%/privacy">Leggi l'informativa privacy.</a></span></label>
+          <button type="submit" class="btn btn-primary mt-6">Richiedi accesso</button>
+          <p role="status" class="text-base"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="night border-t border-white/10 py-16">
+    <div class="wrap grid gap-8 text-sm lg:grid-cols-12">
+      <p class="muted lg:col-span-6">Neurocart è un prodotto di AI-Commerce S.r.l. — Via Giorgio de Chirico 37, 70056 Molfetta (BA) — P.IVA 08978880725</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 lg:col-span-6 lg:justify-end">
+        <li><a href="%VITE_APP_URL%/privacy" class="underline">Informativa privacy</a></li>
+        <li><a href="mailto:privacy@neurocart.it" class="underline">privacy@neurocart.it</a></li>
+        <li><a href="mailto:sales@neurocart.it" class="underline">sales@neurocart.it</a></li>
+      </ul>
+      <p class="muted lg:col-span-12">Shopify è un marchio di <a href="https://www.shopify.com" class="underline" rel="noopener">Shopify Inc.</a></p>
+    </div>
+  </footer>
+</body>
+</html>
