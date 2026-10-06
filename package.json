@@ -6,7 +6,7 @@
     "dev": "vite --mode production",
     "build": "vite build",
     "preview": "vite preview",
-    "verify": "node scripts/verify.mjs"
+    "verify": "vite build && node scripts/verify.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

@@ -1,5 +1,8 @@
 import { chromium } from "playwright";
+import { readFileSync } from "node:fs";
 import { preview } from "vite";
+
+const graphNodes = [...readFileSync("src/graph.svg", "utf8").matchAll(/<circle cx="(\d+)" cy="(\d+)"/g)].map(([, x, y]) => [+x, +y]);
 
 const passed = [];
 const check = (name, condition) => {
@@ -12,12 +15,24 @@ const browser = await chromium.launch();
 const url = "http://localhost:4173/";
 
 try {
-  for (const [width, height] of [[1280, 800], [390, 844]]) {
+  for (const [width, height] of [[1280, 800], [390, 844], [568, 320]]) {
     const page = await (await browser.newContext({ viewport: { width, height } })).newPage();
     await page.goto(url);
     const label = `${width}x${height}`;
     check(`${label} un solo h1`, (await page.locator("h1").count()) === 1);
     check(`${label} JSON-LD parsabile (3 blocchi)`, await page.$$eval('script[type="application/ld+json"]', (nodes) => nodes.length === 3 && nodes.every((n) => JSON.parse(n.textContent))));
+    if (width !== 568) {
+      const onTitle = await page.evaluate((nodes) => {
+        const box = document.querySelector(".hero-graph").getBoundingClientRect();
+        const scale = Math.min(box.width / 800, box.height / 600);
+        const words = [...document.querySelectorAll("h1 .w")].map((w) => w.getBoundingClientRect());
+        return nodes.filter(([x, y]) => {
+          const [px, py] = [box.right - (800 - x) * scale, box.top + y * scale];
+          return words.some((r) => px > r.left - 8 && px < r.right + 8 && py > r.top - 8 && py < r.bottom + 8);
+        }).length;
+      }, graphNodes);
+      check(`${label} nessun nodo del grafo hero sulla h1`, onTitle === 0);
+    }
     await page.evaluate(() => scrollTo(0, 120));
     await page.waitForTimeout(300);
     check(`${label} nav scrolled dopo 120px`, await page.locator("#nav.scrolled").count() === 1);
@@ -43,6 +58,12 @@ try {
     check(`${label} i 4 preset card ciclano`, presets.size === 4);
     check(`${label} overflow orizzontale zero a fine scroll`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
   }
+
+  const faq = await (await browser.newContext()).newPage();
+  await faq.goto(url);
+  const visible = await faq.$$eval("details", (nodes) => nodes.map((d) => [d.querySelector("summary").textContent.trim(), d.querySelector("p").textContent.trim()]));
+  const ld = await faq.$$eval('script[type="application/ld+json"]', (nodes) => JSON.parse(nodes[2].textContent).mainEntity.map((q) => [q.name, q.acceptedAnswer.text]));
+  check("JSON-LD FAQ coincide con il testo visibile", JSON.stringify(visible) === JSON.stringify(ld));
 
   const reduced = await (await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1280, height: 800 } })).newPage();
   await reduced.goto(url);

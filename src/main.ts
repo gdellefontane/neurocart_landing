@@ -37,26 +37,26 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
       text.replaceWith(
         ...text.data.split(/(\s+)/).map((word) => {
           if (!word.trim()) return word;
-          const outer = Object.assign(document.createElement("span"), { className: "w", innerHTML: `<span class="wi">${word}</span>` });
+          const outer = Object.assign(document.createElement("span"), { className: "w" });
           outer.setAttribute("aria-hidden", "true");
+          outer.append(Object.assign(document.createElement("span"), { className: "wi", textContent: word }));
           return outer;
         }),
       ),
     );
     heading.style.visibility = "visible";
-    inView(heading, () => {
-      animate(heading.querySelectorAll(".wi"), { transform: "translateY(0%)" }, { duration: 0.9, ease: EASE, delay: stagger(0.07) });
-    });
+    inView(
+      heading,
+      () => {
+        animate(heading.querySelectorAll(".wi"), { transform: "translateY(0%)" }, { duration: 0.9, ease: EASE, delay: stagger(0.07) });
+      },
+      { amount: 0.3 },
+    );
   });
 
-  inView(
-    "[data-reveal], [data-reveal-stagger]",
-    (el) => {
-      const targets = el.hasAttribute("data-reveal") ? [el] : [...el.children];
-      animate(targets, SHOWN, { duration: 0.9, ease: EASE, delay: stagger(0.12) });
-    },
-    { amount: 0.3 },
-  );
+  const show = (targets: Element[]) => animate(targets, SHOWN, { duration: 0.9, ease: EASE, delay: stagger(0.12) });
+  inView("[data-reveal]", (el) => void show([el]), { amount: 0.3 });
+  inView("[data-reveal-stagger]", (el) => void show([...el.children]), { margin: "0px 0px -30% 0px" });
 
   $$("[data-count]").forEach((counter) =>
     inView(counter, () => {
