@@ -87,18 +87,18 @@
 
   .stat-card { box-shadow: var(--shadow-card-hover); }
   .bar { display: block; width: 48px; height: 2px; margin-bottom: 1.5rem; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); }
-  .stat { font: 600 clamp(3.5rem, 6vw, 6rem) / 1 var(--font-display); letter-spacing: -0.02em; color: var(--color-primary); }
+  .stat { font: 400 clamp(3.5rem, 6vw, 6rem) / 1 var(--font-serif); letter-spacing: -0.02em; color: var(--color-primary); }
   .chip { display: inline-block; font: 600 0.75rem/1 var(--font-display); padding: 0.45rem 0.75rem; border-radius: 9999px; background: color-mix(in srgb, var(--color-primary) 8%, transparent); color: var(--color-primary); }
   .night .chip { background: rgba(255, 255, 255, 0.08); color: var(--color-cream); }
   .pbrand { display: block; margin-top: 0.2rem; font: 500 0.68rem/1.2 var(--font-sans); font-style: normal; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); }
-  [data-preset="minimal"] .pbrand { display: none; }
-  .why .pcard { flex: none; max-width: 17rem; border-radius: var(--radius-lg); }
-  .rail4 { position: relative; display: flex; gap: 1.25rem; margin-top: 2.5rem; }
+  [data-preset="editorial"] .pbrand, [data-preset="minimal"] .pbrand { display: none; }
+  .why .pcard { max-width: 17rem; border-radius: var(--radius-lg); }
+  .rail4 { display: flex; gap: 1.25rem; margin-top: 2.5rem; }
   .rail4 .track { width: 2px; flex: none; background: rgba(255, 255, 255, 0.12); }
   .rail4 .fill { display: block; height: 100%; background: var(--color-cream); transform-origin: top; }
   .rail4 ol { display: grid; gap: 0.75rem; }
   .rail4 li { font: 600 0.95rem var(--font-display); color: var(--color-dusk); transition: color 0.4s; }
-  .rail4 li span { margin-right: 0.75rem; opacity: 0.6; }
+  .rail4 li span { margin-right: 0.75rem; }
   .rail4 li[aria-current] { color: var(--color-cream); }
 
   .frame { border: 1px solid var(--color-line); border-radius: var(--radius-xl); background: #fff; overflow: hidden; }
@@ -167,14 +167,18 @@
   html.js [data-for] { transition: color 0.4s; color: var(--color-muted); }
   html.js [data-preset="editorial"] [data-for="editorial"], html.js [data-preset="glass"] [data-for="glass"], html.js [data-preset="minimal"] [data-for="minimal"], html.js [data-preset="frame"] [data-for="frame"] { color: var(--color-ink); }
   html.js .graph circle.on { animation: glow-pulse 0.9s ease-out; transform-box: fill-box; transform-origin: center; }
+  html.js .graph g.on circle { animation: glow-pulse-2 0.9s ease-out; transform-box: fill-box; transform-origin: center; }
   html.js [data-grow] { transform: scaleX(0); transform-origin: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .night::before, .hero-graph, .pcard { animation: none; }
+  .rail4 .track { display: none; }
 }
 
 /* identiche: due nomi diversi servono a far ripartire l'animazione a ogni cambio di preset */
 @keyframes swap-a { from { opacity: 0.2; } }
 @keyframes swap-b { from { opacity: 0.2; } }
+/* identiche a glow-pulse: il nome diverso fa ripartire l'impulso nella fase 4 */
 @keyframes glow-pulse { 40% { transform: scale(2.2); } }
+@keyframes glow-pulse-2 { 40% { transform: scale(2.2); } }

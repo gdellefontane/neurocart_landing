@@ -82,12 +82,13 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const railItems = $$("#engine ol li");
   scroll(
     (progress) => {
-      const phase = Math.min(4, 1 + Math.floor(progress * 4));
+      const phase = Math.min(4, Math.ceil(progress * 4));
+      const shown = Math.max(1, phase);
       fill.style.transform = `scaleY(${progress})`;
-      railItems.forEach((item, i) => (item.ariaCurrent = i + 1 === phase ? "step" : null));
+      railItems.forEach((item, i) => (item.ariaCurrent = i + 1 === shown ? "step" : null));
       phased.forEach((el) => {
         el.classList.toggle("on", Number(el.dataset.p) <= phase);
-        el.classList.toggle("cur", Number(el.dataset.p) === phase);
+        el.classList.toggle("cur", Number(el.dataset.p) === shown);
       });
     },
     { target: engine, offset: ["start start", "end end"] },
