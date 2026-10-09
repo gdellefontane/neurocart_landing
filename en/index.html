@@ -37,8 +37,8 @@
     {"@type":"Question","name":"What happens if the bot can't answer?","acceptedAnswer":{"@type":"Answer","text":"If someone on your team is online, the customer can ask to talk to them; otherwise they leave a message and you get an email. If nobody replies within the time you set, the chat goes back to the bot."}},
     {"@type":"Question","name":"How much does a conversation cost?","acceptedAnswer":{"@type":"Answer","text":"Each plan includes a quota of conversations: 30 on Base, 100 on Pro. Beyond that, you buy packs of 10 from the panel, which don't expire. We count per conversation, not per message."}}
   ]}</script>
-  <script type="module" crossorigin src="/assets/main-DSmFKyHX.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/main-CnBuWFGo.css">
+  <script type="module" crossorigin src="/assets/main-CaqRVv6B.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-DTxS_hY0.css">
 </head>
 <body>
   <header id="nav" class="nav scrolled">
@@ -357,7 +357,18 @@
           <p class="muted mb-6 text-base">Neurocart is invite-only. Leave your email and we'll write to you.</p>
           <label for="email" class="mb-2 block text-sm font-medium">Email</label>
           <input id="email" name="email" type="email" required autocomplete="email" class="field" />
-          <label class="mt-4 flex items-start gap-3 text-sm"><input type="checkbox" name="consent" required class="mt-1 size-4 accent-primary" /><span>I agree to the processing of my email so I can be contacted. <a class="underline" href="https://app.neurocart.it/privacy">Read the privacy notice.</a></span></label>
+          <label for="shopDomain" class="mb-2 mt-4 block text-sm font-medium">Shopify store</label>
+          <input id="shopDomain" name="shopDomain" type="text" required autocomplete="off" placeholder="your-store.myshopify.com" class="field" />
+          <label for="productRange" class="mb-2 mt-4 block text-sm font-medium">How many products do you sell?</label>
+          <select id="productRange" name="productRange" required class="field [&>option]:text-black">
+            <option value="" disabled selected>How many products do you sell?</option>
+            <option value="lte_100">Up to 100</option>
+            <option value="100_500">100–500</option>
+            <option value="500_2000">500–2,000</option>
+            <option value="gt_2000">Over 2,000</option>
+          </select>
+          <div class="cf-turnstile mt-4" data-sitekey="0x4AAAAAAFSNzjPiaqZ0M3n1"></div>
+          <label class="mt-4 flex items-start gap-3 text-sm"><input type="checkbox" name="consent" required class="mt-1 size-4 accent-primary" /><span>I agree to the processing of my data (email, store, product range) so I can be contacted. <a class="underline" href="https://app.neurocart.it/privacy">Read the privacy notice.</a></span></label>
           <button type="submit" class="btn btn-primary mt-6">Request access</button>
           <p role="status" class="text-base"></p>
         </form>
@@ -378,5 +389,6 @@
       <p class="muted lg:col-span-12">Shopify is a trademark of <a href="https://www.shopify.com" class="underline" rel="noopener">Shopify Inc.</a></p>
     </div>
   </footer>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </body>
 </html>
