@@ -96,6 +96,8 @@ try {
   await page.route("**/waitlist", (route) => route.fulfill({ status: 200, contentType: "application/json", body: '{"ok":true}' }));
   await page.goto(url);
   await page.fill("#email", "test@example.com");
+  await page.fill("#shopDomain", "demo.myshopify.com");
+  await page.selectOption("#productRange", "100_500");
   await page.check("input[name=consent]");
   await page.click("form#accesso button[type=submit]");
   await page.waitForSelector("form#accesso.done");

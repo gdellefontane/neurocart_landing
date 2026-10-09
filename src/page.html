@@ -356,6 +356,17 @@
           <p class="muted mb-6 text-base">{{cta.04}}</p>
           <label for="email" class="mb-2 block text-sm font-medium">{{cta.05}}</label>
           <input id="email" name="email" type="email" required autocomplete="email" class="field" />
+          <label for="shopDomain" class="mb-2 mt-4 block text-sm font-medium">{{cta.07}}</label>
+          <input id="shopDomain" name="shopDomain" type="text" required autocomplete="off" placeholder="{{cta.07.placeholder}}" class="field" />
+          <label for="productRange" class="mb-2 mt-4 block text-sm font-medium">{{cta.08}}</label>
+          <select id="productRange" name="productRange" required class="field [&>option]:text-black">
+            <option value="" disabled selected>{{cta.08}}</option>
+            <option value="lte_100">{{cta.range.1}}</option>
+            <option value="100_500">{{cta.range.2}}</option>
+            <option value="500_2000">{{cta.range.3}}</option>
+            <option value="gt_2000">{{cta.range.4}}</option>
+          </select>
+          <div class="cf-turnstile mt-4" data-sitekey="%VITE_TURNSTILE_SITEKEY%"></div>
           <label class="mt-4 flex items-start gap-3 text-sm"><input type="checkbox" name="consent" required class="mt-1 size-4 accent-primary" /><span>{{cta.06}} <a class="underline" href="%VITE_APP_URL%/privacy">{{faq.08}}</a></span></label>
           <button type="submit" class="btn btn-primary mt-6">{{nav.08}}</button>
           <p role="status" class="text-base"></p>
@@ -377,5 +388,6 @@
       <p class="muted lg:col-span-12">{{footer.05}} <a href="https://www.shopify.com" class="underline" rel="noopener">{{footer.06}}</a></p>
     </div>
   </footer>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </body>
 </html>

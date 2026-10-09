@@ -39,15 +39,30 @@ if (import.meta.env.VITE_INSTALL_URL) {
   $$<HTMLAnchorElement>("[data-cta]").forEach((a) => Object.assign(a, { href: import.meta.env.VITE_INSTALL_URL, textContent: a.dataset.install }));
 }
 
+declare global {
+  interface Window {
+    turnstile?: { reset: (container: Element) => void };
+  }
+}
+
 const form = $<HTMLFormElement>("#accesso");
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const email = new FormData(form).get("email");
+  const formData = new FormData(form);
+  const turnstileToken = formData.get("cf-turnstile-response") || undefined;
   const res = await fetch(`${import.meta.env.VITE_API_URL}/waitlist`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, source: "landing", consent: true }),
+    body: JSON.stringify({
+      email: formData.get("email"),
+      shopDomain: formData.get("shopDomain"),
+      productRange: formData.get("productRange"),
+      turnstileToken,
+      source: "landing",
+      consent: true,
+    }),
   }).catch(() => null);
+  if (!res?.ok) window.turnstile?.reset(form.querySelector(".cf-turnstile")!);
   form.classList.toggle("done", !!res?.ok);
   form.querySelector("[role=status]")!.textContent = res?.ok ? form.dataset.ok! : form.dataset.err!;
 });
