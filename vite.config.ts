@@ -15,7 +15,7 @@ export default defineConfig({
         order: "pre",
         handler: (_, { filename }) => {
           const lang = dirname(filename) === resolve("en") ? "en" : "it";
-          const template = dirname(filename) === resolve("pilota-black-friday") ? "src/pilota.html" : "src/page.html";
+          const template = { [resolve("pilota-black-friday")]: "src/pilota.html", [resolve("condizioni-pilota")]: "src/condizioni.html" }[dirname(filename)] ?? "src/page.html";
           return readFileSync(template, "utf8").replace(/\{\{([\w.]+)\}\}/g, (_match, key: string) => {
             if (!(key in locales[lang])) throw new Error(`Chiave mancante in ${lang}.json: ${key}`);
             return locales[lang][key];
@@ -25,5 +25,5 @@ export default defineConfig({
     },
     tailwindcss(),
   ],
-  build: { rollupOptions: { input: { it: resolve("index.html"), en: resolve("en/index.html"), pilota: resolve("pilota-black-friday/index.html") } } },
+  build: { rollupOptions: { input: { it: resolve("index.html"), en: resolve("en/index.html"), pilota: resolve("pilota-black-friday/index.html"), condizioni: resolve("condizioni-pilota/index.html") } } },
 });

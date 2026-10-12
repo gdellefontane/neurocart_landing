@@ -214,6 +214,15 @@ try {
     await reduced.goto(pilotUrl);
     check(`pilota ${state} reduced-motion: nessun elemento visibile nascosto al load`, (await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", unrevealed)) === 0 && (await reduced.locator(".wi").count()) === 0);
   }
+
+  for (const [width, height] of [[1280, 800], [390, 844]]) {
+    const terms = await newPage({ viewport: { width, height } });
+    await terms.goto("http://localhost:4173/condizioni-pilota/");
+    check(`condizioni ${width}x${height}: un solo h1, chiavi ed env risolte, 8 sezioni, zero overflow`, (await terms.locator("h1").count()) === 1 && !/\{\{|%VITE_/.test(await terms.content()) && (await terms.locator("main h2").count()) === 8 && (await terms.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)));
+  }
+  const consent = await newPage();
+  await consent.goto("http://localhost:4173/pilota-black-friday/");
+  check("pilota: il link delle condizioni nel consenso e nel footer punta alla pagina delle condizioni", (await consent.locator('a[href="/condizioni-pilota/"]').count()) === 2);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
