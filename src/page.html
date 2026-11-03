@@ -72,99 +72,78 @@
       </div>
     </section>
 
-    <section id="servizi" class="night py-20 md:py-28" aria-labelledby="servizi-t">
-      <div class="wrap">
-        <p class="eyebrow">{{svc.eyebrow}}</p>
-        <div class="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
-          <h2 id="servizi-t" class="h2 max-w-[22ch]" data-split>{{svc.title}}</h2>
-          <p class="count" aria-hidden="true"><b>01</b> / 11</p>
-        </div>
-        <div class="navi" role="group" aria-label="{{svc.aria}}">
-          <div class="pills"><i class="pillbar" aria-hidden="true"></i><button type="button" data-pill>{{svc.1.pill}}</button><button type="button" data-pill>{{svc.2.pill}}</button><button type="button" data-pill>{{svc.3.pill}}</button><button type="button" data-pill>{{svc.4.pill}}</button><button type="button" data-pill>{{svc.5.pill}}</button><button type="button" data-pill>{{svc.6.pill}}</button><button type="button" data-pill>{{svc.7.pill}}</button><button type="button" data-pill>{{svc.8.pill}}</button><button type="button" data-pill>{{svc.9.pill}}</button><button type="button" data-pill>{{svc.10.pill}}</button><button type="button" data-pill>{{svc.11.pill}}</button></div>
-          <div class="hidden gap-2 md:flex"><button type="button" class="arrow" data-prev aria-disabled="true" aria-label="{{svc.prev}}">←</button><button type="button" class="arrow" data-next aria-label="{{svc.next}}">→</button></div>
-        </div>
-        <i class="prog" aria-hidden="true"><i></i></i>
+    <div class="night vet">
+      <div class="stagewrap"><i class="halo"></i>
+        <section id="servizi" aria-roledescription="carousel" aria-label="{{svc.aria}}">
+          <h2 class="sr-only">{{svc.title}}</h2>
+          <i class="vblob a"></i><i class="vblob b"></i>
+          <div class="vtop">
+            <div class="vrow"><span class="vtop-label">{{svc.top}}</span><span class="vhint"><b>01</b><span>/ 11</span><span class="vchev" aria-hidden="true"><span>›</span><span>›</span><span>›</span></span></span></div>
+            <div class="vsegs"><button type="button">{{svc.1.pill}}<u></u></button><button type="button">{{svc.2.pill}}<u></u></button><button type="button">{{svc.3.pill}}<u></u></button><button type="button">{{svc.4.pill}}<u></u></button><button type="button">{{svc.5.pill}}<u></u></button><button type="button">{{svc.6.pill}}<u></u></button><button type="button">{{svc.7.pill}}<u></u></button><button type="button">{{svc.8.pill}}<u></u></button><button type="button">{{svc.9.pill}}<u></u></button><button type="button">{{svc.10.pill}}<u></u></button><button type="button">{{svc.11.pill}}<u></u></button></div>
+          </div>
+          <div class="vtrack">
+        <article class="vs" style="--b1:#3A0C7A;--b2:#7B2FF0;--b3:#1B0647" aria-label="{{svc.1.title}}">
+          <span class="vghost" aria-hidden="true">01</span>
+          <div class="vtext"><span class="vlabel">01 · {{svc.1.pill}}</span><h3>{{svc.1.h}} <em>{{svc.1.hem}}</em></h3><p>{{svc.1.text}}</p><a class="vcta" href="{{svc.1.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.1.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-chatbot}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#7A0F55;--b2:#E0408F;--b3:#3D0730" aria-label="{{svc.2.title}}">
+          <span class="vghost" aria-hidden="true">02</span>
+          <div class="vtext"><span class="vlabel">02 · {{svc.2.pill}}</span><h3>{{svc.2.h}} <em>{{svc.2.hem}}</em></h3><p>{{svc.2.text}}</p><a class="vcta" href="{{svc.2.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.2.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-upsell}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#0B3F55;--b2:#29B6D6;--b3:#04202D" aria-label="{{svc.3.title}}">
+          <span class="vghost" aria-hidden="true">03</span>
+          <div class="vtext"><span class="vlabel">03 · {{svc.3.pill}}</span><h3>{{svc.3.h}} <em>{{svc.3.hem}}</em></h3><p>{{svc.3.text}}</p><a class="vcta" href="{{svc.3.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.3.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-related}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#6B4E0A;--b2:#E8B52E;--b3:#2E2003" aria-label="{{svc.4.title}}">
+          <span class="vghost" aria-hidden="true">04</span>
+          <div class="vtext"><span class="vlabel">04 · {{svc.4.pill}}</span><h3>{{svc.4.h}} <em>{{svc.4.hem}}</em></h3><p>{{svc.4.text}}</p><a class="vcta" href="{{svc.4.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.4.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-operator}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#8A3A12;--b2:#F08A3C;--b3:#3E1606" aria-label="{{svc.5.title}}">
+          <span class="vghost" aria-hidden="true">05</span>
+          <div class="vtext"><span class="vlabel">05 · {{svc.5.pill}}</span><h3>{{svc.5.h}} <em>{{svc.5.hem}}</em></h3><p>{{svc.5.text}}</p><a class="vcta" href="{{svc.5.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.5.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-images}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#3C5A0E;--b2:#9BD13A;--b3:#1A2905" aria-label="{{svc.6.title}}">
+          <span class="vghost" aria-hidden="true">06</span>
+          <div class="vtext"><span class="vlabel">06 · {{svc.6.pill}}</span><h3>{{svc.6.h}} <em>{{svc.6.hem}}</em></h3><p>{{svc.6.text}}</p><a class="vcta" href="{{svc.6.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.6.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-content}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#0E2D6B;--b2:#3F7BF0;--b3:#06163A" aria-label="{{svc.7.title}}">
+          <span class="vghost" aria-hidden="true">07</span>
+          <div class="vtext"><span class="vlabel">07 · {{svc.7.pill}}</span><h3>{{svc.7.h}} <em>{{svc.7.hem}}</em></h3><p>{{svc.7.text}}</p><a class="vcta" href="{{svc.7.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.7.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-dashboard}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#7A2230;--b2:#F06A7E;--b3:#3A0D17" aria-label="{{svc.8.title}}">
+          <span class="vghost" aria-hidden="true">08</span>
+          <div class="vtext"><span class="vlabel">08 · {{svc.8.pill}}</span><h3>{{svc.8.h}} <em>{{svc.8.hem}}</em></h3><p>{{svc.8.text}}</p><a class="vcta" href="{{svc.8.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.8.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-ask}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#4A2A6B;--b2:#C39BEA;--b3:#241036" aria-label="{{svc.9.title}}">
+          <span class="vghost" aria-hidden="true">09</span>
+          <div class="vtext"><span class="vlabel">09 · {{svc.9.pill}}</span><h3>{{svc.9.h}} <em>{{svc.9.hem}}</em></h3><p>{{svc.9.text}}</p><a class="vcta" href="{{svc.9.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.9.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-theme}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#6B2A12;--b2:#E07A4F;--b3:#2E1006" aria-label="{{svc.10.title}}">
+          <span class="vghost" aria-hidden="true">10</span>
+          <div class="vtext"><span class="vlabel">10 · {{svc.10.pill}}</span><h3>{{svc.10.h}} <em>{{svc.10.hem}}</em></h3><p>{{svc.10.text}}</p><a class="vcta" href="{{svc.10.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.10.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-stores}}</div></div>
+        </article>
+        <article class="vs" style="--b1:#0B4A3C;--b2:#2BC08F;--b3:#04221B" aria-label="{{svc.11.title}}">
+          <span class="vghost" aria-hidden="true">11</span>
+          <div class="vtext"><span class="vlabel">11 · {{svc.11.pill}}</span><h3>{{svc.11.h}} <em>{{svc.11.hem}}</em></h3><p>{{svc.11.text}}</p><a class="vcta" href="{{svc.11.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.11.title}}</span></a></div>
+          <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-insights}}</div></div>
+        </article>
+        <div class="vs" style="--b1:#3A0C7A;--b2:#7B2FF0;--b3:#1B0647" aria-hidden="true"></div>
+          </div>
+          <button type="button" class="varr prev" aria-label="{{svc.prev}}">←</button>
+          <button type="button" class="varr next" aria-label="{{svc.next}}">→</button>
+        </section>
       </div>
-      <ul class="svc-track" tabindex="0" aria-label="{{svc.aria}}">
-        <li class="svc">
-          <p class="num">01</p>
-          <div class="vis" aria-hidden="true">{{>chatbot}}</div>
-          <h3>{{svc.1.title}}</h3>
-          <p class="txt">{{svc.1.text}}</p>
-          <a class="more" href="{{svc.1.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.1.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">02</p>
-          <div class="vis" aria-hidden="true">{{>upsell}}</div>
-          <h3>{{svc.2.title}}</h3>
-          <p class="txt">{{svc.2.text}}</p>
-          <a class="more" href="{{svc.2.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.2.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">03</p>
-          <div class="vis" aria-hidden="true">{{>related}}</div>
-          <h3>{{svc.3.title}}</h3>
-          <p class="txt">{{svc.3.text}}</p>
-          <a class="more" href="{{svc.3.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.3.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">04</p>
-          <div class="vis" aria-hidden="true">{{>operator}}</div>
-          <h3>{{svc.4.title}}</h3>
-          <p class="txt">{{svc.4.text}}</p>
-          <a class="more" href="{{svc.4.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.4.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">05</p>
-          <div class="vis" aria-hidden="true">{{>images}}</div>
-          <h3>{{svc.5.title}}</h3>
-          <p class="txt">{{svc.5.text}}</p>
-          <a class="more" href="{{svc.5.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.5.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">06</p>
-          <div class="vis" aria-hidden="true">{{>content}}</div>
-          <h3>{{svc.6.title}}</h3>
-          <p class="txt">{{svc.6.text}}</p>
-          <a class="more" href="{{svc.6.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.6.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">07</p>
-          <div class="vis" aria-hidden="true">{{>dashboard}}</div>
-          <h3>{{svc.7.title}}</h3>
-          <p class="txt">{{svc.7.text}}</p>
-          <a class="more" href="{{svc.7.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.7.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">08</p>
-          <div class="vis" aria-hidden="true">{{>ask}}</div>
-          <h3>{{svc.8.title}}</h3>
-          <p class="txt">{{svc.8.text}}</p>
-          <a class="more" href="{{svc.8.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.8.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">09</p>
-          <div class="vis" aria-hidden="true">{{>theme}}</div>
-          <h3>{{svc.9.title}}</h3>
-          <p class="txt">{{svc.9.text}}</p>
-          <a class="more" href="{{svc.9.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.9.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">10</p>
-          <div class="vis" aria-hidden="true">{{>stores}}</div>
-          <h3>{{svc.10.title}}</h3>
-          <p class="txt">{{svc.10.text}}</p>
-          <a class="more" href="{{svc.10.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.10.title}}</span></a>
-        </li>
-        <li class="svc">
-          <p class="num">11</p>
-          <div class="vis" aria-hidden="true">{{>insights}}</div>
-          <h3>{{svc.11.title}}</h3>
-          <p class="txt">{{svc.11.text}}</p>
-          <a class="more" href="{{svc.11.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.11.title}}</span></a>
-        </li>
-      </ul>
-    </section>
+    </div>
 
     <section class="sec">
       <div class="wrap">

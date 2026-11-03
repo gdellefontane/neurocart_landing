@@ -89,39 +89,39 @@ try {
     await page.waitForTimeout(700);
     const shown = width >= 768 ? tabs.nth(4).locator(".tabtext") : page.locator("#consigli .explain");
     check(`${label} click sul 5° tab: scena cart e spiegazione visibile`, (await page.locator("#consigli .stage").getAttribute("data-scene")) === "cart" && (await shown.isVisible()) && (await shown.textContent()).trim().length > 0 && (await page.getAttribute("#consigli-panel", "aria-labelledby")) === "tab-cart" && (await page.locator("#consigli [role=tablist] [role=tabpanel]").count()) === 0);
-    const [cards, pills, track] = [page.locator("#servizi .svc"), page.locator("#servizi [data-pill]"), page.locator("#servizi .svc-track")];
-    check(`${label} vetrina: 11 card, 11 pill, 11 Dettagli e un solo h2`, (await cards.count()) === 11 && (await pills.count()) === 11 && (await page.locator("#servizi .more").count()) === 11 && (await page.locator("#servizi h2").count()) === 1);
-    if (width === 1280) {
-      await page.waitForTimeout(600);
-      const [on, off] = await page.evaluate(() => [...document.querySelectorAll("#servizi .svc")].map((c) => [c.hasAttribute("data-on"), +getComputedStyle(c).opacity]).reduce(([a, b], [isOn, opacity]) => (isOn ? [opacity, b] : [a, Math.min(b, opacity)]), [0, 1]));
-      check(`${label} vetrina: card attiva a opacity 1, le vicine ridotte (< 0.7)`, on === 1 && off < 0.7);
+    const [slides, segments, counter] = [page.locator("#servizi .vs[aria-label]"), page.locator("#servizi .vsegs button"), page.locator("#servizi .vhint b")];
+    check(`${label} vetrina: 11 slide, 11 segmenti, 11 Dettagli, un solo h2 e una sola slide attiva`, (await slides.count()) === 11 && (await segments.count()) === 11 && (await page.locator("#servizi .vcta").count()) === 11 && (await page.locator("#servizi h2").count()) === 1 && (await page.locator("#servizi .vs[data-on]").count()) === 1);
+    check(`${label} vetrina: frecce visibili solo sopra 820px, segmenti >= 44px`, (await page.locator("#servizi .next").isVisible()) === (width > 820) && (await segments.evaluateAll((nodes) => nodes.every((n) => n.offsetHeight >= 44))));
+    await segments.nth(5).click();
+    await page.waitForTimeout(4600);
+    check(`${label} vetrina: il click sul 6° segmento attiva la 6ª slide (contatore 06, solo lei non inerte)`, (await counter.textContent()) === "06" && (await slides.nth(5).getAttribute("data-on")) !== null && (await page.locator("#servizi .vs[inert]").count()) === 10 && (await segments.nth(5).getAttribute("aria-current")) !== null);
+    if (width >= 360 && height >= 640) {
+      check(`${label} vetrina: scena e "Dettagli" della slide attiva interamente dentro il pannello, scena non tagliata`, await page.evaluate(() => {
+        const [panel, scene, cta] = ["#servizi", "#servizi .vs[data-on] .vscene", "#servizi .vs[data-on] .vcta"].map((s) => document.querySelector(s).getBoundingClientRect());
+        const inside = (r) => r.left >= panel.left - 1 && r.right <= panel.right + 1 && r.top >= panel.top - 1 && r.bottom <= panel.bottom + 1;
+        const el = document.querySelector("#servizi .vs[data-on] .vscene");
+        return inside(scene) && inside(cta) && el.scrollHeight <= el.clientHeight + 1 && el.scrollWidth <= el.clientWidth + 1;
+      }));
     }
-    check(`${label} vetrina: frecce visibili solo da 768px`, (await page.locator("#servizi [data-next]").isVisible()) === (width >= 768));
-    if (width < 768) check(`${label} vetrina: target di tocco >= 44px (pill e Dettagli)`, await page.$$eval("#servizi [data-pill], #servizi .more", (nodes) => nodes.every((n) => n.offsetHeight >= 44)));
-    if (width === 1280) {
-      const counters = await page.evaluate(async () => {
-        const [t, list] = [document.querySelector("#servizi .svc-track"), [...document.querySelectorAll("#servizi .svc")]];
-        t.dispatchEvent(new Event("pointerdown"));
-        const out = [];
-        for (const card of list) {
-          t.scrollTo({ left: card.offsetLeft - (t.clientWidth - card.offsetWidth) / 2, behavior: "instant" });
-          await new Promise((resolve) => setTimeout(resolve, 300));
-          out.push(document.querySelector("#servizi .count b").textContent);
-        }
-        return out.join();
-      });
-      check(`${label} vetrina: scorrendo card per card il contatore va da 01 a 11 senza salti`, counters === Array.from({ length: 11 }, (_, i) => String(i + 1).padStart(2, "0")).join());
+    await segments.nth(10).click();
+    if (width > 820) {
+      await page.locator("#servizi .next").click();
+      await page.waitForTimeout(1500);
+      check(`${label} vetrina: "avanti" dall'ultima slide torna alla prima (loop)`, (await counter.textContent()) === "01" && (await slides.nth(0).getAttribute("data-on")) !== null);
+      await page.locator("#servizi .prev").click();
+      await page.waitForTimeout(1500);
+      check(`${label} vetrina: "indietro" dalla prima slide porta all'ultima`, (await counter.textContent()) === "11");
     }
-    await pills.nth(5).click();
-    await page.waitForTimeout(1500);
-    const inView = await page.evaluate(() => {
-      const [t, c] = [document.querySelector("#servizi .svc-track").getBoundingClientRect(), document.querySelectorAll("#servizi .svc")[5].getBoundingClientRect()];
-      return c.left >= t.left - 2 && c.right <= t.right + 2;
-    });
-    check(`${label} vetrina: il click sulla 6a pill porta la card in vista, pill attiva e contatore 06`, inView && (await pills.nth(5).getAttribute("aria-current")) === "true" && (await page.locator("#servizi .count b").textContent()) === "06" && (await cards.nth(5).getAttribute("data-on")) !== null);
-    await pills.nth(10).click();
-    await page.waitForTimeout(1500);
-    check(`${label} vetrina: l'ultima pill attiva l'ultima card e segna "avanti" come disabilitato (senza perdere il focus)`, (await cards.nth(10).getAttribute("data-on")) !== null && (await page.getAttribute("#servizi [data-next]", "aria-disabled")) === "true");
+    if (width === 1280) {
+      await segments.nth(0).click();
+      const box = await page.locator("#servizi").boundingBox();
+      await page.mouse.move(box.x + box.width * 0.5, box.y + box.height * 0.5);
+      await page.mouse.down();
+      await page.mouse.move(box.x + box.width * 0.5 - 200, box.y + box.height * 0.5, { steps: 5 });
+      await page.mouse.up();
+      await page.waitForTimeout(1500);
+      check(`${label} vetrina: il trascinamento (> 40px) porta alla slide successiva`, (await counter.textContent()) === "02");
+    }
     check(`${label} vetrina: nessun overflow orizzontale della pagina`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
     check(`${label} #insights nella piattaforma e colonne Soluzioni/Risorse nel footer`, (await page.locator("#piattaforma #insights").count()) === 1 && (await page.locator("footer .footlinks a").count()) >= 8);
     check(`${label} rail motore: la barra di avanzamento ha larghezza > 0`, (await page.locator("#engine .fill").evaluate((n) => n.getBoundingClientRect().width)) > 0);
@@ -139,7 +139,7 @@ try {
 
   const linker = await newPage();
   await linker.goto(url);
-  const hrefs = await linker.$$eval("#servizi .more", (nodes) => nodes.map((a) => a.getAttribute("href")));
+  const hrefs = await linker.$$eval("#servizi .vcta", (nodes) => nodes.map((a) => a.getAttribute("href")));
   const resolved = [];
   for (const href of hrefs) {
     const [path, hash] = href.split("#");
@@ -148,11 +148,31 @@ try {
   }
   check(`${code} vetrina: i 11 Dettagli puntano a pagine e ancore esistenti`, hrefs.length === 11 && resolved.every(Boolean) && hrefs.every((h) => h.startsWith("#") || h.startsWith(code === "en" ? "/en/" : "/")));
   check(`${code} vetrina: Dettagli verso chatbot, upsell e prodotti consigliati/umano come da piano`, JSON.stringify(hrefs.slice(0, 4)) === JSON.stringify(code === "it" ? ["/chatbot-shopify/", "/upsell-cross-sell-shopify/", "#consigli", "/chatbot-shopify/#operatore"] : ["/en/shopify-ai-chatbot/", "/en/shopify-upsell-cross-sell/", "/en/shopify-related-products/", "#umano"]) && hrefs[10] === "#insights");
+  const auto = await newPage({ viewport: { width: 1280, height: 800 } });
+  await auto.goto(url);
+  await auto.evaluate(() => scrollTo({ top: document.querySelector("#servizi").getBoundingClientRect().top + scrollY - 40, behavior: "instant" }));
+  await auto.waitForTimeout(800);
+  const count = () => auto.locator("#servizi .vhint b").textContent();
+  const first = await count();
+  await auto.waitForTimeout(6200);
+  check(`${code} autoplay: dopo ~5,5 s passa alla slide successiva`, first === "01" && (await count()) === "02");
+  await auto.mouse.move(640, 400);
+  const hovered = await count();
+  await auto.waitForTimeout(6200);
+  check(`${code} autoplay: nessuna pausa al passaggio del mouse`, (await count()) !== hovered);
+  await auto.locator("#servizi .vsegs button").nth(10).click();
+  await auto.waitForTimeout(6500);
+  check(`${code} autoplay: dopo l'11 torna alla 1 (loop)`, (await count()) === "01");
+  await auto.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+  await auto.waitForTimeout(500);
+  const away = await count();
+  await auto.waitForTimeout(6500);
+  check(`${code} autoplay: con la vetrina fuori vista si ferma`, (await count()) === away);
   const reduced = await newPage({ reducedMotion: "reduce", viewport: { width: 1280, height: 800 } });
   await reduced.goto(url);
-  await reduced.locator("#servizi [data-pill]").nth(7).click();
+  await reduced.locator("#servizi .vsegs button").nth(7).click();
   await reduced.waitForTimeout(100);
-  check(`${code} reduced-motion: lo scorrimento della vetrina non è animato`, await reduced.evaluate(() => { const [t, c] = [document.querySelector("#servizi .svc-track").getBoundingClientRect(), document.querySelectorAll("#servizi .svc")[7].getBoundingClientRect()]; return c.left >= t.left - 2 && c.right <= t.right + 2; }));
+  check(`${code} reduced-motion: nessun autoplay né transizioni, resta navigabile`, (await reduced.locator("#servizi.hold").count()) === 1 && (await reduced.locator("#servizi .vtrack").evaluate((n) => getComputedStyle(n).transitionDuration)) === "0s" && (await reduced.locator("#servizi .vhint b").textContent()) === "08" && (await (async () => { await reduced.waitForTimeout(6500); return reduced.locator("#servizi .vhint b").textContent(); })()) === "08");
   const dimmed = await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", (nodes) => nodes.filter((n) => getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden").length);
   check(`${code} reduced-motion: nessun elemento nascosto al load`, dimmed === 0);
   await reduced.evaluate(() => document.querySelector("#consigli").scrollIntoView());

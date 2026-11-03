@@ -28,57 +28,48 @@ list.addEventListener("keydown", (event) => {
   tabs[current].focus();
 });
 
-const cards = $$("#servizi .svc");
-const pills = $$("#servizi [data-pill]");
-const [track, pillBox, pillBar, progress, counter] = [$("#servizi .svc-track"), $("#servizi .pills"), $("#servizi .pillbar"), $("#servizi .prog i"), $("#servizi .count b")];
-const [prev, next] = [$("#servizi [data-prev]"), $("#servizi [data-next]")];
-let pinned = -1;
-const show = (i: number) => {
-  pills.forEach((pill, n) => (pill.ariaCurrent = String(n === i)));
-  cards.forEach((card, n) => card.toggleAttribute("data-on", n === i));
-  Object.assign(pillBar.style, { width: `${pills[i].offsetWidth}px`, transform: `translateX(${pills[i].offsetLeft}px)` });
-  pillBox.scrollLeft = pills[i].offsetLeft - (pillBox.clientWidth - pills[i].offsetWidth) / 2;
-  counter.textContent = String(i + 1).padStart(2, "0");
-  prev.ariaDisabled = String(i === 0);
-  next.ariaDisabled = String(i === cards.length - 1);
-};
-const activeIndex = () => cards.findIndex((card) => card.hasAttribute("data-on"));
-const go = (index: number) => {
-  pinned = Math.max(0, Math.min(cards.length - 1, index));
-  show(pinned);
-  track.scrollTo({ left: cards[pinned].offsetLeft - (track.clientWidth - cards[pinned].offsetWidth) / 2, behavior: REDUCED ? "instant" : "smooth" });
-};
-const centered = new IntersectionObserver(
-  (entries) => entries.forEach(({ isIntersecting, target }) => isIntersecting && pinned < 0 && show(cards.indexOf(target as HTMLElement))),
-  { root: track, rootMargin: "0px -49% 0px -49%" },
-);
-cards.forEach((card) => centered.observe(card));
-track.addEventListener("scroll", () => (progress.style.transform = `scaleX(${track.scrollLeft / (track.scrollWidth - track.clientWidth)})`), { passive: true });
-["pointerdown", "wheel", "keydown"].forEach((type) => track.addEventListener(type, () => (pinned = -1), { passive: true }));
-pills.forEach((pill, i) => pill.addEventListener("click", () => go(i)));
-prev.addEventListener("click", () => go(activeIndex() - 1));
-next.addEventListener("click", () => go(activeIndex() + 1));
-addEventListener("resize", () => show(activeIndex()));
-show(0);
 const showcase = $("#servizi");
-inView(showcase, () => {
-  showcase.dataset.live = "";
-  return () => delete showcase.dataset.live;
-}, { amount: 0.2 });
+const slides = $$("#servizi .vs[aria-label]");
+const segments = $$("#servizi .vsegs button");
+const [track, halo, counter, prev, next] = [$("#servizi .vtrack"), $(".halo"), $("#servizi .vhint b"), $("#servizi .prev"), $("#servizi .next")];
+let at = 0;
+let visible = false;
+const go = (index: number) => {
+  at = (index + slides.length) % slides.length;
+  track.style.transform = `translateX(calc(${-at} * (100% - var(--peek))))`;
+  halo.style.setProperty("--halo", slides[at].style.getPropertyValue("--b2"));
+  slides.forEach((slide, n) => {
+    slide.toggleAttribute("data-on", n === at);
+    slide.inert = n !== at;
+  });
+  segments.forEach((segment, n) => {
+    segment.toggleAttribute("aria-current", n === at);
+    segment.classList.toggle("done", n < at);
+    segment.classList.remove("run");
+  });
+  void showcase.offsetWidth;
+  segments[at].classList.add("run");
+  counter.textContent = String(at + 1).padStart(2, "0");
+};
+const hold = () => showcase.classList.toggle("hold", REDUCED || !visible || document.hidden);
+showcase.querySelector(".vsegs")!.addEventListener("animationend", () => go(at + 1));
+segments.forEach((segment, n) => segment.addEventListener("click", () => go(n)));
+prev.addEventListener("click", () => go(at - 1));
+next.addEventListener("click", () => go(at + 1));
+let dragFrom: number | null = null;
+showcase.addEventListener("pointerdown", (event) => (dragFrom = (event.target as Element).closest("a, button") ? null : event.clientX));
+addEventListener("pointerup", ({ clientX }) => {
+  if (dragFrom !== null && Math.abs(clientX - dragFrom) > 40) go(at + (clientX < dragFrom ? 1 : -1));
+  dragFrom = null;
+});
+new IntersectionObserver(([entry]) => ((visible = entry.isIntersecting), hold()), { threshold: 0.4 }).observe(showcase);
+document.addEventListener("visibilitychange", hold);
+go(0);
 const insights = $("#insights");
 inView(insights, () => {
   insights.classList.add("play");
   return () => insights.classList.remove("play");
 });
-const themeScene = $("[data-cycle]");
-if (!REDUCED) {
-  setInterval(() => {
-    if (!themeScene.closest("[data-live] [data-on]")) return;
-    const preset = PRESETS[(PRESETS.indexOf(themeScene.dataset.preset!) + 1) % PRESETS.length];
-    themeScene.dataset.preset = preset;
-    themeScene.querySelector(".chip")!.textContent = preset;
-  }, 2200);
-}
 
 navScroll();
 
