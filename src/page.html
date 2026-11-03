@@ -5,15 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{meta.title}}</title>
   <meta name="description" content="{{meta.description}}" />
-  <link rel="canonical" href="{{meta.url}}" />
-  <link rel="alternate" hreflang="it" href="https://www.neurocart.it/" />
-  <link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/" />
-  <link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/" />
+  <link rel="canonical" href="{{@url}}" />
+  {{>pair-hreflang}}
   <meta name="theme-color" content="#0A0613" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="{{meta.locale}}" />
   <meta property="og:site_name" content="Neurocart" />
-  <meta property="og:url" content="{{meta.url}}" />
+  <meta property="og:url" content="{{@url}}" />
   <meta property="og:title" content="{{meta.title}}" />
   <meta property="og:description" content="{{meta.description}}" />
   <meta property="og:image" content="{{meta.image}}" />
@@ -48,7 +46,7 @@
         <a href="#motore">{{nav.02}}</a><a href="#chat">{{nav.03}}</a><a href="#piattaforma">{{nav.04}}</a><a href="#prezzi">{{nav.05}}</a><a href="#in-arrivo">{{nav.06}}</a>
       </nav>
       <div class="flex items-center gap-2">
-        <a href="{{switch.href}}" hreflang="{{switch.lang}}" lang="{{switch.lang}}" class="text-[0.95rem] font-semibold">{{switch.label}}</a>
+        {{>pair-switch}}
         <a href="%VITE_APP_URL%/auth" class="btn btn-ghost hidden sm:inline-flex">{{nav.07}}</a>
         <a href="#accesso" class="btn btn-primary h-10 whitespace-nowrap px-4 text-sm sm:h-12 sm:px-6 sm:text-base" data-cta data-install="{{cta.install}}">{{nav.08}}</a>
       </div>

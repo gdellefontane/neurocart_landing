@@ -31,13 +31,17 @@ const twins = (dir: string) => (pages[dir].lang === "it" ? [dir, pages[dir].pair
 const render = (html: string, dir: string): string => {
   const { lang, id = "", pair } = pages[dir];
   const [it, en] = pair === undefined ? [dir, dir] : twins(dir);
-  const vars: Record<string, string> = { url: url(dir), it: url(it), en: url(en), other: `/${pair && `${pair}/`}`, otherLang: lang === "it" ? "en" : "it" };
+  const vars: Record<string, string> = { url: url(dir), it: url(it), en: url(en), otherLang: lang === "it" ? "en" : "it", ...(pair === undefined ? {} : { other: `/${pair && `${pair}/`}` }) };
   return html.replace(/\{\{(>?)([\w.$@-]+)\}\}/g, (_match, partial: string, key: string) => {
-    if (key.startsWith("@")) return vars[key.slice(1)];
+    if (key.startsWith("@")) {
+      if (!(key.slice(1) in vars)) throw new Error(`Variabile sconosciuta in ${dir || "home"}: ${key}`);
+      return vars[key.slice(1)];
+    }
     if (partial) {
       const name = key.replace("$id", id).replace("$lang", lang);
       const file = `src/partials/${name}.html`;
-      return (name.startsWith("pair-") && pair === undefined) || !existsSync(file) ? "" : render(readFileSync(file, "utf8"), dir);
+      const optional = (name.startsWith("pair-") && pair === undefined) || (name.startsWith("legal-") && !existsSync(file));
+      return optional ? "" : render(readFileSync(file, "utf8"), dir);
     }
     const full = key.startsWith("p.") ? `seo.${id}.${key.slice(2)}` : key;
     if (!(full in locales[lang])) throw new Error(`Chiave mancante in ${lang}.json: ${full}`);
@@ -50,7 +54,10 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${Object.entries(pages)
   .filter(([, page]) => page.listed !== false)
-  .map(([dir, { pair }]) => `  <url>\n    <loc>${url(dir)}</loc>\n${pair === undefined ? "" : alternate("it", twins(dir)[0]) + alternate("en", twins(dir)[1]) + alternate("x-default", twins(dir)[0])}  </url>\n`)
+  .map(([dir, { pair }]) => {
+    const [it, en] = twins(dir);
+    return `  <url>\n    <loc>${url(dir)}</loc>\n${pair === undefined ? "" : alternate("it", it) + alternate("en", en) + alternate("x-default", it)}  </url>\n`;
+  })
   .join("")}</urlset>`;
 
 export default defineConfig({

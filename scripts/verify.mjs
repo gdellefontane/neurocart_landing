@@ -91,6 +91,11 @@ try {
     check(`${label} click sul 5° tab: scena cart e spiegazione visibile`, (await page.locator("#consigli .stage").getAttribute("data-scene")) === "cart" && (await shown.isVisible()) && (await shown.textContent()).trim().length > 0 && (await page.getAttribute("#consigli-panel", "aria-labelledby")) === "tab-cart" && (await page.locator("#consigli [role=tablist] [role=tabpanel]").count()) === 0);
     const [cards, pills, track] = [page.locator("#servizi .svc"), page.locator("#servizi [data-pill]"), page.locator("#servizi .svc-track")];
     check(`${label} vetrina: 11 card, 11 pill, 11 Dettagli e un solo h2`, (await cards.count()) === 11 && (await pills.count()) === 11 && (await page.locator("#servizi .more").count()) === 11 && (await page.locator("#servizi h2").count()) === 1);
+    if (width === 1280) {
+      await page.waitForTimeout(600);
+      const [on, off] = await page.evaluate(() => [...document.querySelectorAll("#servizi .svc")].map((c) => [c.hasAttribute("data-on"), +getComputedStyle(c).opacity]).reduce(([a, b], [isOn, opacity]) => (isOn ? [opacity, b] : [a, Math.min(b, opacity)]), [0, 1]));
+      check(`${label} vetrina: card attiva a opacity 1, le vicine ridotte (< 0.7)`, on === 1 && off < 0.7);
+    }
     check(`${label} vetrina: frecce visibili solo da 768px`, (await page.locator("#servizi [data-next]").isVisible()) === (width >= 768));
     if (width < 768) check(`${label} vetrina: target di tocco >= 44px (pill e Dettagli)`, await page.$$eval("#servizi [data-pill], #servizi .more", (nodes) => nodes.every((n) => n.offsetHeight >= 44)));
     if (width === 1280) {
@@ -180,7 +185,7 @@ try {
   check(`${code} form waitlist: il token Turnstile va in turnstileToken, non nel body`, homeSent.turnstileToken === "tok" && !("cf-turnstile-response" in homeSent));
   }
   const sitemap = readFileSync("dist/sitemap.xml", "utf8");
-  check("sitemap: home e le 6 nuove pagine, alternate hreflang solo per le coppie", ["/", "/en/", ...seoPages.map((p) => p.path)].every((path) => sitemap.includes(`<loc>${base}${path}</loc>`)) && (sitemap.match(/<xhtml:link/g) ?? []).length === 6 + 2 * 3 * 2);
+  check("sitemap: home e le 6 nuove pagine, alternate hreflang solo per le coppie", ["/", "/en/", ...seoPages.map((p) => p.path)].every((path) => sitemap.includes(`<loc>${base}${path}</loc>`)) && (sitemap.match(/<xhtml:link/g) ?? []).length === 6 + 2 * 3 * 2 && (sitemap.match(/<loc>/g) ?? []).length === 8);
   for (const { path, code, h1, pair, guide, links } of seoPages) {
     for (const [width, height] of [[1280, 800], [390, 844], [360, 780]]) {
       const label = `${path} ${width}x${height}`;
@@ -328,6 +333,8 @@ try {
   const consent = await newPage();
   await consent.goto("http://localhost:4173/pilota-black-friday/");
   check("pilota: il link delle condizioni nel consenso e nel footer punta alla pagina delle condizioni", (await consent.locator('a[href="/condizioni-pilota/"]').count()) === 2);
+  await consent.goto("http://localhost:4173/condizioni-pilota/");
+  check("condizioni: il footer riporta al programma pilota", (await consent.locator('footer a[href="/pilota-black-friday/"]').count()) === 1);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
