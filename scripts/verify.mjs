@@ -10,6 +10,7 @@ const check = (name, condition) => {
   passed.push(name);
 };
 
+const unrevealed = (nodes) => nodes.filter((n) => n.checkVisibility() && (getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden" || !["none", "blur(0px)"].includes(getComputedStyle(n).filter) || !["none", "matrix(1, 0, 0, 1, 0, 0)"].includes(getComputedStyle(n).transform))).length;
 const server = await preview({ preview: { port: 4173, strictPort: true } });
 const browser = await chromium.launch();
 const newPage = async (options) => {
@@ -17,7 +18,17 @@ const newPage = async (options) => {
   await context.route("https://challenges.cloudflare.com/**", (route) => route.abort());
   return context.newPage();
 };
-const keys = (code) => Object.keys(JSON.parse(readFileSync(`locales/${code}.json`, "utf8"))).sort().join();
+const keys = (code) => Object.keys(JSON.parse(readFileSync(`locales/${code}.json`, "utf8"))).filter((key) => !key.startsWith("seo.")).sort().join();
+const seoKeys = (code, id) => Object.keys(JSON.parse(readFileSync(`locales/${code}.json`, "utf8"))).filter((key) => key.startsWith(`seo.${id}.`)).map((key) => key.split(".").slice(2).join(".")).sort().join();
+const base = "https://www.neurocart.it";
+const seoPages = [
+  { path: "/chatbot-shopify/", code: "it", h1: /chatbot ai per shopify/i, pair: "/en/shopify-ai-chatbot/", links: ["/upsell-cross-sell-shopify/", "/#accesso"] },
+  { path: "/en/shopify-ai-chatbot/", code: "en", h1: /ai chatbot for shopify/i, pair: "/chatbot-shopify/", links: ["/en/shopify-upsell-cross-sell/", "/en/#accesso"] },
+  { path: "/upsell-cross-sell-shopify/", code: "it", h1: /upsell e cross-sell su shopify/i, pair: "/en/shopify-upsell-cross-sell/", links: ["/chatbot-shopify/", "/#accesso"] },
+  { path: "/en/shopify-upsell-cross-sell/", code: "en", h1: /upsell and cross-sell for shopify/i, pair: "/upsell-cross-sell-shopify/", links: ["/en/shopify-ai-chatbot/", "/en/#accesso"] },
+  { path: "/en/shopify-related-products/", code: "en", h1: /shopify related products/i, links: ["/en/shopify-upsell-cross-sell/", "/en/#accesso"] },
+  { path: "/come-aumentare-scontrino-medio-shopify/", code: "it", h1: /come aumentare lo scontrino medio su shopify/i, guide: true, links: ["/upsell-cross-sell-shopify/", "/chatbot-shopify/", "/#accesso"] },
+];
 const langs = [
   { code: "it", path: "/", last: "vende.", canonical: "https://www.neurocart.it/", ok: "Grazie" },
   { code: "en", path: "/en/", last: "sells.", canonical: "https://www.neurocart.it/en/", ok: "Thank you" },
@@ -26,10 +37,10 @@ const langs = [
 const states = { aperto: "2026-10-20T12:00:00+02:00", chiuso: "2026-10-26T00:00:00+01:00" };
 
 try {
-  check("it.json ed en.json hanno le stesse chiavi", keys("it") === keys("en"));
+  check("it.json ed en.json hanno le stesse chiavi (le pagine in una sola lingua escluse)", keys("it") === keys("en") && ["chatbot", "upsell"].every((id) => seoKeys("it", id) === seoKeys("en", id) && seoKeys("it", id).length > 0));
   for (const { code, path, last, canonical, ok } of langs) {
     const url = `http://localhost:4173${path}`;
-  for (const [width, height] of [[1280, 800], [390, 844], [568, 320]]) {
+  for (const [width, height] of [[1280, 800], [390, 844], [360, 780], [568, 320]]) {
     const page = await newPage({ viewport: { width, height } });
     await page.goto(url);
     const label = `${code} ${width}x${height}`;
@@ -78,6 +89,22 @@ try {
     await page.waitForTimeout(700);
     const shown = width >= 768 ? tabs.nth(4).locator(".tabtext") : page.locator("#consigli .explain");
     check(`${label} click sul 5° tab: scena cart e spiegazione visibile`, (await page.locator("#consigli .stage").getAttribute("data-scene")) === "cart" && (await shown.isVisible()) && (await shown.textContent()).trim().length > 0 && (await page.getAttribute("#consigli-panel", "aria-labelledby")) === "tab-cart" && (await page.locator("#consigli [role=tablist] [role=tabpanel]").count()) === 0);
+    const [cards, pills, track] = [page.locator("#servizi .svc"), page.locator("#servizi [data-pill]"), page.locator("#servizi .track")];
+    check(`${label} vetrina: 11 card, 11 pill, 11 Dettagli e un solo h2`, (await cards.count()) === 11 && (await pills.count()) === 11 && (await page.locator("#servizi .more").count()) === 11 && (await page.locator("#servizi h2").count()) === 1);
+    check(`${label} vetrina: frecce visibili solo da 768px`, (await page.locator("#servizi [data-next]").isVisible()) === (width >= 768));
+    if (width < 768) check(`${label} vetrina: target di tocco >= 44px (pill e Dettagli)`, await page.$$eval("#servizi [data-pill], #servizi .more", (nodes) => nodes.every((n) => n.offsetHeight >= 44)));
+    await pills.nth(5).click();
+    await page.waitForTimeout(1500);
+    const inView = await page.evaluate(() => {
+      const [t, c] = [document.querySelector("#servizi .track").getBoundingClientRect(), document.querySelectorAll("#servizi .svc")[5].getBoundingClientRect()];
+      return c.left >= t.left - 2 && c.right <= t.right + 2;
+    });
+    check(`${label} vetrina: il click sulla 6a pill porta la card in vista, pill attiva e contatore 06`, inView && (await pills.nth(5).getAttribute("aria-current")) === "true" && (await page.locator("#servizi .count b").textContent()) === "06" && (await cards.nth(5).getAttribute("data-on")) !== null);
+    await pills.nth(10).click();
+    await page.waitForTimeout(1500);
+    check(`${label} vetrina: l'ultima pill attiva l'ultima card e disabilita "avanti"`, (await cards.nth(10).getAttribute("data-on")) !== null && (await page.locator("#servizi [data-next]").isDisabled()));
+    check(`${label} vetrina: nessun overflow orizzontale della pagina`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
+    check(`${label} #insights nella piattaforma e colonne Soluzioni/Risorse nel footer`, (await page.locator("#piattaforma #insights").count()) === 1 && (await page.locator("footer .footlinks a").count()) >= 8);
     check(`${label} rail motore: 4 voci, una sola aria-current`, (await page.locator("#engine ol li").count()) === 4 && (await page.locator("#engine ol li[aria-current]").count()) === 1);
     check(`${label} nessun prezzo per chat in pagina`, !/0[,.]50/.test(await page.content()));
     check(`${label} i 4 preset card ciclano`, presets.size === 4);
@@ -90,8 +117,22 @@ try {
   const ld = await faq.$$eval('script[type="application/ld+json"]', (nodes) => JSON.parse(nodes[2].textContent).mainEntity.map((q) => [q.name, q.acceptedAnswer.text]));
   check(`${code} JSON-LD FAQ coincide con il testo visibile`, JSON.stringify(visible) === JSON.stringify(ld));
 
+  const linker = await newPage();
+  await linker.goto(url);
+  const hrefs = await linker.$$eval("#servizi .more", (nodes) => nodes.map((a) => a.getAttribute("href")));
+  const resolved = [];
+  for (const href of hrefs) {
+    const [path, hash] = href.split("#");
+    await linker.goto(path ? `http://localhost:4173${path}` : url);
+    resolved.push(!hash || (await linker.locator(`#${hash}`).count()) === 1);
+  }
+  check(`${code} vetrina: i 11 Dettagli puntano a pagine e ancore esistenti`, hrefs.length === 11 && resolved.every(Boolean) && hrefs.every((h) => h.startsWith("#") || h.startsWith(code === "en" ? "/en/" : "/")));
+  check(`${code} vetrina: Dettagli verso chatbot, upsell e prodotti consigliati/umano come da piano`, JSON.stringify(hrefs.slice(0, 4)) === JSON.stringify(code === "it" ? ["/chatbot-shopify/", "/upsell-cross-sell-shopify/", "#consigli", "/chatbot-shopify/#b5"] : ["/en/shopify-ai-chatbot/", "/en/shopify-upsell-cross-sell/", "/en/shopify-related-products/", "#umano"]) && hrefs[10] === "#insights");
   const reduced = await newPage({ reducedMotion: "reduce", viewport: { width: 1280, height: 800 } });
   await reduced.goto(url);
+  await reduced.locator("#servizi [data-pill]").nth(7).click();
+  await reduced.waitForTimeout(100);
+  check(`${code} reduced-motion: lo scorrimento della vetrina non è animato`, await reduced.evaluate(() => { const [t, c] = [document.querySelector("#servizi .track").getBoundingClientRect(), document.querySelectorAll("#servizi .svc")[7].getBoundingClientRect()]; return c.left >= t.left - 2 && c.right <= t.right + 2; }));
   const dimmed = await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", (nodes) => nodes.filter((n) => getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden").length);
   check(`${code} reduced-motion: nessun elemento nascosto al load`, dimmed === 0);
   await reduced.evaluate(() => document.querySelector("#consigli").scrollIntoView());
@@ -123,8 +164,55 @@ try {
   check(`${code} form waitlist: testo di successo`, (await page.locator("form#accesso [role=status]").textContent()).startsWith(ok));
   check(`${code} form waitlist: il token Turnstile va in turnstileToken, non nel body`, homeSent.turnstileToken === "tok" && !("cf-turnstile-response" in homeSent));
   }
+  const sitemap = readFileSync("public/sitemap.xml", "utf8");
+  check("sitemap: home e le 6 nuove pagine, alternate hreflang solo per le coppie", ["/", "/en/", ...seoPages.map((p) => p.path)].every((path) => sitemap.includes(`<loc>${base}${path}</loc>`)) && (sitemap.match(/<xhtml:link/g) ?? []).length === 6 + 2 * 3 * 2);
+  for (const { path, code, h1, pair, guide, links } of seoPages) {
+    for (const [width, height] of [[1280, 800], [390, 844], [360, 780]]) {
+      const label = `${path} ${width}x${height}`;
+      const page = await newPage({ viewport: { width, height } });
+      const status = (await page.goto(`http://localhost:4173${path}`)).status();
+      const html = await page.content();
+      check(`${label} 200, nessuna chiave i18n o variabile env non risolta`, status === 200 && !/\{\{|%VITE_/.test(html));
+      check(`${label} lang ${code} e un solo h1 con la ricerca principale`, (await page.getAttribute("html", "lang")) === code && (await page.locator("h1").count()) === 1 && h1.test((await page.locator("h1").textContent()).replace(/\s+/g, " ")));
+      const [title, description] = [await page.title(), await page.getAttribute("meta[name=description]", "content")];
+      check(`${label} title <= 60 e description <= 155 (${title.length}/${description.length})`, title.length <= 60 && description.length <= 155 && title.length > 20 && description.length > 80);
+      check(`${label} canonical su se stessa`, (await page.getAttribute("link[rel=canonical]", "href")) === `${base}${path}` && (await page.getAttribute("meta[property='og:url']", "content")) === `${base}${path}`);
+      const [itPath, enPath] = code === "it" ? [path, pair] : [pair, path];
+      const alternates = await page.$$eval("link[rel=alternate][hreflang]", (nodes) => nodes.map((n) => `${n.hreflang}=${n.href}`).sort());
+      check(`${label} hreflang ${pair ? "reciproci (it, en, x-default)" : "assenti"}`, JSON.stringify(alternates) === JSON.stringify(pair ? [`en=${base}${enPath}`, `it=${base}${itPath}`, `x-default=${base}${itPath}`] : []));
+      const ld = await page.$$eval('script[type="application/ld+json"]', (nodes) => nodes.map((n) => JSON.parse(n.textContent)["@type"]));
+      check(`${label} JSON-LD leggibile (${ld.join(", ")})`, JSON.stringify(ld) === JSON.stringify(guide ? ["BreadcrumbList", "Article"] : ["BreadcrumbList", "FAQPage"]));
+      check(`${label} zero overflow orizzontale`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
+      if (width === 390) {
+        check(`${label} CTA e link interni raggiungibili`, (await Promise.all(links.map((href) => page.locator(`a[href="${href}"]`).count()))).every((n) => n > 0) && (await page.locator("footer .footlinks a").count()) >= 5);
+        const targets = await page.$$eval("main a[href^='/'], header a[href^='/']", (nodes) => [...new Set(nodes.map((n) => n.getAttribute("href").split("#")[0]))]);
+        const codes = await Promise.all(targets.map(async (target) => (await page.request.get(`http://localhost:4173${target}`)).status()));
+        check(`${label} tutti i link interni (${targets.length}) esistono`, codes.every((status) => status === 200));
+        const total = await page.evaluate(() => document.documentElement.scrollHeight);
+        for (let y = 0; y < total; y += height / 3) {
+          await page.evaluate((top) => scrollTo(0, top), y);
+          await page.waitForTimeout(100);
+        }
+        await page.waitForTimeout(1500);
+        check(`${label} reveal a opacity 1 e zero overflow a fine scroll`, (await page.$$eval("[data-reveal], [data-reveal-stagger] > *", unrevealed)) === 0 && (await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)));
+        check(`${label} testo base >= 16px`, (await page.$eval("main .prose-p, main article p", (n) => parseFloat(getComputedStyle(n).fontSize))) >= 16);
+        if (!guide) {
+          const visible = await page.$$eval("details", (nodes) => nodes.map((d) => [d.querySelector("summary").textContent.trim(), d.querySelector("p").textContent.trim()]));
+          const faq = await page.$$eval('script[type="application/ld+json"]', (nodes) => JSON.parse(nodes[1].textContent).mainEntity.map((q) => [q.name, q.acceptedAnswer.text]));
+          check(`${label} JSON-LD FAQ coincide con il testo visibile (5 domande)`, visible.length === 5 && JSON.stringify(visible) === JSON.stringify(faq));
+          check(`${label} 3 passi, 6 blocchi, scena animata e switch lingua ${pair ? "presente" : "assente"}`, (await page.locator("#come li").count()) === 3 && (await page.locator("#b1, #b2, #b3, #b4, #b5, #b6").count()) === 6 && (await page.locator(".hero-vis img").count()) > 0 && (await page.locator(`header a[hreflang]`).count()) === (pair ? 1 : 0));
+        } else {
+          check(`${label} guida: 1.200-1.800 parole e link ai prodotti`, await page.$eval("article", (n) => { const words = n.textContent.trim().split(/\s+/).length; return words >= 1200 && words <= 1800; }));
+        }
+      }
+      if (width === 1280) {
+        const reduced = await newPage({ reducedMotion: "reduce", viewport: { width, height } });
+        await reduced.goto(`http://localhost:4173${path}`);
+        check(`${label} reduced-motion: nessun elemento nascosto al load e scena ferma`, (await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", unrevealed)) === 0 && (await reduced.evaluate(() => document.getAnimations().filter((a) => a instanceof CSSAnimation && a.animationName !== "swap-a").length)) === 0);
+      }
+    }
+  }
   const pilotUrl = "http://localhost:4173/pilota-black-friday/?utm_source=linkedin&utm_medium=dm&utm_campaign=pilota_bfcm";
-  const unrevealed = (nodes) => nodes.filter((n) => n.checkVisibility() && (getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden" || !["none", "blur(0px)"].includes(getComputedStyle(n).filter) || !["none", "matrix(1, 0, 0, 1, 0, 0)"].includes(getComputedStyle(n).transform))).length;
   for (const [state, date] of Object.entries(states)) {
     const open = state === "aperto";
     for (const [width, height] of [[1280, 800], [390, 844]]) {
