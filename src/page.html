@@ -74,6 +74,100 @@
       </div>
     </section>
 
+    <section id="servizi" class="night py-20 md:py-28" aria-labelledby="servizi-t">
+      <div class="wrap">
+        <p class="eyebrow">{{svc.eyebrow}}</p>
+        <div class="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
+          <h2 id="servizi-t" class="h2 max-w-[22ch]" data-split>{{svc.title}}</h2>
+          <p class="count" aria-hidden="true"><b>01</b> / 11</p>
+        </div>
+        <div class="navi" role="group" aria-label="{{svc.aria}}">
+          <div class="pills"><i class="pillbar" aria-hidden="true"></i><button type="button" data-pill>{{svc.1.pill}}</button><button type="button" data-pill>{{svc.2.pill}}</button><button type="button" data-pill>{{svc.3.pill}}</button><button type="button" data-pill>{{svc.4.pill}}</button><button type="button" data-pill>{{svc.5.pill}}</button><button type="button" data-pill>{{svc.6.pill}}</button><button type="button" data-pill>{{svc.7.pill}}</button><button type="button" data-pill>{{svc.8.pill}}</button><button type="button" data-pill>{{svc.9.pill}}</button><button type="button" data-pill>{{svc.10.pill}}</button><button type="button" data-pill>{{svc.11.pill}}</button></div>
+          <div class="hidden gap-2 md:flex"><button type="button" class="arrow" data-prev aria-label="{{svc.prev}}">←</button><button type="button" class="arrow" data-next aria-label="{{svc.next}}">→</button></div>
+        </div>
+        <i class="prog" aria-hidden="true"><i></i></i>
+      </div>
+      <ul class="track" tabindex="0" aria-label="{{svc.aria}}">
+        <li class="svc" id="svc-1">
+          <p class="num">01</p>
+          <div class="vis" aria-hidden="true">{{>chatbot}}</div>
+          <h3>{{svc.1.title}}</h3>
+          <p class="txt">{{svc.1.text}}</p>
+          <a class="more" href="{{svc.1.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.1.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-2">
+          <p class="num">02</p>
+          <div class="vis" aria-hidden="true">{{>upsell}}</div>
+          <h3>{{svc.2.title}}</h3>
+          <p class="txt">{{svc.2.text}}</p>
+          <a class="more" href="{{svc.2.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.2.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-3">
+          <p class="num">03</p>
+          <div class="vis" aria-hidden="true">{{>related}}</div>
+          <h3>{{svc.3.title}}</h3>
+          <p class="txt">{{svc.3.text}}</p>
+          <a class="more" href="{{svc.3.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.3.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-4">
+          <p class="num">04</p>
+          <div class="vis" aria-hidden="true">{{>operator}}</div>
+          <h3>{{svc.4.title}}</h3>
+          <p class="txt">{{svc.4.text}}</p>
+          <a class="more" href="{{svc.4.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.4.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-5">
+          <p class="num">05</p>
+          <div class="vis" aria-hidden="true">{{>images}}</div>
+          <h3>{{svc.5.title}}</h3>
+          <p class="txt">{{svc.5.text}}</p>
+          <a class="more" href="{{svc.5.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.5.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-6">
+          <p class="num">06</p>
+          <div class="vis" aria-hidden="true">{{>content}}</div>
+          <h3>{{svc.6.title}}</h3>
+          <p class="txt">{{svc.6.text}}</p>
+          <a class="more" href="{{svc.6.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.6.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-7">
+          <p class="num">07</p>
+          <div class="vis" aria-hidden="true">{{>dashboard}}</div>
+          <h3>{{svc.7.title}}</h3>
+          <p class="txt">{{svc.7.text}}</p>
+          <a class="more" href="{{svc.7.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.7.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-8">
+          <p class="num">08</p>
+          <div class="vis" aria-hidden="true">{{>ask}}</div>
+          <h3>{{svc.8.title}}</h3>
+          <p class="txt">{{svc.8.text}}</p>
+          <a class="more" href="{{svc.8.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.8.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-9">
+          <p class="num">09</p>
+          <div class="vis" aria-hidden="true">{{>theme}}</div>
+          <h3>{{svc.9.title}}</h3>
+          <p class="txt">{{svc.9.text}}</p>
+          <a class="more" href="{{svc.9.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.9.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-10">
+          <p class="num">10</p>
+          <div class="vis" aria-hidden="true">{{>stores}}</div>
+          <h3>{{svc.10.title}}</h3>
+          <p class="txt">{{svc.10.text}}</p>
+          <a class="more" href="{{svc.10.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.10.title}}</span></a>
+        </li>
+        <li class="svc" id="svc-11">
+          <p class="num">11</p>
+          <div class="vis" aria-hidden="true">{{>insights}}</div>
+          <h3>{{svc.11.title}}</h3>
+          <p class="txt">{{svc.11.text}}</p>
+          <a class="more" href="{{svc.11.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.11.title}}</span></a>
+        </li>
+      </ul>
+    </section>
+
     <section class="sec">
       <div class="wrap">
         <h2 class="sr-only">{{numbers.01}}</h2>
@@ -300,6 +394,10 @@
             <p>{{platform.13}}</p>
           </article>
           <article class="card"><h3>{{platform.14}}</h3><p>{{platform.15}}</p></article>
+          <article id="insights" class="card grid items-center gap-8 md:col-span-2 md:grid-cols-2">
+            <div><h3>{{platform.ins.t}}</h3><p>{{platform.ins.d}}</p></div>
+            <div class="vis" aria-hidden="true">{{>insights}}</div>
+          </article>
         </div>
       </div>
     </section>
@@ -376,19 +474,7 @@
     </section>
   </main>
 
-  <footer class="night border-t border-white/10 py-16">
-    <div class="wrap grid gap-8 text-sm lg:grid-cols-12">
-      <p class="muted lg:col-span-6">{{footer.01}}</p>
-      <ul class="flex flex-wrap gap-x-6 gap-y-2 lg:col-span-6 lg:justify-end">
-        <li><a href="{{switch.href}}" hreflang="{{switch.lang}}" lang="{{switch.lang}}" class="underline">{{switch.label}}</a></li>
-        <li><a href="%VITE_APP_URL%/privacy" class="underline">{{footer.02}}</a></li>
-        <li><a href="%VITE_APP_URL%/auth" class="underline">{{nav.07}}</a></li>
-        <li><a href="mailto:privacy@neurocart.it" class="underline">{{footer.03}}</a></li>
-        <li><a href="mailto:sales@neurocart.it" class="underline">{{footer.04}}</a></li>
-      </ul>
-      <p class="muted lg:col-span-12">{{footer.05}} <a href="https://www.shopify.com" class="underline" rel="noopener">{{footer.06}}</a></p>
-    </div>
-  </footer>
+  {{>footer}}
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </body>
 </html>

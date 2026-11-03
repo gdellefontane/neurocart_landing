@@ -28,6 +28,61 @@ list.addEventListener("keydown", (event) => {
   tabs[current].focus();
 });
 
+const cards = $$("#servizi .svc");
+const pills = $$("#servizi [data-pill]");
+const [track, pillBox, pillBar, progress, counter] = [$("#servizi .track"), $("#servizi .pills"), $("#servizi .pillbar"), $("#servizi .prog i"), $("#servizi .count b")];
+const [prev, next] = [$<HTMLButtonElement>("#servizi [data-prev]"), $<HTMLButtonElement>("#servizi [data-next]")];
+let active = 0;
+let pinned = -1;
+const show = (i: number) => {
+  active = i;
+  pills.forEach((pill, n) => (pill.ariaCurrent = String(n === i)));
+  cards.forEach((card, n) => card.toggleAttribute("data-on", n === i));
+  Object.assign(pillBar.style, { width: `${pills[i].offsetWidth}px`, transform: `translateX(${pills[i].offsetLeft}px)` });
+  pillBox.scrollLeft = pills[i].offsetLeft - (pillBox.clientWidth - pills[i].offsetWidth) / 2;
+  counter.textContent = String(i + 1).padStart(2, "0");
+  prev.disabled = i === 0;
+  next.disabled = i === cards.length - 1;
+};
+const go = (i: number) => {
+  pinned = i;
+  show(i);
+  track.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: REDUCED ? "instant" : "smooth" });
+};
+track.addEventListener("scroll", () => {
+  const max = track.scrollWidth - track.clientWidth;
+  progress.style.transform = `scaleX(${track.scrollLeft / max})`;
+  if (pinned >= 0) return;
+  const step = cards[1].offsetLeft - cards[0].offsetLeft;
+  show(track.scrollLeft >= max - 2 ? cards.length - 1 : Math.round(track.scrollLeft / step));
+}, { passive: true });
+["pointerdown", "wheel", "keydown"].forEach((type) => track.addEventListener(type, () => (pinned = -1), { passive: true }));
+pills.forEach((pill, i) => pill.addEventListener("click", () => go(i)));
+prev.addEventListener("click", () => go(active - 1));
+next.addEventListener("click", () => go(active + 1));
+addEventListener("resize", () => show(active));
+show(0);
+const showcase = $("#servizi");
+inView(showcase, () => {
+  showcase.dataset.live = "";
+  return () => delete showcase.dataset.live;
+}, { amount: 0.2 });
+const insights = $("#insights");
+inView(insights, () => {
+  insights.classList.add("play");
+  return () => insights.classList.remove("play");
+});
+if (!REDUCED) {
+  $$("[data-cycle]").forEach((scene) =>
+    setInterval(() => {
+      if (!scene.closest("[data-live] [data-on]")) return;
+      const preset = PRESETS[(PRESETS.indexOf(scene.dataset.preset!) + 1) % PRESETS.length];
+      scene.dataset.preset = preset;
+      scene.querySelector(".chip")!.textContent = preset;
+    }, 2200),
+  );
+}
+
 navScroll();
 
 if (import.meta.env.VITE_INSTALL_URL) {
