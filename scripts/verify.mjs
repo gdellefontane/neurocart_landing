@@ -11,6 +11,11 @@ const check = (name, condition) => {
 };
 
 const unrevealed = (nodes) => nodes.filter((n) => n.checkVisibility() && (getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden" || !["none", "blur(0px)"].includes(getComputedStyle(n).filter) || !["none", "matrix(1, 0, 0, 1, 0, 0)"].includes(getComputedStyle(n).transform))).length;
+const navIsDarkGlass = () => {
+  const style = getComputedStyle(document.querySelector("#nav"));
+  const [r, g, b, a = 1] = style.backgroundColor.match(/[\d.]+/g).map(Number);
+  return a >= 0.3 && a <= 0.8 && (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.1 && style.backdropFilter.includes("blur");
+};
 const server = await preview({ preview: { port: 4173, strictPort: true } });
 const browser = await chromium.launch();
 const newPage = async (options) => {
@@ -64,9 +69,11 @@ try {
     await page.evaluate(() => scrollTo(0, 120));
     await page.waitForTimeout(300);
     check(`${label} nav scrolled dopo 120px`, await page.locator("#nav.scrolled").count() === 1);
+    check(`${label} nav in vetro scuro semi-trasparente da scrollata`, await page.evaluate(navIsDarkGlass));
     await page.evaluate(() => scrollTo(0, 0));
     await page.waitForTimeout(300);
     check(`${label} nav trasparente in cima`, await page.locator("#nav.scrolled").count() === 0);
+    check(`${label} nav in vetro scuro semi-trasparente in cima`, await page.evaluate(navIsDarkGlass));
     check(`${label} zero overflow orizzontale`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
 
     const total = await page.evaluate(() => document.documentElement.scrollHeight);
@@ -99,6 +106,12 @@ try {
       const [r, g, b] = getComputedStyle(document.querySelector("#servizi .vs[data-on]")).backgroundColor.match(/\d+/g).map(Number);
       const fill = getComputedStyle(document.querySelector("#servizi .vsegs .run u"), "::after").backgroundColor;
       return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.1 && fill !== "rgb(255, 255, 255)";
+    }));
+    check(`${label} vetrina: scena della slide attiva in vetro (mai chiara) e prodotti da /img/cut/`, await page.evaluate(() => {
+      const scene = document.querySelector("#servizi .vs[data-on] .vscene");
+      const alphas = [...getComputedStyle(scene).backgroundImage.matchAll(/rgba\(255, 255, 255, ([\d.]+)\)/g)].map((m) => +m[1]);
+      const products = [...scene.querySelectorAll("img")].filter((img) => !img.closest(".ba"));
+      return alphas.length > 0 && alphas.every((a) => a <= 0.2) && getComputedStyle(scene).backgroundColor === "rgba(0, 0, 0, 0)" && getComputedStyle(scene).backdropFilter.includes("blur") && products.every((img) => img.src.includes("/img/cut/"));
     }));
     if (width >= 360 && height >= 640) {
       check(`${label} vetrina: scena e "Dettagli" della slide attiva interamente dentro il pannello, scena non tagliata`, await page.evaluate(() => {
@@ -167,16 +180,12 @@ try {
   await auto.evaluate(() => scrollTo({ top: document.querySelector("#servizi").getBoundingClientRect().top + scrollY - 40, behavior: "instant" }));
   const count = () => auto.locator("#servizi .vhint b").textContent();
   await auto.waitForFunction(() => !document.querySelector("#servizi").classList.contains("hold"));
-  const first = await count();
-  await auto.waitForTimeout(1300);
-  check(`${code} autoplay: dopo l'intervallo passa alla slide successiva`, (await count()) !== first);
+  const changed = (from) => auto.waitForFunction((value) => document.querySelector("#servizi .vhint b").textContent !== value, from, { timeout: 3000 }).then(() => true, () => false);
+  check(`${code} autoplay: dopo l'intervallo passa alla slide successiva`, await changed(await count()));
   await auto.mouse.move(640, 400);
-  const hovered = await count();
-  await auto.waitForTimeout(1300);
-  check(`${code} autoplay: nessuna pausa al passaggio del mouse`, (await count()) !== hovered);
+  check(`${code} autoplay: nessuna pausa al passaggio del mouse`, await changed(await count()));
   await auto.locator("#servizi .vsegs button").nth(10).click();
-  await auto.waitForTimeout(900);
-  check(`${code} autoplay: dopo l'11 torna alla 1 (loop)`, (await count()) === "01");
+  check(`${code} autoplay: dopo l'11 torna alla 1 (loop)`, await auto.waitForFunction(() => document.querySelector("#servizi .vhint b").textContent === "01", null, { timeout: 3000 }).then(() => true, () => false));
   await auto.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
   await auto.waitForTimeout(500);
   const away = await count();
@@ -191,8 +200,7 @@ try {
   await auto.waitForTimeout(1500);
   check(`${code} autoplay: con il focus da tastiera dentro la vetrina è in pausa`, (await auto.evaluate(() => document.querySelector("#servizi").classList.contains("hold"))) && (await count()) === focused);
   await auto.evaluate(() => document.activeElement.blur());
-  await auto.waitForTimeout(1500);
-  check(`${code} autoplay: esce il focus e riparte`, (await count()) !== focused);
+  check(`${code} autoplay: esce il focus e riparte`, await changed(focused));
   for (const [width, height] of [[1440, 900], [1280, 800], [390, 844], [360, 640]]) {
     const tour = await newPage({ reducedMotion: "reduce", viewport: { width, height } });
     await tour.goto(url);
@@ -268,7 +276,8 @@ try {
       const ld = await page.$$eval('script[type="application/ld+json"]', (nodes) => nodes.map((n) => JSON.parse(n.textContent)["@type"]));
       check(`${label} JSON-LD leggibile (${ld.join(", ")})`, JSON.stringify(ld) === JSON.stringify(guide ? ["BreadcrumbList", "Article"] : ["BreadcrumbList", "FAQPage"]));
       check(`${label} zero overflow orizzontale`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
-      if (!guide) check(`${label} i chip della scena dell'hero sono leggibili (non color crema)`, await page.$$eval(".hero-vis .chip", (nodes) => nodes.length > 0 && nodes.every((n) => getComputedStyle(n).color !== "rgb(244, 241, 234)")));
+      check(`${label} nav in vetro scuro semi-trasparente`, await page.evaluate(navIsDarkGlass));
+      if (!guide) check(`${label} i chip della scena dell'hero sono leggibili (non color crema)`, await page.$$eval(".hero-vis .chip", (nodes, expected) => (nodes.length > 0) === expected && nodes.every((n) => getComputedStyle(n).color !== "rgb(244, 241, 234)"), /upsell|related/.test(path)));
       if (width === 390) {
         check(`${label} CTA e link interni raggiungibili`, (await Promise.all(links.map((href) => page.locator(`a[href="${href}"]`).count()))).every((n) => n > 0) && (await page.locator("footer .footlinks a").count()) >= 5);
         const targets = await page.$$eval("main a[href^='/'], header a[href^='/']", (nodes) => [...new Set(nodes.map((n) => n.getAttribute("href").split("#")[0]))]);
@@ -394,6 +403,7 @@ try {
   for (const [width, height] of [[1280, 800], [390, 844]]) {
     const terms = await newPage({ viewport: { width, height } });
     await terms.goto("http://localhost:4173/condizioni-pilota/");
+    check(`condizioni ${width}x${height}: nav in vetro scuro`, await terms.evaluate(navIsDarkGlass));
     check(`condizioni ${width}x${height}: un solo h1, chiavi ed env risolte, 8 sezioni, zero overflow`, (await terms.locator("h1").count()) === 1 && !/\{\{|%VITE_/.test(await terms.content()) && (await terms.locator("main h2").count()) === 8 && (await terms.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)));
   }
   const consent = await newPage();
