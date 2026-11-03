@@ -30,37 +30,35 @@ list.addEventListener("keydown", (event) => {
 
 const cards = $$("#servizi .svc");
 const pills = $$("#servizi [data-pill]");
-const [track, pillBox, pillBar, progress, counter] = [$("#servizi .track"), $("#servizi .pills"), $("#servizi .pillbar"), $("#servizi .prog i"), $("#servizi .count b")];
-const [prev, next] = [$<HTMLButtonElement>("#servizi [data-prev]"), $<HTMLButtonElement>("#servizi [data-next]")];
-let active = 0;
+const [track, pillBox, pillBar, progress, counter] = [$("#servizi .svc-track"), $("#servizi .pills"), $("#servizi .pillbar"), $("#servizi .prog i"), $("#servizi .count b")];
+const [prev, next] = [$("#servizi [data-prev]"), $("#servizi [data-next]")];
 let pinned = -1;
 const show = (i: number) => {
-  active = i;
   pills.forEach((pill, n) => (pill.ariaCurrent = String(n === i)));
   cards.forEach((card, n) => card.toggleAttribute("data-on", n === i));
   Object.assign(pillBar.style, { width: `${pills[i].offsetWidth}px`, transform: `translateX(${pills[i].offsetLeft}px)` });
   pillBox.scrollLeft = pills[i].offsetLeft - (pillBox.clientWidth - pills[i].offsetWidth) / 2;
   counter.textContent = String(i + 1).padStart(2, "0");
-  prev.disabled = i === 0;
-  next.disabled = i === cards.length - 1;
+  prev.ariaDisabled = String(i === 0);
+  next.ariaDisabled = String(i === cards.length - 1);
 };
-const go = (i: number) => {
-  pinned = i;
-  show(i);
-  track.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: REDUCED ? "instant" : "smooth" });
+const activeIndex = () => cards.findIndex((card) => card.hasAttribute("data-on"));
+const go = (index: number) => {
+  pinned = Math.max(0, Math.min(cards.length - 1, index));
+  show(pinned);
+  track.scrollTo({ left: cards[pinned].offsetLeft - (track.clientWidth - cards[pinned].offsetWidth) / 2, behavior: REDUCED ? "instant" : "smooth" });
 };
-track.addEventListener("scroll", () => {
-  const max = track.scrollWidth - track.clientWidth;
-  progress.style.transform = `scaleX(${track.scrollLeft / max})`;
-  if (pinned >= 0) return;
-  const step = cards[1].offsetLeft - cards[0].offsetLeft;
-  show(track.scrollLeft >= max - 2 ? cards.length - 1 : Math.round(track.scrollLeft / step));
-}, { passive: true });
+const centered = new IntersectionObserver(
+  (entries) => entries.forEach(({ isIntersecting, target }) => isIntersecting && pinned < 0 && show(cards.indexOf(target as HTMLElement))),
+  { root: track, rootMargin: "0px -49% 0px -49%" },
+);
+cards.forEach((card) => centered.observe(card));
+track.addEventListener("scroll", () => (progress.style.transform = `scaleX(${track.scrollLeft / (track.scrollWidth - track.clientWidth)})`), { passive: true });
 ["pointerdown", "wheel", "keydown"].forEach((type) => track.addEventListener(type, () => (pinned = -1), { passive: true }));
 pills.forEach((pill, i) => pill.addEventListener("click", () => go(i)));
-prev.addEventListener("click", () => go(active - 1));
-next.addEventListener("click", () => go(active + 1));
-addEventListener("resize", () => show(active));
+prev.addEventListener("click", () => go(activeIndex() - 1));
+next.addEventListener("click", () => go(activeIndex() + 1));
+addEventListener("resize", () => show(activeIndex()));
 show(0);
 const showcase = $("#servizi");
 inView(showcase, () => {
@@ -72,15 +70,14 @@ inView(insights, () => {
   insights.classList.add("play");
   return () => insights.classList.remove("play");
 });
+const themeScene = $("[data-cycle]");
 if (!REDUCED) {
-  $$("[data-cycle]").forEach((scene) =>
-    setInterval(() => {
-      if (!scene.closest("[data-live] [data-on]")) return;
-      const preset = PRESETS[(PRESETS.indexOf(scene.dataset.preset!) + 1) % PRESETS.length];
-      scene.dataset.preset = preset;
-      scene.querySelector(".chip")!.textContent = preset;
-    }, 2200),
-  );
+  setInterval(() => {
+    if (!themeScene.closest("[data-live] [data-on]")) return;
+    const preset = PRESETS[(PRESETS.indexOf(themeScene.dataset.preset!) + 1) % PRESETS.length];
+    themeScene.dataset.preset = preset;
+    themeScene.querySelector(".chip")!.textContent = preset;
+  }, 2200);
 }
 
 navScroll();

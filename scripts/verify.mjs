@@ -89,22 +89,37 @@ try {
     await page.waitForTimeout(700);
     const shown = width >= 768 ? tabs.nth(4).locator(".tabtext") : page.locator("#consigli .explain");
     check(`${label} click sul 5° tab: scena cart e spiegazione visibile`, (await page.locator("#consigli .stage").getAttribute("data-scene")) === "cart" && (await shown.isVisible()) && (await shown.textContent()).trim().length > 0 && (await page.getAttribute("#consigli-panel", "aria-labelledby")) === "tab-cart" && (await page.locator("#consigli [role=tablist] [role=tabpanel]").count()) === 0);
-    const [cards, pills, track] = [page.locator("#servizi .svc"), page.locator("#servizi [data-pill]"), page.locator("#servizi .track")];
+    const [cards, pills, track] = [page.locator("#servizi .svc"), page.locator("#servizi [data-pill]"), page.locator("#servizi .svc-track")];
     check(`${label} vetrina: 11 card, 11 pill, 11 Dettagli e un solo h2`, (await cards.count()) === 11 && (await pills.count()) === 11 && (await page.locator("#servizi .more").count()) === 11 && (await page.locator("#servizi h2").count()) === 1);
     check(`${label} vetrina: frecce visibili solo da 768px`, (await page.locator("#servizi [data-next]").isVisible()) === (width >= 768));
     if (width < 768) check(`${label} vetrina: target di tocco >= 44px (pill e Dettagli)`, await page.$$eval("#servizi [data-pill], #servizi .more", (nodes) => nodes.every((n) => n.offsetHeight >= 44)));
+    if (width === 1280) {
+      const counters = await page.evaluate(async () => {
+        const [t, list] = [document.querySelector("#servizi .svc-track"), [...document.querySelectorAll("#servizi .svc")]];
+        t.dispatchEvent(new Event("pointerdown"));
+        const out = [];
+        for (const card of list) {
+          t.scrollTo({ left: card.offsetLeft - (t.clientWidth - card.offsetWidth) / 2, behavior: "instant" });
+          await new Promise((resolve) => setTimeout(resolve, 300));
+          out.push(document.querySelector("#servizi .count b").textContent);
+        }
+        return out.join();
+      });
+      check(`${label} vetrina: scorrendo card per card il contatore va da 01 a 11 senza salti`, counters === Array.from({ length: 11 }, (_, i) => String(i + 1).padStart(2, "0")).join());
+    }
     await pills.nth(5).click();
     await page.waitForTimeout(1500);
     const inView = await page.evaluate(() => {
-      const [t, c] = [document.querySelector("#servizi .track").getBoundingClientRect(), document.querySelectorAll("#servizi .svc")[5].getBoundingClientRect()];
+      const [t, c] = [document.querySelector("#servizi .svc-track").getBoundingClientRect(), document.querySelectorAll("#servizi .svc")[5].getBoundingClientRect()];
       return c.left >= t.left - 2 && c.right <= t.right + 2;
     });
     check(`${label} vetrina: il click sulla 6a pill porta la card in vista, pill attiva e contatore 06`, inView && (await pills.nth(5).getAttribute("aria-current")) === "true" && (await page.locator("#servizi .count b").textContent()) === "06" && (await cards.nth(5).getAttribute("data-on")) !== null);
     await pills.nth(10).click();
     await page.waitForTimeout(1500);
-    check(`${label} vetrina: l'ultima pill attiva l'ultima card e disabilita "avanti"`, (await cards.nth(10).getAttribute("data-on")) !== null && (await page.locator("#servizi [data-next]").isDisabled()));
+    check(`${label} vetrina: l'ultima pill attiva l'ultima card e segna "avanti" come disabilitato (senza perdere il focus)`, (await cards.nth(10).getAttribute("data-on")) !== null && (await page.getAttribute("#servizi [data-next]", "aria-disabled")) === "true");
     check(`${label} vetrina: nessun overflow orizzontale della pagina`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
     check(`${label} #insights nella piattaforma e colonne Soluzioni/Risorse nel footer`, (await page.locator("#piattaforma #insights").count()) === 1 && (await page.locator("footer .footlinks a").count()) >= 8);
+    check(`${label} rail motore: la barra di avanzamento ha larghezza > 0`, (await page.locator("#engine .fill").evaluate((n) => n.getBoundingClientRect().width)) > 0);
     check(`${label} rail motore: 4 voci, una sola aria-current`, (await page.locator("#engine ol li").count()) === 4 && (await page.locator("#engine ol li[aria-current]").count()) === 1);
     check(`${label} nessun prezzo per chat in pagina`, !/0[,.]50/.test(await page.content()));
     check(`${label} i 4 preset card ciclano`, presets.size === 4);
@@ -127,12 +142,12 @@ try {
     resolved.push(!hash || (await linker.locator(`#${hash}`).count()) === 1);
   }
   check(`${code} vetrina: i 11 Dettagli puntano a pagine e ancore esistenti`, hrefs.length === 11 && resolved.every(Boolean) && hrefs.every((h) => h.startsWith("#") || h.startsWith(code === "en" ? "/en/" : "/")));
-  check(`${code} vetrina: Dettagli verso chatbot, upsell e prodotti consigliati/umano come da piano`, JSON.stringify(hrefs.slice(0, 4)) === JSON.stringify(code === "it" ? ["/chatbot-shopify/", "/upsell-cross-sell-shopify/", "#consigli", "/chatbot-shopify/#b5"] : ["/en/shopify-ai-chatbot/", "/en/shopify-upsell-cross-sell/", "/en/shopify-related-products/", "#umano"]) && hrefs[10] === "#insights");
+  check(`${code} vetrina: Dettagli verso chatbot, upsell e prodotti consigliati/umano come da piano`, JSON.stringify(hrefs.slice(0, 4)) === JSON.stringify(code === "it" ? ["/chatbot-shopify/", "/upsell-cross-sell-shopify/", "#consigli", "/chatbot-shopify/#operatore"] : ["/en/shopify-ai-chatbot/", "/en/shopify-upsell-cross-sell/", "/en/shopify-related-products/", "#umano"]) && hrefs[10] === "#insights");
   const reduced = await newPage({ reducedMotion: "reduce", viewport: { width: 1280, height: 800 } });
   await reduced.goto(url);
   await reduced.locator("#servizi [data-pill]").nth(7).click();
   await reduced.waitForTimeout(100);
-  check(`${code} reduced-motion: lo scorrimento della vetrina non è animato`, await reduced.evaluate(() => { const [t, c] = [document.querySelector("#servizi .track").getBoundingClientRect(), document.querySelectorAll("#servizi .svc")[7].getBoundingClientRect()]; return c.left >= t.left - 2 && c.right <= t.right + 2; }));
+  check(`${code} reduced-motion: lo scorrimento della vetrina non è animato`, await reduced.evaluate(() => { const [t, c] = [document.querySelector("#servizi .svc-track").getBoundingClientRect(), document.querySelectorAll("#servizi .svc")[7].getBoundingClientRect()]; return c.left >= t.left - 2 && c.right <= t.right + 2; }));
   const dimmed = await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", (nodes) => nodes.filter((n) => getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden").length);
   check(`${code} reduced-motion: nessun elemento nascosto al load`, dimmed === 0);
   await reduced.evaluate(() => document.querySelector("#consigli").scrollIntoView());
@@ -164,7 +179,7 @@ try {
   check(`${code} form waitlist: testo di successo`, (await page.locator("form#accesso [role=status]").textContent()).startsWith(ok));
   check(`${code} form waitlist: il token Turnstile va in turnstileToken, non nel body`, homeSent.turnstileToken === "tok" && !("cf-turnstile-response" in homeSent));
   }
-  const sitemap = readFileSync("public/sitemap.xml", "utf8");
+  const sitemap = readFileSync("dist/sitemap.xml", "utf8");
   check("sitemap: home e le 6 nuove pagine, alternate hreflang solo per le coppie", ["/", "/en/", ...seoPages.map((p) => p.path)].every((path) => sitemap.includes(`<loc>${base}${path}</loc>`)) && (sitemap.match(/<xhtml:link/g) ?? []).length === 6 + 2 * 3 * 2);
   for (const { path, code, h1, pair, guide, links } of seoPages) {
     for (const [width, height] of [[1280, 800], [390, 844], [360, 780]]) {
@@ -200,15 +215,17 @@ try {
           const visible = await page.$$eval("details", (nodes) => nodes.map((d) => [d.querySelector("summary").textContent.trim(), d.querySelector("p").textContent.trim()]));
           const faq = await page.$$eval('script[type="application/ld+json"]', (nodes) => JSON.parse(nodes[1].textContent).mainEntity.map((q) => [q.name, q.acceptedAnswer.text]));
           check(`${label} JSON-LD FAQ coincide con il testo visibile (5 domande)`, visible.length === 5 && JSON.stringify(visible) === JSON.stringify(faq));
-          check(`${label} 3 passi, 6 blocchi, scena animata e switch lingua ${pair ? "presente" : "assente"}`, (await page.locator("#come li").count()) === 3 && (await page.locator("#b1, #b2, #b3, #b4, #b5, #b6").count()) === 6 && (await page.locator(".hero-vis img").count()) > 0 && (await page.locator(`header a[hreflang]`).count()) === (pair ? 1 : 0));
+          check(`${label} "Scopri anche": 3 link, nessuno verso la pagina stessa`, (await page.$$eval("a.alsoc", (nodes) => nodes.map((n) => n.getAttribute("href")))).length === 3 && !(await page.locator(`a.alsoc[href="${path}"]`).count()));
+          check(`${label} 3 passi, 6 blocchi, scena animata e switch lingua ${pair ? "presente" : "assente"}`, (await page.locator("#come li").count()) === 3 && (await page.locator("#cosa article").count()) === 6 && (await page.locator(".hero-vis img").count()) > 0 && (await page.locator(`header a[hreflang]`).count()) === (pair ? 1 : 0));
         } else {
+          check(`${label} guida: nessuna sezione "Scopri anche" (una sola sezione su Neurocart)`, (await page.locator("a.alsoc").count()) === 0);
           check(`${label} guida: 1.200-1.800 parole e link ai prodotti`, await page.$eval("article", (n) => { const words = n.textContent.trim().split(/\s+/).length; return words >= 1200 && words <= 1800; }));
         }
       }
       if (width === 1280) {
         const reduced = await newPage({ reducedMotion: "reduce", viewport: { width, height } });
         await reduced.goto(`http://localhost:4173${path}`);
-        check(`${label} reduced-motion: nessun elemento nascosto al load e scena ferma`, (await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", unrevealed)) === 0 && (await reduced.evaluate(() => document.getAnimations().filter((a) => a instanceof CSSAnimation && a.animationName !== "swap-a").length)) === 0);
+        check(`${label} reduced-motion: nessun elemento nascosto al load e scena ferma`, (await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", unrevealed)) === 0 && (await reduced.evaluate(() => document.getAnimations().filter((a) => a instanceof CSSAnimation).length)) === 0);
       }
     }
   }

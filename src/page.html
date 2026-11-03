@@ -83,82 +83,82 @@
         </div>
         <div class="navi" role="group" aria-label="{{svc.aria}}">
           <div class="pills"><i class="pillbar" aria-hidden="true"></i><button type="button" data-pill>{{svc.1.pill}}</button><button type="button" data-pill>{{svc.2.pill}}</button><button type="button" data-pill>{{svc.3.pill}}</button><button type="button" data-pill>{{svc.4.pill}}</button><button type="button" data-pill>{{svc.5.pill}}</button><button type="button" data-pill>{{svc.6.pill}}</button><button type="button" data-pill>{{svc.7.pill}}</button><button type="button" data-pill>{{svc.8.pill}}</button><button type="button" data-pill>{{svc.9.pill}}</button><button type="button" data-pill>{{svc.10.pill}}</button><button type="button" data-pill>{{svc.11.pill}}</button></div>
-          <div class="hidden gap-2 md:flex"><button type="button" class="arrow" data-prev aria-label="{{svc.prev}}">←</button><button type="button" class="arrow" data-next aria-label="{{svc.next}}">→</button></div>
+          <div class="hidden gap-2 md:flex"><button type="button" class="arrow" data-prev aria-disabled="true" aria-label="{{svc.prev}}">←</button><button type="button" class="arrow" data-next aria-label="{{svc.next}}">→</button></div>
         </div>
         <i class="prog" aria-hidden="true"><i></i></i>
       </div>
-      <ul class="track" tabindex="0" aria-label="{{svc.aria}}">
-        <li class="svc" id="svc-1">
+      <ul class="svc-track" tabindex="0" aria-label="{{svc.aria}}">
+        <li class="svc">
           <p class="num">01</p>
           <div class="vis" aria-hidden="true">{{>chatbot}}</div>
           <h3>{{svc.1.title}}</h3>
           <p class="txt">{{svc.1.text}}</p>
           <a class="more" href="{{svc.1.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.1.title}}</span></a>
         </li>
-        <li class="svc" id="svc-2">
+        <li class="svc">
           <p class="num">02</p>
           <div class="vis" aria-hidden="true">{{>upsell}}</div>
           <h3>{{svc.2.title}}</h3>
           <p class="txt">{{svc.2.text}}</p>
           <a class="more" href="{{svc.2.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.2.title}}</span></a>
         </li>
-        <li class="svc" id="svc-3">
+        <li class="svc">
           <p class="num">03</p>
           <div class="vis" aria-hidden="true">{{>related}}</div>
           <h3>{{svc.3.title}}</h3>
           <p class="txt">{{svc.3.text}}</p>
           <a class="more" href="{{svc.3.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.3.title}}</span></a>
         </li>
-        <li class="svc" id="svc-4">
+        <li class="svc">
           <p class="num">04</p>
           <div class="vis" aria-hidden="true">{{>operator}}</div>
           <h3>{{svc.4.title}}</h3>
           <p class="txt">{{svc.4.text}}</p>
           <a class="more" href="{{svc.4.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.4.title}}</span></a>
         </li>
-        <li class="svc" id="svc-5">
+        <li class="svc">
           <p class="num">05</p>
           <div class="vis" aria-hidden="true">{{>images}}</div>
           <h3>{{svc.5.title}}</h3>
           <p class="txt">{{svc.5.text}}</p>
           <a class="more" href="{{svc.5.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.5.title}}</span></a>
         </li>
-        <li class="svc" id="svc-6">
+        <li class="svc">
           <p class="num">06</p>
           <div class="vis" aria-hidden="true">{{>content}}</div>
           <h3>{{svc.6.title}}</h3>
           <p class="txt">{{svc.6.text}}</p>
           <a class="more" href="{{svc.6.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.6.title}}</span></a>
         </li>
-        <li class="svc" id="svc-7">
+        <li class="svc">
           <p class="num">07</p>
           <div class="vis" aria-hidden="true">{{>dashboard}}</div>
           <h3>{{svc.7.title}}</h3>
           <p class="txt">{{svc.7.text}}</p>
           <a class="more" href="{{svc.7.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.7.title}}</span></a>
         </li>
-        <li class="svc" id="svc-8">
+        <li class="svc">
           <p class="num">08</p>
           <div class="vis" aria-hidden="true">{{>ask}}</div>
           <h3>{{svc.8.title}}</h3>
           <p class="txt">{{svc.8.text}}</p>
           <a class="more" href="{{svc.8.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.8.title}}</span></a>
         </li>
-        <li class="svc" id="svc-9">
+        <li class="svc">
           <p class="num">09</p>
           <div class="vis" aria-hidden="true">{{>theme}}</div>
           <h3>{{svc.9.title}}</h3>
           <p class="txt">{{svc.9.text}}</p>
           <a class="more" href="{{svc.9.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.9.title}}</span></a>
         </li>
-        <li class="svc" id="svc-10">
+        <li class="svc">
           <p class="num">10</p>
           <div class="vis" aria-hidden="true">{{>stores}}</div>
           <h3>{{svc.10.title}}</h3>
           <p class="txt">{{svc.10.text}}</p>
           <a class="more" href="{{svc.10.href}}">{{svc.more}}<i aria-hidden="true">→</i><span class="sr-only"> — {{svc.10.title}}</span></a>
         </li>
-        <li class="svc" id="svc-11">
+        <li class="svc">
           <p class="num">11</p>
           <div class="vis" aria-hidden="true">{{>insights}}</div>
           <h3>{{svc.11.title}}</h3>
@@ -263,7 +263,7 @@
               <button role="tab" type="button" id="tab-complementary" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="pdp" data-type="complementary" data-label="{{consigli.lbl3}}"><span class="tabtitle">{{consigli.12}}</span><span class="tabtext"><span class="tabdesc">{{consigli.13}}</span><span class="chip">{{consigli.09}}</span></span></button>
               <button role="tab" type="button" id="tab-new" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="home" data-type="new" data-label="{{consigli.lbl4}}"><span class="tabtitle">{{consigli.14}}</span><span class="tabtext"><span class="tabdesc">{{consigli.15}}</span><span class="chip">{{consigli.16}}</span></span></button>
               <button role="tab" type="button" id="tab-cart" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="cart" data-type="cart" data-label="{{consigli.lbl5}}"><span class="tabtitle">{{consigli.17}}</span><span class="tabtext"><span class="tabdesc">{{consigli.18}}</span><span class="chip">{{consigli.19}}</span></span></button>
-              <button role="tab" type="button" id="tab-post" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="thanks" data-type="post" data-label="{{consigli.lbl6}}"><span class="tabtitle">{{consigli.20}}</span><span class="tabtext"><span class="tabdesc">{{consigli.21}}</span><span class="chip">{{consigli.22}}</span></span></button>
+              <button role="tab" type="button" id="tab-post" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="cart" data-type="post" data-label="{{consigli.lbl6}}"><span class="tabtitle">{{consigli.20}}</span><span class="tabtext"><span class="tabdesc">{{consigli.21}}</span><span class="chip">{{consigli.22}}</span></span></button>
               <button role="tab" type="button" id="tab-foryou" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="account" data-type="foryou" data-label="{{consigli.lbl7}}"><span class="tabtitle">{{consigli.23}}</span><span class="tabtext"><span class="tabdesc">{{consigli.24}}</span><span class="chip">{{consigli.25}}</span></span></button>
           </div>
           <div role="tabpanel" id="consigli-panel" aria-labelledby="tab-similar" class="min-w-0 md:col-span-7">
@@ -273,7 +273,6 @@
                 <div class="ctx ctx-pdp"><div class="pimg"><img src="/img/jacket.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div><b>{{engine.11}}</b><p>{{engine.12}}</p></div></div>
                 <div class="ctx ctx-home"><i><img src="/img/hoodie.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></i><i><img src="/img/sneakers.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></i><i><img src="/img/sunnies.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></i><i><img src="/img/halfzip.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></i></div>
                 <div class="ctx ctx-cart"><p><span><img class="thumb" src="/img/crewneck.webp" alt="" width="800" height="1000" loading="lazy" decoding="async">{{engine.15}}</span><span>{{engine.16}}</span></p><p><span><img class="thumb" src="/img/backpack.webp" alt="" width="800" height="1000" loading="lazy" decoding="async">{{engine.18}}</span><span>{{engine.19}}</span></p><p><b>{{consigli.03}}</b><b>{{consigli.04}}</b></p></div>
-                <div class="ctx ctx-thanks"><b>{{consigli.05}}</b><p><span><img class="thumb" src="/img/jacket.webp" alt="" width="800" height="1000" loading="lazy" decoding="async">{{engine.11}}</span><span>{{engine.12}}</span></p></div>
                 <div class="ctx ctx-account"><b>{{consigli.06}}</b><p class="muted">{{consigli.26}}</p><div class="thumbs"><img src="/img/hoodie.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"><img src="/img/sunnies.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"><img src="/img/beanie.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div></div>
               </div>
               <div class="recs">

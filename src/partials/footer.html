@@ -1,12 +1,9 @@
 <footer class="night border-t border-white/10 py-16">
   <div class="wrap grid gap-10 text-sm lg:grid-cols-12">
     <p class="muted lg:col-span-6">{{footer.01}}</p>
-    <div class="grid grid-cols-2 gap-8 lg:col-span-6">
-      <div><p class="font-display font-semibold text-cream">{{pg.sol}}</p><ul class="footlinks mt-2">{{pg.sol.links}}</ul></div>
-      <div><p class="font-display font-semibold text-cream">{{pg.res}}</p><ul class="footlinks mt-2">{{pg.res.links}}</ul></div>
-    </div>
+    <div class="grid grid-cols-2 gap-8 lg:col-span-6">{{>links-$lang}}</div>
     <ul class="footlinks flex flex-wrap gap-x-6 lg:col-span-12">
-      <li><a href="%VITE_APP_URL%/privacy">{{footer.02}}</a></li>
+      <li><a href="%VITE_APP_URL%/privacy">{{footer.02}}</a></li>{{>legal-$id}}
       <li><a href="%VITE_APP_URL%/auth">{{nav.07}}</a></li>
       <li><a href="mailto:privacy@neurocart.it">{{footer.03}}</a></li>
       <li><a href="mailto:sales@neurocart.it">{{footer.04}}</a></li>
