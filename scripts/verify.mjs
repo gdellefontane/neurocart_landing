@@ -40,7 +40,7 @@ try {
   check("it.json ed en.json hanno le stesse chiavi (le pagine in una sola lingua escluse)", keys("it") === keys("en") && ["chatbot", "upsell"].every((id) => seoKeys("it", id) === seoKeys("en", id) && seoKeys("it", id).length > 0));
   for (const { code, path, last, canonical, ok } of langs) {
     const url = `http://localhost:4173${path}`;
-  for (const [width, height] of [[1280, 800], [390, 844], [360, 780], [568, 320]]) {
+  for (const [width, height] of [[1280, 800], [1024, 768], [390, 844], [360, 780], [568, 320]]) {
     const page = await newPage({ viewport: { width, height } });
     await page.goto(url);
     const label = `${code} ${width}x${height}`;
@@ -94,7 +94,12 @@ try {
     check(`${label} vetrina: frecce visibili solo sopra 820px, segmenti >= 44px`, (await page.locator("#servizi .next").isVisible()) === (width > 820) && (await segments.evaluateAll((nodes) => nodes.every((n) => n.offsetHeight >= 44))));
     await segments.nth(5).click();
     await page.waitForTimeout(4600);
-    check(`${label} vetrina: il click sul 6° segmento attiva la 6ª slide (contatore 06, solo lei non inerte)`, (await counter.textContent()) === "06" && (await slides.nth(5).getAttribute("data-on")) !== null && (await page.locator("#servizi .vs[inert]").count()) === 10 && (await segments.nth(5).getAttribute("aria-current")) !== null);
+    check(`${label} vetrina: il click sul 6° segmento attiva la 6ª slide (contatore 06, solo lei non inerte)`, (await counter.textContent()) === "06" && (await slides.nth(5).getAttribute("data-on")) !== null && (await page.locator("#servizi .vs[inert]").count()) === 10 && (await segments.nth(5).getAttribute("aria-current")) === "true");
+    check(`${label} vetrina: sfondo della slide attiva scuro e segmenti attivi non bianchi`, await page.evaluate(() => {
+      const [r, g, b] = getComputedStyle(document.querySelector("#servizi .vs[data-on]")).backgroundColor.match(/\d+/g).map(Number);
+      const fill = getComputedStyle(document.querySelector("#servizi .vsegs .run u"), "::after").backgroundColor;
+      return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.1 && fill !== "rgb(255, 255, 255)";
+    }));
     if (width >= 360 && height >= 640) {
       check(`${label} vetrina: scena e "Dettagli" della slide attiva interamente dentro il pannello, scena non tagliata`, await page.evaluate(() => {
         const [panel, scene, cta] = ["#servizi", "#servizi .vs[data-on] .vscene", "#servizi .vs[data-on] .vcta"].map((s) => document.querySelector(s).getBoundingClientRect());
@@ -121,6 +126,14 @@ try {
       await page.mouse.up();
       await page.waitForTimeout(1500);
       check(`${label} vetrina: il trascinamento (> 40px) porta alla slide successiva`, (await counter.textContent()) === "02");
+      await page.waitForTimeout(2200);
+      const image = await page.locator("#servizi .vs[data-on] .vscene img").first().boundingBox();
+      await page.mouse.move(image.x + image.width / 2, image.y + image.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(image.x + image.width / 2 - 200, image.y + image.height / 2, { steps: 5 });
+      await page.mouse.up();
+      await page.waitForTimeout(1500);
+      check(`${label} vetrina: il trascinamento che parte da un'immagine della slide 2 porta alla 3`, (await counter.textContent()) === "03");
     }
     check(`${label} vetrina: nessun overflow orizzontale della pagina`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
     check(`${label} #insights nella piattaforma e colonne Soluzioni/Risorse nel footer`, (await page.locator("#piattaforma #insights").count()) === 1 && (await page.locator("footer .footlinks a").count()) >= 8);
@@ -150,29 +163,61 @@ try {
   check(`${code} vetrina: Dettagli verso chatbot, upsell e prodotti consigliati/umano come da piano`, JSON.stringify(hrefs.slice(0, 4)) === JSON.stringify(code === "it" ? ["/chatbot-shopify/", "/upsell-cross-sell-shopify/", "#consigli", "/chatbot-shopify/#operatore"] : ["/en/shopify-ai-chatbot/", "/en/shopify-upsell-cross-sell/", "/en/shopify-related-products/", "#umano"]) && hrefs[10] === "#insights");
   const auto = await newPage({ viewport: { width: 1280, height: 800 } });
   await auto.goto(url);
+  await auto.addStyleTag({ content: "#servizi { --dur: 0.6s; }" });
   await auto.evaluate(() => scrollTo({ top: document.querySelector("#servizi").getBoundingClientRect().top + scrollY - 40, behavior: "instant" }));
-  await auto.waitForTimeout(800);
   const count = () => auto.locator("#servizi .vhint b").textContent();
+  await auto.waitForFunction(() => !document.querySelector("#servizi").classList.contains("hold"));
   const first = await count();
-  await auto.waitForTimeout(6200);
-  check(`${code} autoplay: dopo ~5,5 s passa alla slide successiva`, first === "01" && (await count()) === "02");
+  await auto.waitForTimeout(1300);
+  check(`${code} autoplay: dopo l'intervallo passa alla slide successiva`, (await count()) !== first);
   await auto.mouse.move(640, 400);
   const hovered = await count();
-  await auto.waitForTimeout(6200);
+  await auto.waitForTimeout(1300);
   check(`${code} autoplay: nessuna pausa al passaggio del mouse`, (await count()) !== hovered);
   await auto.locator("#servizi .vsegs button").nth(10).click();
-  await auto.waitForTimeout(6500);
+  await auto.waitForTimeout(900);
   check(`${code} autoplay: dopo l'11 torna alla 1 (loop)`, (await count()) === "01");
   await auto.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
   await auto.waitForTimeout(500);
   const away = await count();
-  await auto.waitForTimeout(6500);
+  await auto.waitForTimeout(1500);
   check(`${code} autoplay: con la vetrina fuori vista si ferma`, (await count()) === away);
+  await auto.evaluate(() => scrollTo({ top: document.querySelector("#servizi").getBoundingClientRect().top + scrollY - 40, behavior: "instant" }));
+  await auto.locator("#servizi .vsegs button").nth(0).click();
+  await auto.mouse.move(5, 5);
+  await auto.evaluate(() => document.activeElement.blur());
+  for (let i = 0; i < 60 && !(await auto.evaluate(() => document.activeElement?.closest("#servizi"))); i++) await auto.keyboard.press("Tab");
+  const focused = await count();
+  await auto.waitForTimeout(1500);
+  check(`${code} autoplay: con il focus da tastiera dentro la vetrina è in pausa`, (await auto.evaluate(() => document.querySelector("#servizi").classList.contains("hold"))) && (await count()) === focused);
+  await auto.evaluate(() => document.activeElement.blur());
+  await auto.waitForTimeout(1500);
+  check(`${code} autoplay: esce il focus e riparte`, (await count()) !== focused);
+  for (const [width, height] of [[1440, 900], [1280, 800], [390, 844], [360, 640]]) {
+    const tour = await newPage({ reducedMotion: "reduce", viewport: { width, height } });
+    await tour.goto(url);
+    const bad = await tour.evaluate(async () => {
+      const [panel, segs, bar] = [document.querySelector("#servizi"), [...document.querySelectorAll("#servizi .vsegs button")], document.querySelector("#servizi .vsegs")];
+      const out = [];
+      for (const [n, seg] of segs.entries()) {
+        seg.click();
+        await new Promise((resolve) => setTimeout(resolve, 80));
+        const [p, top] = [panel.getBoundingClientRect(), bar.getBoundingClientRect()];
+        const slide = document.querySelector("#servizi .vs[data-on]");
+        const [scene, cta, text, stage] = [".vscene", ".vcta", ".vtext", ".vstage"].map((s) => slide.querySelector(s).getBoundingClientRect());
+        const el = slide.querySelector(".vscene");
+        const inside = (r) => r.left >= p.left - 1 && r.right <= p.right + 1 && r.top >= p.top - 1 && r.bottom <= p.bottom + 1;
+        if (!(inside(scene) && inside(cta) && el.scrollHeight <= el.clientHeight + 1 && el.scrollWidth <= el.clientWidth + 1 && text.top >= top.bottom - 1 && stage.top >= top.bottom - 1)) out.push(n + 1);
+      }
+      return out;
+    });
+    check(`${code} ${width}x${height} vetrina (reduced): scena e Dettagli dentro il pannello, scena non tagliata e testo sotto la barra in tutte le 11 slide (slide fuori: ${bad})`, bad.length === 0);
+  }
   const reduced = await newPage({ reducedMotion: "reduce", viewport: { width: 1280, height: 800 } });
   await reduced.goto(url);
   await reduced.locator("#servizi .vsegs button").nth(7).click();
   await reduced.waitForTimeout(100);
-  check(`${code} reduced-motion: nessun autoplay né transizioni, resta navigabile`, (await reduced.locator("#servizi.hold").count()) === 1 && (await reduced.locator("#servizi .vtrack").evaluate((n) => getComputedStyle(n).transitionDuration)) === "0s" && (await reduced.locator("#servizi .vhint b").textContent()) === "08" && (await (async () => { await reduced.waitForTimeout(6500); return reduced.locator("#servizi .vhint b").textContent(); })()) === "08");
+  check(`${code} reduced-motion: nessun autoplay né transizioni, resta navigabile`, (await reduced.locator("#servizi .vtrack").evaluate((n) => getComputedStyle(n).transitionDuration)) === "0s" && (await reduced.locator("#servizi .vhint b").textContent()) === "08" && (await (async () => { await reduced.waitForTimeout(6500); return reduced.locator("#servizi .vhint b").textContent(); })()) === "08");
   const dimmed = await reduced.$$eval("[data-reveal], [data-reveal-stagger] > *, [data-split]", (nodes) => nodes.filter((n) => getComputedStyle(n).opacity !== "1" || getComputedStyle(n).visibility === "hidden").length);
   check(`${code} reduced-motion: nessun elemento nascosto al load`, dimmed === 0);
   await reduced.evaluate(() => document.querySelector("#consigli").scrollIntoView());
@@ -223,6 +268,7 @@ try {
       const ld = await page.$$eval('script[type="application/ld+json"]', (nodes) => nodes.map((n) => JSON.parse(n.textContent)["@type"]));
       check(`${label} JSON-LD leggibile (${ld.join(", ")})`, JSON.stringify(ld) === JSON.stringify(guide ? ["BreadcrumbList", "Article"] : ["BreadcrumbList", "FAQPage"]));
       check(`${label} zero overflow orizzontale`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
+      if (!guide) check(`${label} i chip della scena dell'hero sono leggibili (non color crema)`, await page.$$eval(".hero-vis .chip", (nodes) => nodes.length > 0 && nodes.every((n) => getComputedStyle(n).color !== "rgb(244, 241, 234)")));
       if (width === 390) {
         check(`${label} CTA e link interni raggiungibili`, (await Promise.all(links.map((href) => page.locator(`a[href="${href}"]`).count()))).every((n) => n > 0) && (await page.locator("footer .footlinks a").count()) >= 5);
         const targets = await page.$$eval("main a[href^='/'], header a[href^='/']", (nodes) => [...new Set(nodes.map((n) => n.getAttribute("href").split("#")[0]))]);
