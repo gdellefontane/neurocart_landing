@@ -34,11 +34,11 @@ export const stage = () => {
   links.insertAdjacentHTML("beforeend", scenes.filter((scene) => scene.dataset.nav).map((scene) => `<a href="#${scene.id}" style="--c:${scene.style.getPropertyValue("--c")}">${scene.dataset.nav}</a>`).join(""));
 
   let current = -1;
-  let timers: number[] = [];
+  let timers: ReturnType<typeof setTimeout>[] = [];
   const play = (scene: HTMLElement) => {
     timers.forEach(clearTimeout);
     timers = [];
-    const seq = [...scene.querySelectorAll<HTMLElement>("[data-seq]")].filter((el) => el.checkVisibility()).sort((a, b) => +a.dataset.seq! - +b.dataset.seq!);
+    const seq = [...scene.querySelectorAll<HTMLElement>("[data-seq]")].filter((el) => el.getClientRects().length).sort((a, b) => +a.dataset.seq! - +b.dataset.seq!);
     const loop = () => {
       seq.forEach((el) => el.classList.remove("in"));
       seq.forEach((el, k) => timers.push(setTimeout(() => el.classList.add("in"), 500 + k * 900)));
@@ -76,7 +76,13 @@ export const stage = () => {
   };
   const sync = () => {
     nav.classList.toggle("mini", scrollY > 40);
-    if (stacked.matches) return scenes.forEach((scene) => (scene.inert = false));
+    if (stacked.matches) {
+      timers.forEach(clearTimeout);
+      return scenes.forEach((scene) => {
+        scene.inert = false;
+        scene.classList.remove("on");
+      });
+    }
     show(Math.min(scenes.length - 1, Math.max(0, Math.round(scrollY / height()))));
   };
   addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
