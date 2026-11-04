@@ -377,5 +377,9 @@
   "svc.11.pill": "Insights",
   "svc.11.seg": "Insights",
   "svc.11.text": "Grafici e commenti su quando comprano i clienti e cosa spingere, con un piano d'azione a 30 giorni verificato sui dati del tuo negozio.",
-  "svc.11.title": "Insights: il report del tuo negozio scritto dall'AI"
+  "svc.11.title": "Insights: il report del tuo negozio scritto dall'AI",
+  "seo.chatbot.accent": "#9B6BFF",
+  "seo.upsell.accent": "#F0589E",
+  "sc.op4": "Perfetto, la prendo!",
+  "sc.op5": "Chat chiusa · esito: risolta"
 }

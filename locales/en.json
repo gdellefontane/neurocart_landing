@@ -411,5 +411,10 @@
   "svc.11.pill": "Insights",
   "svc.11.seg": "Insights",
   "svc.11.text": "Charts and commentary on when customers buy and what to push, with a 30-day action plan checked against your store's data.",
-  "svc.11.title": "AI insights report for Shopify"
+  "svc.11.title": "AI insights report for Shopify",
+  "seo.chatbot.accent": "#9B6BFF",
+  "seo.upsell.accent": "#F0589E",
+  "seo.related.accent": "#2BC4E0",
+  "sc.op4": "Perfect, I'll take it!",
+  "sc.op5": "Chat closed · outcome: resolved"
 }

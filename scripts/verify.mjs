@@ -16,6 +16,12 @@ const navIsDarkGlass = () => {
   const [r, g, b, a = 1] = style.backgroundColor.match(/[\d.]+/g).map(Number);
   return a >= 0.3 && a <= 0.8 && (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.1 && style.backdropFilter.includes("blur");
 };
+const sceneIsGlass = (selector) => {
+  const scene = document.querySelector(selector);
+  const alphas = [...getComputedStyle(scene).backgroundImage.matchAll(/rgba\(255, 255, 255, ([\d.]+)\)/g)].map((m) => +m[1]);
+  const products = [...scene.querySelectorAll("img")].filter((img) => !img.closest(".ba"));
+  return alphas.length > 0 && alphas.every((a) => a <= 0.2) && getComputedStyle(scene).backgroundColor === "rgba(0, 0, 0, 0)" && getComputedStyle(scene).backdropFilter.includes("blur") && products.length > 0 && products.every((img) => img.src.includes("/img/cut/"));
+};
 const server = await preview({ preview: { port: 4173, strictPort: true } });
 const browser = await chromium.launch();
 const newPage = async (options) => {
@@ -107,12 +113,7 @@ try {
       const fill = getComputedStyle(document.querySelector("#servizi .vsegs .run u"), "::after").backgroundColor;
       return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 < 0.1 && fill !== "rgb(255, 255, 255)";
     }));
-    check(`${label} vetrina: scena della slide attiva in vetro (mai chiara) e prodotti da /img/cut/`, await page.evaluate(() => {
-      const scene = document.querySelector("#servizi .vs[data-on] .vscene");
-      const alphas = [...getComputedStyle(scene).backgroundImage.matchAll(/rgba\(255, 255, 255, ([\d.]+)\)/g)].map((m) => +m[1]);
-      const products = [...scene.querySelectorAll("img")].filter((img) => !img.closest(".ba"));
-      return alphas.length > 0 && alphas.every((a) => a <= 0.2) && getComputedStyle(scene).backgroundColor === "rgba(0, 0, 0, 0)" && getComputedStyle(scene).backdropFilter.includes("blur") && products.every((img) => img.src.includes("/img/cut/"));
-    }));
+    check(`${label} vetrina: scena della slide attiva in vetro (mai chiara) e prodotti da /img/cut/`, await page.evaluate(sceneIsGlass, "#servizi .vs[data-on] .vscene"));
     if (width >= 360 && height >= 640) {
       check(`${label} vetrina: scena e "Dettagli" della slide attiva interamente dentro il pannello, scena non tagliata`, await page.evaluate(() => {
         const [panel, scene, cta] = ["#servizi", "#servizi .vs[data-on] .vscene", "#servizi .vs[data-on] .vcta"].map((s) => document.querySelector(s).getBoundingClientRect());
@@ -215,6 +216,9 @@ try {
         const [scene, cta, text, stage] = [".vscene", ".vcta", ".vtext", ".vstage"].map((s) => slide.querySelector(s).getBoundingClientRect());
         const el = slide.querySelector(".vscene");
         const inside = (r) => r.left >= p.left - 1 && r.right <= p.right + 1 && r.top >= p.top - 1 && r.bottom <= p.bottom + 1;
+        const kids = [...el.children];
+        const empty = (el.getBoundingClientRect().bottom - Math.max(...kids.map((k) => k.getBoundingClientRect().bottom))) / el.getBoundingClientRect().height;
+        if (innerWidth >= 1440 && empty > 0.2) out.push(`${n + 1}:vuoto ${Math.round(empty * 100)}%`);
         if (!(inside(scene) && inside(cta) && el.scrollHeight <= el.clientHeight + 1 && el.scrollWidth <= el.clientWidth + 1 && text.top >= top.bottom - 1 && stage.top >= top.bottom - 1)) out.push(n + 1);
       }
       return out;
@@ -277,7 +281,7 @@ try {
       check(`${label} JSON-LD leggibile (${ld.join(", ")})`, JSON.stringify(ld) === JSON.stringify(guide ? ["BreadcrumbList", "Article"] : ["BreadcrumbList", "FAQPage"]));
       check(`${label} zero overflow orizzontale`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
       check(`${label} nav in vetro scuro semi-trasparente`, await page.evaluate(navIsDarkGlass));
-      if (!guide) check(`${label} i chip della scena dell'hero sono leggibili (non color crema)`, await page.$$eval(".hero-vis .chip", (nodes, expected) => (nodes.length > 0) === expected && nodes.every((n) => getComputedStyle(n).color !== "rgb(244, 241, 234)"), /upsell|related/.test(path)));
+      if (!guide) check(`${label} scena dell'hero in vetro (mai chiara) e prodotti da /img/cut/`, await page.evaluate(sceneIsGlass, "#hero .vscene"));
       if (width === 390) {
         check(`${label} CTA e link interni raggiungibili`, (await Promise.all(links.map((href) => page.locator(`a[href="${href}"]`).count()))).every((n) => n > 0) && (await page.locator("footer .footlinks a").count()) >= 5);
         const targets = await page.$$eval("main a[href^='/'], header a[href^='/']", (nodes) => [...new Set(nodes.map((n) => n.getAttribute("href").split("#")[0]))]);
@@ -296,7 +300,7 @@ try {
           const faq = await page.$$eval('script[type="application/ld+json"]', (nodes) => JSON.parse(nodes[1].textContent).mainEntity.map((q) => [q.name, q.acceptedAnswer.text]));
           check(`${label} JSON-LD FAQ coincide con il testo visibile (5 domande)`, visible.length === 5 && JSON.stringify(visible) === JSON.stringify(faq));
           check(`${label} "Scopri anche": 3 link, nessuno verso la pagina stessa`, (await page.$$eval("a.alsoc", (nodes) => nodes.map((n) => n.getAttribute("href")))).length === 3 && !(await page.locator(`a.alsoc[href="${path}"]`).count()));
-          check(`${label} 3 passi, 6 blocchi, scena animata e switch lingua ${pair ? "presente" : "assente"}`, (await page.locator("#come li").count()) === 3 && (await page.locator("#cosa article").count()) === 6 && (await page.locator(".hero-vis img").count()) > 0 && (await page.locator(`header a[hreflang]`).count()) === (pair ? 1 : 0));
+          check(`${label} 3 passi, 6 blocchi, scena animata e switch lingua ${pair ? "presente" : "assente"}`, (await page.locator("#come li").count()) === 3 && (await page.locator("#cosa article").count()) === 6 && (await page.locator("#hero .vscene img").count()) > 0 && (await page.locator(`header a[hreflang]`).count()) === (pair ? 1 : 0));
         } else {
           check(`${label} guida: nessuna sezione "Scopri anche" (una sola sezione su Neurocart)`, (await page.locator("a.alsoc").count()) === 0);
           check(`${label} guida: 1.200-1.800 parole e link ai prodotti`, await page.$eval("article", (n) => { const words = n.textContent.trim().split(/\s+/).length; return words >= 1200 && words <= 1800; }));
