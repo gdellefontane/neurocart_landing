@@ -208,6 +208,7 @@ body[data-s="6"] .bg .a { transform: translate(-5vmax, 30vmax) scale(.9); opacit
 .lbl { font: 700 12px var(--font-display); letter-spacing: .18em; text-transform: uppercase; color: var(--c); }
 .more { display: inline-block; margin-top: 16px; font: 600 14px var(--font-display); color: var(--c); }
 .more:hover { text-decoration: underline; text-underline-offset: 4px; }
+.ctas .more { margin-top: 0; align-self: center; }
 
 .s1 > .split { display: grid; grid-template-columns: 1.15fr .85fr; gap: 6vw; align-items: center; width: min(1240px, 100%); margin: 0 auto; }
 .s1 h1 { font-size: clamp(3rem, 5.4vw, 5.6rem); }
@@ -437,7 +438,8 @@ svg.sp { flex: 1; min-height: 0; width: 100%; }
   .foot a { text-decoration: none; color: #ffffffb3; }
   .txt .win { display: none; }
   .win.fit .body { height: auto; }
-  .body { height: min(44svh, calc(100svh - 462px)); padding: 12px; gap: 8px; }
+  .body { height: min(44svh, calc(100svh - 520px)); padding: 12px; gap: 8px; }
+  .ctas:has(.more) { gap: 6px 14px; }
   .kpis { grid-template-columns: repeat(2, 1fr); }
   .bar { padding: 9px 12px; }
   .s1 { align-items: start; }
@@ -501,7 +503,7 @@ svg.sp { flex: 1; min-height: 0; width: 100%; }
   .pdp { display: none; }
   .form label:not(.agree, .pill), .need legend, #accesso > div:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .win .chips { flex-wrap: nowrap; overflow: hidden; }
-  .sheet .chips { display: none; }
+  .sheet, .act small { display: none; }
   .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .kpis div { padding: 6px 8px; }
   .kpis b { font-size: 14px; white-space: nowrap; }
@@ -521,7 +523,9 @@ svg.sp { flex: 1; min-height: 0; width: 100%; }
   .form p[role="status"] { font-size: 12.5px; }
   .ctas .b { min-height: 38px; padding: 0 14px; font-size: 13.5px; }
   .act { padding: 8px 10px; }
-  .act p { font-size: 13px; margin-top: 2px; }
+  .act p { font-size: 13px; margin-top: 0; }
+  .act em { display: none; }
+  .body .row .pc b { display: none; }
   .s1 h1 { font-size: 1.95rem; margin-top: 8px; }
   .s1 .lead { font-size: .9rem; }
   .s1 > .split { gap: 14px; }

@@ -18,7 +18,7 @@ const sceneFit = () => {
   const scene = document.querySelector("section.scene.on");
   const bad = [...scene.querySelectorAll("*")].filter((el) => {
     const r = el.getBoundingClientRect();
-    if (!r.width || !r.height || el.closest("svg") && el.tagName !== "svg" || el.closest(".cf-turnstile") || (el.closest("details:not([open])") && !el.closest("summary") && el.tagName !== "DETAILS") || getComputedStyle(el.closest("#accesso > div:first-child") ?? el).clipPath === "inset(50%)") return false;
+    if (!r.width || !r.height || el.closest("svg") && el.tagName !== "svg" || el.closest(".cf-turnstile") || el.closest(".chatb") || (el.closest("details:not([open])") && !el.closest("summary") && el.tagName !== "DETAILS") || getComputedStyle(el.closest("#accesso > div:first-child") ?? el).clipPath === "inset(50%)") return false;
     return r.bottom > innerHeight + 1 || r.top < nav.bottom - 1 || r.left < -1 || r.right > innerWidth + 1;
   });
   const cut = [...scene.querySelectorAll(".body, .pc, .win")].filter((el) => el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1);
