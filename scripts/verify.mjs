@@ -18,7 +18,7 @@ const sceneFit = () => {
   const scene = document.querySelector("section.scene.on");
   const bad = [...scene.querySelectorAll("*")].filter((el) => {
     const r = el.getBoundingClientRect();
-    if (!r.width || !r.height || el.closest("svg") && el.tagName !== "svg" || el.closest(".cf-turnstile") || (el.closest("details:not([open])") && !el.closest("summary") && el.tagName !== "DETAILS") || getComputedStyle(el.closest("#accesso > div:first-child") ?? el).clipPath !== "none") return false;
+    if (!r.width || !r.height || el.closest("svg") && el.tagName !== "svg" || el.closest(".cf-turnstile") || (el.closest("details:not([open])") && !el.closest("summary") && el.tagName !== "DETAILS") || getComputedStyle(el.closest("#accesso > div:first-child") ?? el).clipPath === "inset(50%)") return false;
     return r.bottom > innerHeight + 1 || r.top < nav.bottom - 1 || r.left < -1 || r.right > innerWidth + 1;
   });
   const cut = [...scene.querySelectorAll(".body, .pc, .win")].filter((el) => el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1);
@@ -37,7 +37,8 @@ const newPage = async (options) => {
   return context.newPage();
 };
 const closeAll = () => Promise.all(browser.contexts().map((context) => context.close()));
-const keys = (code) => Object.keys(JSON.parse(readFileSync(`locales/${code}.json`, "utf8"))).filter((key) => !key.startsWith("seo.")).sort().join();
+const locale = (code) => JSON.parse(readFileSync(`locales/${code}.json`, "utf8"));
+const keys = (code) => Object.keys(locale(code)).filter((key) => !key.startsWith("seo.")).sort().join();
 const base = "https://www.neurocart.it";
 const pages = [
   { path: "/", code: "it", scenes: 14, h1: /l'ai che vende/i, pair: "/en/", ld: ["Organization", "SoftwareApplication", "FAQPage"] },
@@ -233,11 +234,11 @@ try {
     await closeAll();
   }
 
-  const texts = {
-  it: { neurocart: ["Richiedi accesso", "Grazie. Ti scriviamo appena", "Il tuo negozio sa già"], consulting: ["Richiedi la consulenza", "Grazie. Ti scriviamo per fissare", "Il tuo negozio sa già"], build: ["Parliamone", "Grazie. Ti scriviamo per capire", "Iniziamo dal tuo negozio"] },
-  en: { neurocart: ["Request access", "Thank you. We'll write to you as soon", "Your store already"], consulting: ["Request the consultation", "Thank you. We'll write to you to schedule", "Your store already"], build: ["Let's talk", "Thank you. We'll write to understand", "Let's start with your store"] },
-};
-for (const { code, path, ok } of [{ code: "it", path: "/", ok: "Grazie" }, { code: "en", path: "/en/", ok: "Thank you" }]) {
+  const texts = Object.fromEntries(["it", "en"].map((code) => {
+    const l = locale(code);
+    return [code, { neurocart: [l["nav.08"], l["cta.ok"], l["cta.01"]], consulting: [l["cta.btn2"], l["cta.ok2"], l["cta.01"]], build: [l["h.13c"], l["cta.ok3"], l["cta.t1"]] }];
+  }));
+  for (const { code, path, ok } of [{ code: "it", path: "/", ok: "Grazie" }, { code: "en", path: "/en/", ok: "Thank you" }]) {
     for (const [state, date] of Object.entries(states)) {
       const dated = await newPage();
       await dated.clock.setFixedTime(new Date(date));

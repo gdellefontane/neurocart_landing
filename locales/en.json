@@ -56,7 +56,7 @@
   "cta.01": "Your store already knows what to recommend.",
   "cta.02": "Give it a voice.",
   "cta.03": "Book a demo",
-  "cta.04": "Neurocart is invite-only. Leave your email and we'll write to you.",
+  "cta.04": "Leave your email: we'll get back to you.",
   "cta.05": "Email",
   "cta.06": "I agree to the processing of my data (email, store, product range) so I can be contacted.",
   "cta.07": "Shopify store",
@@ -527,7 +527,7 @@
   "pr.4r1d": "Depends on model and quality",
   "pr.4r1v": "from 12",
   "pr.4r2t": "Full product copy",
-  "pr.4r2d": "Title, descriptions, type and tags",
+  "pr.4r2d": "Title, descriptions, type and tags: 1 credit per field written by the AI",
   "pr.4r2v": "5",
   "pr.4r3t": "Pack of 10 conversations",
   "pr.4r3d": "They don't expire and add to the ones in your plan",
@@ -545,7 +545,7 @@
   "pl.p1": "<b>100</b> conversations a month",
   "pl.p2": "<b>1,000</b> credits a month",
   "pl.pn": "For those who sell every day.",
-  "pl.e1": "<b>Volumes</b> on your numbers",
+  "pl.e1": "<b>Volumes</b> sized to your numbers",
   "pl.e2": "<b>SLA</b> and dedicated integrations",
   "pl.en": "For large catalogs and multiple brands.",
   "pl.talk": "Let's talk",
@@ -555,7 +555,7 @@
   "cta.need.4": "Migrate my store to Shopify",
   "cta.t1": "Let's start with your store.",
   "cta.t2": "Even if it doesn't exist yet.",
-  "cta.btn2": "Request the consultation",
+  "cta.btn2": "Request a consultation",
   "cta.ok2": "Thank you. We'll write to you to schedule the consultation.",
-  "cta.ok3": "Thank you. We'll write to understand your project and introduce you to the right partner."
+  "cta.ok3": "Thank you. We'll be in touch to learn about your project and introduce you to the right partner."
 }
