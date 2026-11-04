@@ -143,6 +143,13 @@ try {
       await live.waitForTimeout(2800);
       check(`${path} lo sfondo fisso cambia posa tra due scene (${before} -> ${await pose()})`, (await pose()) !== before);
     }
+    if (home || path.startsWith("/prezzi") || path.startsWith("/en/pricing")) {
+      const tops = await live.$$eval(".plan .b", (nodes) => nodes.map((n) => Math.round(n.getBoundingClientRect().top)));
+      check(`${path} 3 piani con i tasti allineati e nessuna lista di funzioni`, tops.length === 3 && new Set(tops).size === 1 && (await live.locator(".plan li").count()) === 0);
+    }
+    if (path.startsWith("/prezzi") || path.startsWith("/en/pricing")) {
+      check(`${path} scena incluso con le 10 voci, scena crediti con le 4 righe dei costi, nessuna demo crediti`, (await live.locator("#incluso .rates li").count()) === 10 && (await live.locator("#crediti .rates li").count()) === 4 && (await live.locator("#crediti .win").count()) === 0 && (await live.locator('#links a[href="#incluso"]').count()) === 1);
+    }
     const navLinks = await live.$$eval("#links a", (nodes) => nodes.map((n) => n.getAttribute("href")));
     const order = await live.$$eval("section.scene", (nodes) => nodes.map((n) => n.id));
     let linkOk = navLinks.length > 0;

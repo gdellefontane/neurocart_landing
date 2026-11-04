@@ -19,13 +19,7 @@
       <div class="calm">
         <p class="ey">{{nav.05}}</p>
         <h1>{{pr.1a}} <em>{{pr.1b}}</em></h1>
-        <ol class="three plain">
-          <li><b>{{pricing.02}}</b><big>{{pricing.base}} <small>{{pricing.03}}</small></big><span>{{pr.1p1}}</span></li>
-          <li class="pro"><b>{{pricing.05}}</b><big>{{pricing.07}} <small>{{pricing.03}}</small></big><span>{{pr.1p2}}</span></li>
-          <li><b>{{pricing.09}}</b><big>{{pricing.10}}</big><span>{{pricing.11}}</span></li>
-        </ol>
-        <p class="fine">{{pr.1f}}</p>
-        <div class="ctas"><a class="b p" href="{{pg.home}}#accesso">{{nav.08}}</a></div>
+        {{>plans}}
       </div>
     </section>
 
@@ -55,29 +49,20 @@
 </div></div>
     </section>
 
-    <section id="crediti" class="scene svc txt" data-nav="{{pr.n4}}" style="--c:#FFA35C">
+    <section id="crediti" class="scene svc" data-nav="{{pr.n4}}" style="--c:#FFA35C">
       <div>
         <h2>{{pr.4a}} <em>{{pr.4b}}</em></h2>
-        <ol class="how full"><li><b>{{pr.4s1t}}</b><span>{{pr.4s1d}}</span></li><li><b>{{pr.4s2t}}</b><span>{{pr.4s2d}}</span></li><li><b>{{pr.4s3t}}</b><span>{{pr.4s3d}}</span></li><li><b>{{pr.4s4t}}</b><span>{{pr.4s4d}}</span></li></ol>
+        <ol class="how"><li><b>{{pr.4s1t}}</b><span>{{pr.4s1d}}</span></li><li><b>{{pr.4s2t}}</b><span>{{pr.4s2d}}</span></li><li><b>{{pr.4s3t}}</b><span>{{pr.4s3d}}</span></li><li><b>{{pr.4s4t}}</b><span>{{pr.4s4d}}</span></li></ol>
       </div>
-      <div class="win fit" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><u>{{w.credits}}</u></div><div class="body">
-<div class="stat"><small>{{pr.4w1}}</small><b>1.240</b></div>
-<div class="ledger">
-<div class="plus" data-seq="1">{{pr.4w2}}<b>+1.000</b></div>
-<div data-seq="2">{{pr.4w3}}<b>−12</b></div>
-<div data-seq="3">{{pr.4w4}}<b>−5</b></div>
-<div data-seq="4">{{pr.4w5}}<b>−500</b></div>
-</div>
-<div class="tog" data-seq="5">{{pr.4w6}}<i></i></div>
-</div></div>
+      <ul class="rates"><li><div><b>{{pr.4r1t}}</b><span>{{pr.4r1d}}</span></div><em>{{pr.4r1v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.4r2t}}</b><span>{{pr.4r2d}}</span></div><em>{{pr.4r2v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.4r3t}}</b><span>{{pr.4r3d}}</span></div><em>{{pr.4r3v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.4r4t}}</b><span>{{pr.4r4d}}</span></div><em>{{pr.4r4v}}<small>{{pr.cr}}</small></em></li></ul>
     </section>
 
-    <section id="listino" class="scene duo" data-nav="{{pr.n5}}" style="--c:#4CD3EC">
+    <section id="incluso" class="scene duo" data-nav="{{pr.n5}}" style="--c:#7FE0C6">
       <div>
         <h2>{{pr.5a}} <em>{{pr.5b}}</em></h2>
         <p class="lead">{{pr.5l}}</p>
       </div>
-      <ul class="rates"><li><div><b>{{pr.5r1t}}</b><span>{{pr.5r1d}}</span></div><em>{{pr.5r1v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.5r2t}}</b><span>{{pr.5r2d}}</span></div><em>{{pr.5r2v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.5r3t}}</b><span>{{pr.5r3d}}</span></div><em>{{pr.5r3v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.5r4t}}</b><span>{{pr.5r4d}}</span></div><em>{{pr.5r4v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.5r5t}}</b><span>{{pr.5r5d}}</span></div><em>{{pr.5r5v}}</em></li></ul>
+      <ul class="rates tight"><li><div><b>{{pr.5i1t}}</b><span>{{pr.5i1d}}</span></div><em>{{pr.5i1v}}<small>{{pr.5i1s}}</small></em></li><li><div><b>{{pr.5i2t}}</b><span>{{pr.5i2d}}</span></div><em class="q">{{pr.5i2v}}<small>{{pr.5i2s}}</small></em></li><li><div><b>{{pr.5i3t}}</b><span>{{pr.5i3d}}</span></div><em>{{pr.5i3v}}<small>{{pr.5i3s}}</small></em></li><li><div><b>{{pr.5i4t}}</b><span>{{pr.5i4d}}</span></div><em class="q">{{pr.5i4v}}<small>{{pr.5i4s}}</small></em></li><li><div><b>{{pr.5i5t}}</b><span>{{pr.5i5d}}</span></div><em>{{pr.5i5v}}</em></li><li><div><b>{{pr.5i6t}}</b><span>{{pr.5i6d}}</span></div><em>{{pr.5i6v}}</em></li><li><div><b>{{pr.5i7t}}</b><span>{{pr.5i7d}}</span></div><em>{{pr.5i7v}}</em></li><li><div><b>{{pr.5i8t}}</b><span>{{pr.5i8d}}</span></div><em>{{pr.5i8v}}</em></li><li><div><b>{{pr.5i9t}}</b><span>{{pr.5i9d}}</span></div><em>{{pr.5i9v}}</em></li><li><div><b>{{pr.5i10t}}</b><span>{{pr.5i10d}}</span></div><em>{{pr.5i10v}}</em></li></ul>
     </section>
 
     <section id="negozi" class="scene svc txt" style="--c:#6FA6FF">
