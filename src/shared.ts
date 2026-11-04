@@ -26,7 +26,7 @@ export const bindWaitlist = (form: HTMLFormElement, body: (data: FormData) => ob
 
 export const stage = () => {
   const stacked = matchMedia("(height <= 500px)");
-  const [nav, scroller, links] = [$("#nav"), $(".scroller"), $("#links")];
+  const [nav, scroller, links, totop] = [$("#nav"), $(".scroller"), $("#links"), $(".totop")];
   const scenes = $$("section.scene");
   const height = () => $(".stage").clientHeight;
   scroller.style.setProperty("--n", String(scenes.length));
@@ -76,6 +76,7 @@ export const stage = () => {
   };
   const sync = () => {
     nav.classList.toggle("mini", scrollY > 40);
+    totop.classList.toggle("on", scrollY > 0.35 * (document.documentElement.scrollHeight - innerHeight));
     if (stacked.matches) {
       timers.forEach(clearTimeout);
       return scenes.forEach((scene) => {

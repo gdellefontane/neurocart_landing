@@ -109,6 +109,11 @@ try {
         if (out) bad.push(`${i}: ${out}`);
       }
       check(`${label} ogni scena entra nello schermo, sotto la nav, senza testo o finestre tagliate (${bad.join(" // ")})`, bad.length === 0);
+      await p.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+      const totopAt = async (f) => { await p.evaluate((k) => scrollTo({ top: k * (document.documentElement.scrollHeight - innerHeight), behavior: "instant" }), f); await p.waitForTimeout(120); return p.evaluate(() => document.querySelector(".totop").classList.contains("on")); };
+      check(`${label} freccia torna all'inizio nascosta in cima e visibile oltre il 40%`, !(await totopAt(0)) && (await totopAt(0.45)));
+      await p.click(".totop");
+      check(`${label} la freccia riporta alla prima scena`, await p.waitForFunction(() => document.querySelectorAll("section.scene")[0].classList.contains("on") && scrollY < 5, null, { timeout: 3000 }).then(() => true).catch(() => false));
       if (home) {
         await p.route("**/waitlist", (route) => route.fulfill({ status: 500, body: "{}" }));
         await p.evaluate(() => scrollTo({ top: [...document.querySelectorAll("section.scene")].findIndex((s) => s.id === "accesso") * document.querySelector(".stage").clientHeight, behavior: "instant" }));
