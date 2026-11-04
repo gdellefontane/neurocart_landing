@@ -110,8 +110,8 @@ try {
       }
       check(`${label} ogni scena entra nello schermo, sotto la nav, senza testo o finestre tagliate (${bad.join(" // ")})`, bad.length === 0);
       await p.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
-      const totopAt = async (f) => { await p.evaluate((k) => scrollTo({ top: k * (document.documentElement.scrollHeight - innerHeight), behavior: "instant" }), f); await p.waitForTimeout(120); return p.evaluate(() => document.querySelector(".totop").classList.contains("on")); };
-      check(`${label} freccia torna all'inizio nascosta in cima e visibile oltre il 40%`, !(await totopAt(0)) && (await totopAt(0.45)));
+      const totopAt = async (f, want) => { await p.evaluate((k) => scrollTo({ top: k * (document.documentElement.scrollHeight - innerHeight), behavior: "instant" }), f); return p.waitForFunction((w) => document.querySelector(".totop").classList.contains("on") === w, want, { timeout: 2000 }).then(() => true, () => false); };
+      check(`${label} freccia torna all'inizio nascosta in cima e visibile oltre il 40%`, (await totopAt(0, false)) && (await totopAt(0.45, true)));
       await p.click(".totop");
       check(`${label} la freccia riporta alla prima scena`, await p.waitForFunction(() => document.querySelectorAll("section.scene")[0].classList.contains("on") && scrollY < 5, null, { timeout: 3000 }).then(() => true).catch(() => false));
       if (home) {
@@ -190,6 +190,7 @@ try {
         famOk &&= await live.waitForFunction((id) => document.querySelector("section.scene.on")?.id === id, href.slice(1), { timeout: 3000 }).then(() => true, () => false);
       }
       check(`${path} i 4 link della colonna servizi portano alla scena giusta`, famOk);
+      check(`${path} dopo un salto da link l'aggancio delle scene torna attivo`, await live.waitForFunction(() => !document.documentElement.style.scrollSnapType && getComputedStyle(document.documentElement).scrollSnapType === "y mandatory", null, { timeout: 2000 }).then(() => true, () => false));
       await live.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
       await live.waitForFunction(() => document.querySelector("section.scene.on")?.id === "top");
       await live.click('#top a[href="#partner"]');

@@ -86,6 +86,13 @@ export const stage = () => {
     }
     show(Math.min(scenes.length - 1, Math.max(0, Math.round(scrollY / height()))));
   };
+  // iOS Safari aggiorna la scena agganciata solo a fine trascinamento: uno scroll da codice con lo snap acceso rimbalza o salta di scena (WebKit 245722, 300086). Si scorre a snap spento e lo si riaccende dopo il frame, così l'aggancio riparte dalla posizione nuova.
+  const go = (n: number) => {
+    const root = document.documentElement;
+    root.style.scrollSnapType = "none";
+    scrollTo({ top: n * height(), behavior: "instant" });
+    requestAnimationFrame(() => requestAnimationFrame(() => root.style.removeProperty("scroll-snap-type")));
+  };
   addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
   addEventListener("resize", sync);
   document.addEventListener("click", (event) => {
@@ -93,10 +100,10 @@ export const stage = () => {
     const n = link && link.pathname === location.pathname ? scenes.findIndex((scene) => scene.id === (link.hash.slice(1) || "top")) : -1;
     if (n < 0 || stacked.matches) return;
     event.preventDefault();
-    scrollTo({ top: n * height(), behavior: "instant" });
+    go(n);
   });
   const start = scenes.findIndex((scene) => scene.id === location.hash.slice(1));
-  const toStart = () => start > 0 && !stacked.matches && scrollTo({ top: start * height(), behavior: "instant" });
+  const toStart = () => start > 0 && !stacked.matches && go(start);
   toStart();
   addEventListener("load", toStart, { once: true });
   stacked.addEventListener("change", () => {
