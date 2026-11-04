@@ -95,7 +95,9 @@ export const stage = () => {
     scrollTo({ top: n * height(), behavior: "instant" });
   });
   const start = scenes.findIndex((scene) => scene.id === location.hash.slice(1));
-  if (start > 0 && !stacked.matches) scrollTo({ top: start * height(), behavior: "instant" });
+  const toStart = () => start > 0 && !stacked.matches && scrollTo({ top: start * height(), behavior: "instant" });
+  toStart();
+  addEventListener("load", toStart, { once: true });
   stacked.addEventListener("change", () => {
     current = -1;
     sync();

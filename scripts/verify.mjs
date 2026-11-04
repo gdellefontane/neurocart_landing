@@ -26,7 +26,7 @@ const sceneFit = () => {
   const overlap = wins.flatMap((win) => [...scene.children].filter((c) => c !== win && !c.contains(win) && !win.contains(c) && c.getClientRects().length && c.className !== "foot").flatMap((c) => [...c.querySelectorAll("h1, h2, .lbl, .how, .more, .lead")].filter((t) => { const a = win.getBoundingClientRect(); const b = t.getBoundingClientRect(); return a.left < b.right && b.left < a.right && a.top < b.bottom - 1 && b.top < a.bottom - 1; })));
   const foot = scene.querySelector(".foot");
   const onFoot = foot ? [...scene.querySelectorAll("h1, h2, p, li, button, input, select, label, summary, .b, .cf-turnstile")].filter((el) => !el.closest(".foot") && el.getClientRects().length && !el.closest("details:not([open])") && (() => { const a = foot.getBoundingClientRect(); const b = el.getBoundingClientRect(); return b.width && a.left < b.right && b.left < a.right && a.top < b.bottom - 1 && b.top < a.bottom - 1; })()) : [];
-  const chatCut = [...scene.querySelectorAll(".chatb")].filter((body) => [...body.children].some((c) => c.getClientRects().length && c.getBoundingClientRect().top < body.getBoundingClientRect().top - 1));
+  const chatCut = [...scene.querySelectorAll(".chatb")].filter((body) => { const last = [...body.children].filter((c) => c.getBoundingClientRect().height).at(-1); return last && last.getBoundingClientRect().bottom > body.getBoundingClientRect().bottom + 1; });
   return [...bad, ...cut, ...overlap, ...onFoot, ...chatCut].map((el) => `${el.tagName}.${el.className}`).slice(0, 4).join(" | ");
 };
 const server = await preview({ preview: { port: 4173, strictPort: true } });
