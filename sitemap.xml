@@ -12,4 +12,70 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/" />
   </url>
+  <url>
+    <loc>https://www.neurocart.it/prezzi/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/prezzi/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/pricing/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/prezzi/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/chatbot-shopify/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/chatbot-shopify/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/shopify-ai-chatbot/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/chatbot-shopify/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/upsell-cross-sell-shopify/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/upsell-cross-sell-shopify/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/shopify-upsell-cross-sell/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/upsell-cross-sell-shopify/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/contenuti-ai-shopify/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/contenuti-ai-shopify/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/shopify-ai-product-content/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/contenuti-ai-shopify/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/insights-shopify/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/insights-shopify/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/shopify-ai-insights/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/insights-shopify/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/come-aumentare-scontrino-medio-shopify/</loc>
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/en/pricing/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/prezzi/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/pricing/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/prezzi/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/en/shopify-ai-chatbot/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/chatbot-shopify/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/shopify-ai-chatbot/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/chatbot-shopify/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/en/shopify-upsell-cross-sell/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/upsell-cross-sell-shopify/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/shopify-upsell-cross-sell/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/upsell-cross-sell-shopify/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/en/shopify-ai-product-content/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/contenuti-ai-shopify/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/shopify-ai-product-content/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/contenuti-ai-shopify/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/en/shopify-ai-insights/</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.neurocart.it/insights-shopify/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.neurocart.it/en/shopify-ai-insights/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.neurocart.it/insights-shopify/" />
+  </url>
+  <url>
+    <loc>https://www.neurocart.it/en/shopify-related-products/</loc>
+  </url>
 </urlset>
