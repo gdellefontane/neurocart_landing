@@ -26,7 +26,8 @@ const sceneFit = () => {
   const overlap = wins.flatMap((win) => [...scene.children].filter((c) => c !== win && !c.contains(win) && !win.contains(c) && c.getClientRects().length && c.className !== "foot").flatMap((c) => [...c.querySelectorAll("h1, h2, .lbl, .how, .more, .lead")].filter((t) => { const a = win.getBoundingClientRect(); const b = t.getBoundingClientRect(); return a.left < b.right && b.left < a.right && a.top < b.bottom - 1 && b.top < a.bottom - 1; })));
   const foot = scene.querySelector(".foot");
   const onFoot = foot ? [...scene.querySelectorAll("h1, h2, p, li, button, input, select, label, summary, .b, .cf-turnstile")].filter((el) => !el.closest(".foot") && el.getClientRects().length && !el.closest("details:not([open])") && (() => { const a = foot.getBoundingClientRect(); const b = el.getBoundingClientRect(); return b.width && a.left < b.right && b.left < a.right && a.top < b.bottom - 1 && b.top < a.bottom - 1; })()) : [];
-  return [...bad, ...cut, ...overlap, ...onFoot].map((el) => `${el.tagName}.${el.className}`).slice(0, 4).join(" | ");
+  const chatCut = [...scene.querySelectorAll(".chatb")].filter((body) => [...body.children].some((c) => c.getClientRects().length && c.getBoundingClientRect().top < body.getBoundingClientRect().top - 1));
+  return [...bad, ...cut, ...overlap, ...onFoot, ...chatCut].map((el) => `${el.tagName}.${el.className}`).slice(0, 4).join(" | ");
 };
 const server = await preview({ preview: { port: 4173, strictPort: true } });
 const browser = await chromium.launch();
@@ -189,12 +190,28 @@ try {
     const still = await newPage({ viewport: { width: 1280, height: 800 }, reducedMotion: "reduce" });
     await still.goto(url);
     await still.waitForTimeout(600);
-    check(`${path} reduced-motion: nessuna animazione, stato finale visibile`, (await still.evaluate(() => document.getAnimations().filter((a) => a instanceof CSSAnimation).length)) === 0 && (await still.$$eval("[data-seq]", (nodes) => nodes.every((n) => getComputedStyle(n).opacity === "1"))));
+    check(`${path} reduced-motion: nessuna animazione, stato finale visibile`, (await still.evaluate(() => document.getAnimations().filter((a) => a instanceof CSSAnimation).length)) === 0 && (await still.$$eval("[data-seq]", (nodes) => nodes.every((n) => getComputedStyle(n).opacity === "1"))) && (await still.$$eval("svg.sp path", (nodes) => nodes.every((n) => parseFloat(getComputedStyle(n).strokeDashoffset) === 0))));
 
     const landscape = await newPage({ viewport: { width: 740, height: 360 } });
     await landscape.goto(url);
     await landscape.waitForTimeout(400);
     check(`${path} telefono in orizzontale (740x360): layout impilato con scroll normale, nessuna scena inerte`, await landscape.$$eval("section.scene", (nodes) => nodes.every((n, i) => { const s = getComputedStyle(n); return s.position !== "absolute" && s.opacity === "1" && !n.inert && n.getBoundingClientRect().height > 100; }) && getComputedStyle(document.documentElement).scrollSnapType === "none" && document.documentElement.scrollWidth <= document.documentElement.clientWidth));
+    const rot = await newPage({ viewport: { width: 390, height: 844 } });
+    await rot.goto(url);
+    await rot.waitForTimeout(400);
+    await rot.setViewportSize({ width: 844, height: 390 });
+    await rot.waitForTimeout(500);
+    const flat = await rot.$$eval("section.scene", (nodes) => nodes.every((n) => !n.inert && getComputedStyle(n).position !== "absolute"));
+    await rot.setViewportSize({ width: 390, height: 844 });
+    await rot.waitForTimeout(700);
+    const hrefs2 = await rot.$$eval("#links a", (nodes) => nodes.map((n) => n.getAttribute("href")));
+    let rotOk = flat && (await rot.locator("section.scene.on").count()) === 1 && (await rot.locator("section.scene.on").evaluate((n) => getComputedStyle(n).opacity === "1" && getComputedStyle(n).visibility === "visible"));
+    if (hrefs2.length) {
+      await rot.click(`#links a[href="${hrefs2.at(-1)}"]`);
+      await rot.waitForFunction((id) => document.querySelector("section.scene.on")?.id === id, hrefs2.at(-1).slice(1), { timeout: 3000 }).catch(() => null);
+      rotOk &&= (await rot.locator("section.scene.on").getAttribute("id")) === hrefs2.at(-1).slice(1);
+    }
+    check(`${path} rotazione 390x844 -> 844x390 -> 390x844: in orizzontale nessuna scena inerte, in verticale una scena attiva visibile e i link nav funzionano`, rotOk);
     const plain = await newPage({ viewport: { width: 1280, height: 800 }, javaScriptEnabled: false });
     await plain.goto(url);
     check(`${path} senza JS le scene sono impilate e leggibili`, await plain.$$eval("section.scene", (nodes) => nodes.every((n, i) => { const s = getComputedStyle(n); const r = n.getBoundingClientRect(); return s.opacity === "1" && s.visibility === "visible" && s.position !== "absolute" && r.height > 100 && (i === 0 || r.top >= n.previousElementSibling.getBoundingClientRect().bottom - 1); })));

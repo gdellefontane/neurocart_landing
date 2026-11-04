@@ -2,7 +2,7 @@ import "./styles.css";
 
 export const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
 export const $ = <T extends HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
-export const $$ = <T extends HTMLElement>(selector: string, root: ParentNode = document) => [...root.querySelectorAll<T>(selector)];
+export const $$ = <T extends HTMLElement>(selector: string) => [...document.querySelectorAll<T>(selector)];
 
 declare global {
   interface Window {
@@ -25,7 +25,7 @@ export const bindWaitlist = (form: HTMLFormElement, body: (data: FormData) => ob
   });
 
 export const stage = () => {
-  if (matchMedia("(max-height: 500px)").matches) return;
+  const stacked = matchMedia("(height <= 500px)");
   const [nav, scroller, links] = [$("#nav"), $(".scroller"), $("#links")];
   const scenes = $$("section.scene");
   const height = () => $(".stage").clientHeight;
@@ -38,7 +38,7 @@ export const stage = () => {
   const play = (scene: HTMLElement) => {
     timers.forEach(clearTimeout);
     timers = [];
-    const seq = $$("[data-seq]", scene).sort((a, b) => +a.dataset.seq! - +b.dataset.seq!);
+    const seq = [...scene.querySelectorAll<HTMLElement>("[data-seq]")].filter((el) => el.checkVisibility()).sort((a, b) => +a.dataset.seq! - +b.dataset.seq!);
     const loop = () => {
       seq.forEach((el) => el.classList.remove("in"));
       seq.forEach((el, k) => timers.push(setTimeout(() => el.classList.add("in"), 500 + k * 900)));
@@ -75,19 +75,24 @@ export const stage = () => {
     play(scenes[n]);
   };
   const sync = () => {
-    show(Math.min(scenes.length - 1, Math.max(0, Math.round(scrollY / height()))));
     nav.classList.toggle("mini", scrollY > 40);
+    if (stacked.matches) return scenes.forEach((scene) => (scene.inert = false));
+    show(Math.min(scenes.length - 1, Math.max(0, Math.round(scrollY / height()))));
   };
   addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
   addEventListener("resize", sync);
   document.addEventListener("click", (event) => {
     const link = (event.target as Element).closest<HTMLAnchorElement>("a[href]");
     const n = link && link.pathname === location.pathname ? scenes.findIndex((scene) => scene.id === (link.hash.slice(1) || "top")) : -1;
-    if (n < 0) return;
+    if (n < 0 || stacked.matches) return;
     event.preventDefault();
     scrollTo({ top: n * height(), behavior: "instant" });
   });
   const start = scenes.findIndex((scene) => scene.id === location.hash.slice(1));
-  if (start > 0) scrollTo({ top: start * height(), behavior: "instant" });
+  if (start > 0 && !stacked.matches) scrollTo({ top: start * height(), behavior: "instant" });
+  stacked.addEventListener("change", () => {
+    current = -1;
+    sync();
+  });
   sync();
 };
