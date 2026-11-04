@@ -132,6 +132,17 @@
       <div><details name="faq"><summary>{{faq.02}}</summary><p>{{faq.03}}</p></details><details name="faq"><summary>{{faq.04}}</summary><p>{{faq.05}}</p></details><details name="faq"><summary>{{faq.06}}</summary><p>{{faq.07}} <a href="%VITE_APP_URL%/privacy">{{faq.08}}</a></p></details><details name="faq"><summary>{{faq.09}}</summary><p>{{faq.10}}</p></details><details name="faq"><summary>{{faq.11}}</summary><p>{{faq.12}}</p></details><details name="faq"><summary>{{faq.13}}</summary><p>{{faq.14}} <a href="{{u.pricing}}">{{h.11l}}</a></p></details></div>
     </section>
 
+    <section id="partner" class="scene svc" style="--c:#FFA35C">
+      <div>
+        <p class="lbl">{{h.13e}}</p>
+        <h2>{{h.13a}} <em>{{h.13b}}</em></h2>
+        <p class="lead">{{h.13l}}</p>
+        <ol class="how"><li><b>{{h.13s1t}}</b><span>{{h.13s1d}}</span></li><li><b>{{h.13s2t}}</b><span>{{h.13s2d}}</span></li><li><b>{{h.13s3t}}</b><span>{{h.13s3d}}</span></li></ol>
+        <div class="ctas"><a class="b p" href="#accesso" data-pick="build">{{h.13c}}</a></div>
+      </div>
+      {{>v-partner}}
+    </section>
+
     <section id="accesso" class="scene duo" style="--c:#B48CFF">
       <div>
         <h2>{{cta.01}} <em>{{cta.02}}</em></h2>
@@ -140,9 +151,19 @@
         <p>{{cta.04}}</p>
         <label for="email">{{cta.05}}</label>
         <input id="email" name="email" type="email" required autocomplete="email" placeholder="{{cta.05}}" class="field" />
-        <label for="shopDomain">{{cta.07}}</label>
-        <input id="shopDomain" name="shopDomain" type="text" required autocomplete="off" placeholder="{{cta.07.placeholder}}" class="field" />
-        <label for="productRange">{{cta.08}}</label>
+        <fieldset class="need"><legend>{{cta.need}}</legend>
+          <label class="pill"><input type="radio" name="need" value="neurocart" checked /><span>{{cta.need.1}}</span></label>
+          <label class="pill"><input type="radio" name="need" value="consulting" /><span>{{cta.need.2}}</span></label>
+          <label class="pill"><input type="radio" name="need" value="build" /><span>{{cta.need.3}}</span></label>
+        </fieldset>
+        <div class="slot">
+          <div data-need="neurocart"><label for="shopDomain">{{cta.07}}</label>
+          <input id="shopDomain" name="shopDomain" type="text" required autocomplete="off" placeholder="{{cta.07.placeholder}}" class="field" /></div>
+          <div data-need="consulting" hidden><label for="shopUrl">{{cta.site}}</label>
+          <input id="shopUrl" name="shopUrl" type="text" pattern="\s*\S+\.\S+\s*" maxlength="255" autocomplete="url" placeholder="{{cta.site.placeholder}}" class="field" disabled /></div>
+          <p data-need="build" hidden>{{cta.build}}</p>
+        </div>
+        <label for="productRange" id="rangeLabel" data-ask="{{cta.08}}" data-build="{{cta.08b}}">{{cta.08}}</label>
         <select id="productRange" name="productRange" required class="field [&>option]:text-black">
           <option value="" disabled selected>{{cta.08}}</option>
           <option value="lte_100">{{cta.range.1}}</option>

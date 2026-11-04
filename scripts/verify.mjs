@@ -40,8 +40,8 @@ const closeAll = () => Promise.all(browser.contexts().map((context) => context.c
 const keys = (code) => Object.keys(JSON.parse(readFileSync(`locales/${code}.json`, "utf8"))).filter((key) => !key.startsWith("seo.")).sort().join();
 const base = "https://www.neurocart.it";
 const pages = [
-  { path: "/", code: "it", scenes: 13, h1: /l'ai che vende/i, pair: "/en/", ld: ["Organization", "SoftwareApplication", "FAQPage"] },
-  { path: "/en/", code: "en", scenes: 13, h1: /the ai that sells/i, pair: "/", ld: ["Organization", "SoftwareApplication", "FAQPage"] },
+  { path: "/", code: "it", scenes: 14, h1: /l'ai che vende/i, pair: "/en/", ld: ["Organization", "SoftwareApplication", "FAQPage"] },
+  { path: "/en/", code: "en", scenes: 14, h1: /the ai that sells/i, pair: "/", ld: ["Organization", "SoftwareApplication", "FAQPage"] },
   { path: "/prezzi/", code: "it", scenes: 7, h1: /un prezzo chiaro/i, pair: "/en/pricing/" },
   { path: "/en/pricing/", code: "en", scenes: 7, h1: /clear pricing/i, pair: "/prezzi/" },
   { path: "/chatbot-shopify/", code: "it", scenes: 7, h1: /chatbot ai per shopify/i, pair: "/en/shopify-ai-chatbot/" },
@@ -119,6 +119,10 @@ try {
         await p.click("form#richiesta button[type=submit]");
         await p.waitForFunction(() => document.querySelector("#richiesta [role=status]").textContent.length > 0);
         check(`${label} form in errore: testo nello status, form visibile e dentro lo schermo (Turnstile 300x65 incluso) (${await p.evaluate(sceneFit)})`, !(await p.evaluate(sceneFit)) && (await p.locator("#richiesta button[type=submit]").isVisible()) && (await p.evaluate(() => document.querySelector("#richiesta .cf-turnstile").getBoundingClientRect().height)) >= 65);
+        for (const need of ["consulting", "build"]) {
+          await p.check(`input[value=${need}]`, { force: true });
+          check(`${label} modulo "${need}": dentro lo schermo con Turnstile 65px (${await p.evaluate(sceneFit)})`, !(await p.evaluate(sceneFit)) && (await p.locator("#richiesta button[type=submit]").isVisible()));
+        }
       }
       check(`${label} zero overflow orizzontale, nav senza overflow e a tutta larghezza`, await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth && document.querySelector("#nav").scrollWidth <= document.querySelector("#nav").clientWidth && Math.round(document.querySelector("#nav").getBoundingClientRect().width) === innerWidth));
       check(`${label} nav in vetro scuro e sfondo fisso`, (await p.evaluate(navIsDarkGlass)) && (await p.evaluate(() => getComputedStyle(document.querySelector(".bg")).position)) === "fixed");
@@ -241,6 +245,28 @@ try {
     await page.click("form#richiesta button[type=submit]");
     await page.waitForSelector("form#richiesta.done");
     check(`${code} form: testo di successo, consenso e token Turnstile in turnstileToken`, (await page.locator("form#richiesta [role=status]").textContent()).startsWith(ok) && sent.consent === true && sent.source === "landing" && sent.turnstileToken === "tok" && !("cf-turnstile-response" in sent));
+    for (const [need, [domain, site]] of Object.entries({ neurocart: [true, false], consulting: [false, true], build: [false, false] })) {
+      await page.reload();
+      await page.waitForTimeout(300);
+      await page.check(`input[value=${need}]`, { force: true });
+      await page.fill("#email", "test@example.com");
+      await page.check("input[name=consent]");
+      const state = await page.evaluate(() => ["#shopDomain", "#shopUrl", "#productRange"].map((id) => [!!document.querySelector(id).offsetParent, document.querySelector(id).required && !document.querySelector(id).disabled]));
+      const valid = () => page.$eval("#richiesta", (f) => f.checkValidity());
+      const [emptyValid] = [await valid()];
+      if (domain) await page.fill("#shopDomain", "demo.myshopify.com");
+      if (site) await page.fill("#shopUrl", "www.demo-shop.it");
+      await page.selectOption("#productRange", "100_500");
+      await page.$eval("#richiesta .cf-turnstile", (n) => n.insertAdjacentHTML("beforeend", '<input type="hidden" name="cf-turnstile-response" value="tok">'));
+      await page.click("form#richiesta button[type=submit]");
+      await page.waitForSelector("form#richiesta.done");
+      check(`${code} modulo "${need}": campi visibili e required giusti, payload con need e solo i campi pertinenti`, JSON.stringify(state) === JSON.stringify([[domain, domain], [site, false], [true, need === "neurocart"]]) && emptyValid === !domain && sent.need === need && ("shopDomain" in sent) === domain && sent.shopUrl === (site ? "www.demo-shop.it" : undefined) && sent.productRange === "100_500" && sent.turnstileToken === "tok");
+    }
+    await page.evaluate(() => scrollTo({ top: [...document.querySelectorAll("section.scene")].findIndex((n) => n.id === "partner") * document.querySelector(".stage").clientHeight, behavior: "instant" }));
+    await page.waitForFunction(() => document.querySelector("section.scene.on")?.id === "partner");
+    await page.click("#partner a[data-pick]");
+    await page.waitForFunction(() => document.querySelector("section.scene.on")?.id === "accesso", null, { timeout: 3000 });
+    check(`${code} la CTA della scena partner porta al modulo con "build" già selezionato`, (await page.locator("input[value=build]").isChecked()) && !(await page.locator("#shopDomain").isVisible()));
   }
 
   const pilotUrl = "http://localhost:4173/pilota-black-friday/?utm_source=linkedin&utm_medium=dm&utm_campaign=pilota_bfcm";
