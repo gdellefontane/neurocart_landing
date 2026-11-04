@@ -4,8 +4,7 @@ import { $, $$, REDUCED, bindWaitlist } from "./shared";
 const SHOWN = { opacity: 1, transform: "translateY(0px) scale(1)", filter: "blur(0px)" };
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const motion = () => {
-  if (REDUCED) return;
+if (!REDUCED) {
   $$("[data-split]").forEach((heading) => {
     heading.setAttribute("aria-label", heading.textContent!.replace(/\s+/g, " ").trim());
     const walker = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
@@ -46,7 +45,7 @@ const motion = () => {
     },
     { target: $("#hero"), offset: ["start start", "end start"] },
   );
-};
+}
 
 const form = $<HTMLFormElement>("#candidatura");
 const closed = document.documentElement.dataset.pilot === "closed";
@@ -69,4 +68,3 @@ bindWaitlist(form, (data) => ({
 }));
 
 addEventListener("scroll", () => $("#nav").classList.toggle("mini", scrollY > 40), { passive: true });
-motion();

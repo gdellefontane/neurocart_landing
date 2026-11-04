@@ -2,6 +2,7 @@
 <html lang="{{lang}}">
 <head>
   {{>head}}
+  <meta property="og:type" content="website" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AI-Commerce S.r.l.","brand":{"@type":"Brand","name":"Neurocart"},"url":"https://www.neurocart.it/","logo":"https://www.neurocart.it/logo.svg","vatID":"IT08978880725","email":"sales@neurocart.it","address":{"@type":"PostalAddress","streetAddress":"Via Giorgio de Chirico 37","postalCode":"70056","addressLocality":"Molfetta","addressRegion":"BA","addressCountry":"IT"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Neurocart","inLanguage":"{{lang}}","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"{{ld.app}}","offers":{"@type":"Offer","price":"79","priceCurrency":"EUR","priceSpecification":{"@type":"UnitPriceSpecification","price":"79","priceCurrency":"EUR","unitCode":"MON"}}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"{{lang}}","mainEntity":[
@@ -25,7 +26,7 @@
           <p class="lead">{{h.1l}}</p>
           <div class="ctas"><a class="b p" href="#accesso" data-cta data-install="{{cta.install}}">{{nav.08}}</a></div>
         </div>
-        <nav class="famlist" aria-label="{{nav.aria}}"><a href="#vendi" style="--c:#B48CFF"><small>01 · {{h.n1}}</small><b>{{h.f1t}}</b><span>{{h.f1d}}</span><i aria-hidden="true">→</i></a><a href="#chat" style="--c:#6FA6FF"><small>02 · {{h.n2}}</small><b>{{h.f2t}}</b><span>{{h.f2d}}</span><i aria-hidden="true">→</i></a><a href="#contenuti" style="--c:#FFA35C"><small>03 · {{h.n3}}</small><b>{{h.f3t}}</b><span>{{h.f3d}}</span><i aria-hidden="true">→</i></a><a href="#dati" style="--c:#4CD3EC"><small>04 · {{h.n4}}</small><b>{{h.f4t}}</b><span>{{h.f4d}}</span><i aria-hidden="true">→</i></a></nav>
+        <nav class="famlist" aria-label="{{h.fam}}"><a href="#vendi" style="--c:#B48CFF"><small>01 · {{h.n1}}</small><b>{{h.f1t}}</b><span>{{h.f1d}}</span><i aria-hidden="true">→</i></a><a href="#chat" style="--c:#6FA6FF"><small>02 · {{h.n2}}</small><b>{{h.f2t}}</b><span>{{h.f2d}}</span><i aria-hidden="true">→</i></a><a href="#contenuti" style="--c:#FFA35C"><small>03 · {{h.n3}}</small><b>{{h.f3t}}</b><span>{{h.f3d}}</span><i aria-hidden="true">→</i></a><a href="#dati" style="--c:#4CD3EC"><small>04 · {{h.n4}}</small><b>{{h.f4t}}</b><span>{{h.f4d}}</span><i aria-hidden="true">→</i></a></nav>
       </div>
     </section>
 
@@ -134,12 +135,11 @@
     <section id="accesso" class="scene duo" style="--c:#B48CFF">
       <div>
         <h2>{{cta.01}} <em>{{cta.02}}</em></h2>
-        <p class="fine">{{hero.06}}</p>
       </div>
       <form id="richiesta" class="form" data-ok="{{cta.ok}}" data-err="{{cta.err}}">
         <p>{{cta.04}}</p>
         <label for="email">{{cta.05}}</label>
-        <input id="email" name="email" type="email" required autocomplete="email" class="field" />
+        <input id="email" name="email" type="email" required autocomplete="email" placeholder="{{cta.05}}" class="field" />
         <label for="shopDomain">{{cta.07}}</label>
         <input id="shopDomain" name="shopDomain" type="text" required autocomplete="off" placeholder="{{cta.07.placeholder}}" class="field" />
         <label for="productRange">{{cta.08}}</label>
@@ -161,6 +161,7 @@
       <div class="calm">
         <h2>{{h.12a}} <em>{{h.12b}}</em></h2>
         <div class="ctas"><a class="b p" href="mailto:sales@neurocart.it?subject=Demo%20Neurocart">{{cta.03}}</a></div>
+        <p class="fine">{{hero.06}}</p>
       </div>
       {{>foot}}
     </section>

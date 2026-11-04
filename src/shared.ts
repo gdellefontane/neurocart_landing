@@ -2,7 +2,7 @@ import "./styles.css";
 
 export const REDUCED = matchMedia("(prefers-reduced-motion: reduce)").matches;
 export const $ = <T extends HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
-export const $$ = <T extends HTMLElement>(selector: string) => [...document.querySelectorAll<T>(selector)];
+export const $$ = <T extends HTMLElement>(selector: string, root: ParentNode = document) => [...root.querySelectorAll<T>(selector)];
 
 declare global {
   interface Window {
@@ -25,25 +25,20 @@ export const bindWaitlist = (form: HTMLFormElement, body: (data: FormData) => ob
   });
 
 export const stage = () => {
+  if (matchMedia("(max-height: 500px)").matches) return;
   const [nav, scroller, links] = [$("#nav"), $(".scroller"), $("#links")];
   const scenes = $$("section.scene");
   const height = () => $(".stage").clientHeight;
   scroller.style.setProperty("--n", String(scenes.length));
-  scenes.forEach((scene, n) => {
-    scroller.append(Object.assign(document.createElement("i"), { className: "snap" }));
-    scroller.lastElementChild!.setAttribute("style", `top:${n * 100}svh`);
-    if (!scene.dataset.nav) return;
-    const link = Object.assign(document.createElement("a"), { href: `#${scene.id}`, textContent: scene.dataset.nav });
-    link.style.setProperty("--c", scene.style.getPropertyValue("--c"));
-    links.append(link);
-  });
+  scroller.insertAdjacentHTML("beforeend", scenes.map((_, n) => `<i class="snap" style="top:${n * 100}svh"></i>`).join(""));
+  links.insertAdjacentHTML("beforeend", scenes.filter((scene) => scene.dataset.nav).map((scene) => `<a href="#${scene.id}" style="--c:${scene.style.getPropertyValue("--c")}">${scene.dataset.nav}</a>`).join(""));
 
   let current = -1;
   let timers: number[] = [];
   const play = (scene: HTMLElement) => {
     timers.forEach(clearTimeout);
     timers = [];
-    const seq = $$("[data-seq]").filter((el) => scene.contains(el)).sort((a, b) => +a.dataset.seq! - +b.dataset.seq!);
+    const seq = $$("[data-seq]", scene).sort((a, b) => +a.dataset.seq! - +b.dataset.seq!);
     const loop = () => {
       seq.forEach((el) => el.classList.remove("in"));
       seq.forEach((el, k) => timers.push(setTimeout(() => el.classList.add("in"), 500 + k * 900)));
@@ -76,7 +71,7 @@ export const stage = () => {
     history.replaceState(null, "", n ? `#${scenes[n].id}` : location.pathname + location.search);
     const active = [...links.children].find((a) => (a as HTMLAnchorElement).hash === `#${scenes[n].id}`);
     [...links.children].forEach((a) => a.toggleAttribute("aria-current", a === active));
-    active && links.scrollTo({ left: (active as HTMLElement).offsetLeft - 24, behavior: "smooth" });
+    active && links.scrollTo({ left: (active as HTMLElement).offsetLeft - 24, behavior: REDUCED ? "auto" : "smooth" });
     play(scenes[n]);
   };
   const sync = () => {

@@ -2,6 +2,7 @@
 <html lang="{{lang}}">
 <head>
   {{>head}}
+  <meta property="og:type" content="website" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"{{pg.crumb}}","item":"https://www.neurocart.it{{pg.home}}"},{"@type":"ListItem","position":2,"name":"{{p.crumb}}","item":"{{@url}}"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"{{lang}}","mainEntity":[
     {"@type":"Question","name":"{{p.q1}}","acceptedAnswer":{"@type":"Answer","text":"{{p.a1}}"}},
@@ -29,17 +30,17 @@
 
     <section id="come" class="scene duo" data-nav="{{pg.how}}" style="--c:{{p.accent}}">
       <h2>{{pg.how}}</h2>
-      <ol class="how full"><li><b>{{p.s1t}}</b><span>{{p.s1}}</span></li><li><b>{{p.s2t}}</b><span>{{p.s2}}</span></li><li><b>{{p.s3t}}</b><span>{{p.s3}}</span></li></ol>
+      <ol class="how full"><li><h3>{{p.s1t}}</h3><span>{{p.s1}}</span></li><li><h3>{{p.s2t}}</h3><span>{{p.s2}}</span></li><li><h3>{{p.s3t}}</h3><span>{{p.s3}}</span></li></ol>
     </section>
 
     <section id="cosa" class="scene duo" data-nav="{{pg.what}}" style="--c:{{p.accent}}">
       <h2>{{pg.what}}</h2>
-      <ol class="how full"><li><b>{{p.b1t}}</b><span>{{p.b1}}</span></li><li><b>{{p.b2t}}</b><span>{{p.b2}}</span></li><li><b>{{p.b3t}}</b><span>{{p.b3}}</span></li></ol>
+      <ol class="how full"><li><h3>{{p.b1t}}</h3><span>{{p.b1}}</span></li><li><h3>{{p.b2t}}</h3><span>{{p.b2}}</span></li><li><h3>{{p.b3t}}</h3><span>{{p.b3}}</span></li></ol>
     </section>
 
     <section id="altro" class="scene duo" style="--c:{{p.accent}}">
       <h2>{{pg.what2}}</h2>
-      <ol class="how full"><li><b>{{p.b4t}}</b><span>{{p.b4}}</span></li><li><b>{{p.b5t}}</b><span>{{p.b5}}</span></li><li><b>{{p.b6t}}</b><span>{{p.b6}}</span></li></ol>
+      <ol class="how full"><li><h3>{{p.b4t}}</h3><span>{{p.b4}}</span></li><li><h3>{{p.b5t}}</h3><span>{{p.b5}}</span></li><li><h3>{{p.b6t}}</h3><span>{{p.b6}}</span></li></ol>
     </section>
 
     <section id="faq" class="scene duo" data-nav="{{faq.01}}" style="--c:{{p.accent}}">

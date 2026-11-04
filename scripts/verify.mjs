@@ -24,14 +24,15 @@ const sceneFit = () => {
   const cut = [...scene.querySelectorAll(".body, .pc, .win")].filter((el) => el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1);
   const wins = [...scene.querySelectorAll(".win")].filter((win) => win.getClientRects().length);
   const overlap = wins.flatMap((win) => [...scene.children].filter((c) => c !== win && !c.contains(win) && !win.contains(c) && c.getClientRects().length && c.className !== "foot").flatMap((c) => [...c.querySelectorAll("h1, h2, .lbl, .how, .more, .lead")].filter((t) => { const a = win.getBoundingClientRect(); const b = t.getBoundingClientRect(); return a.left < b.right && b.left < a.right && a.top < b.bottom - 1 && b.top < a.bottom - 1; })));
-  const chatCut = [...scene.querySelectorAll(".chatb")].filter((body) => [...body.children].some((c) => c.getClientRects().length && c.getBoundingClientRect().top < body.getBoundingClientRect().top - 1));
-  return [...bad, ...cut, ...overlap, ...chatCut].map((el) => `${el.tagName}.${el.className}`).slice(0, 4).join(" | ");
+  const foot = scene.querySelector(".foot");
+  const onFoot = foot ? [...scene.querySelectorAll("h1, h2, p, li, button, input, select, label, summary, .b, .cf-turnstile")].filter((el) => !el.closest(".foot") && el.getClientRects().length && !el.closest("details:not([open])") && (() => { const a = foot.getBoundingClientRect(); const b = el.getBoundingClientRect(); return b.width && a.left < b.right && b.left < a.right && a.top < b.bottom - 1 && b.top < a.bottom - 1; })()) : [];
+  return [...bad, ...cut, ...overlap, ...onFoot].map((el) => `${el.tagName}.${el.className}`).slice(0, 4).join(" | ");
 };
 const server = await preview({ preview: { port: 4173, strictPort: true } });
 const browser = await chromium.launch();
 const newPage = async (options) => {
   const context = await browser.newContext(options);
-  await context.route("https://challenges.cloudflare.com/**", (route) => route.abort());
+  await context.route("https://challenges.cloudflare.com/**", (route) => route.fulfill({ contentType: "application/javascript", body: `document.querySelectorAll(".cf-turnstile").forEach((n) => n.insertAdjacentHTML("afterbegin", '<div style="width:300px;height:65px"></div>'));` }));
   return context.newPage();
 };
 const closeAll = () => Promise.all(browser.contexts().map((context) => context.close()));
@@ -53,7 +54,7 @@ const pages = [
   { path: "/en/shopify-ai-insights/", code: "en", scenes: 7, h1: /shopify store's report/i, pair: "/insights-shopify/" },
   { path: "/come-aumentare-scontrino-medio-shopify/", code: "it", scenes: 14, h1: /come aumentare lo scontrino medio su shopify/i, guide: true },
 ];
-const viewports = [[1440, 900], [1280, 800], [1024, 768], [390, 844], [360, 640]];
+const viewports = [[1440, 900], [1280, 800], [1024, 768], [412, 839], [390, 844], [390, 664], [360, 640]];
 const states = { aperto: "2026-10-20T12:00:00+02:00", chiuso: "2026-10-26T00:00:00+01:00" };
 
 try {
@@ -106,7 +107,19 @@ try {
         if (out) bad.push(`${i}: ${out}`);
       }
       check(`${label} ogni scena entra nello schermo, sotto la nav, senza testo o finestre tagliate (${bad.join(" // ")})`, bad.length === 0);
-      check(`${label} zero overflow orizzontale, nav a tutta larghezza`, await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth && Math.round(document.querySelector("#nav").getBoundingClientRect().width) === innerWidth));
+      if (home) {
+        await p.route("**/waitlist", (route) => route.fulfill({ status: 500, body: "{}" }));
+        await p.evaluate(() => scrollTo({ top: [...document.querySelectorAll("section.scene")].findIndex((s) => s.id === "accesso") * document.querySelector(".stage").clientHeight, behavior: "instant" }));
+        await p.waitForFunction(() => document.querySelector("section.scene.on")?.id === "accesso");
+        await p.fill("#email", "test@example.com");
+        await p.fill("#shopDomain", "demo.myshopify.com");
+        await p.selectOption("#productRange", "100_500");
+        await p.check("input[name=consent]");
+        await p.click("form#richiesta button[type=submit]");
+        await p.waitForFunction(() => document.querySelector("#richiesta [role=status]").textContent.length > 0);
+        check(`${label} form in errore: testo nello status, form visibile e dentro lo schermo (Turnstile 300x65 incluso) (${await p.evaluate(sceneFit)})`, !(await p.evaluate(sceneFit)) && (await p.locator("#richiesta button[type=submit]").isVisible()) && (await p.evaluate(() => document.querySelector("#richiesta .cf-turnstile").getBoundingClientRect().height)) >= 65);
+      }
+      check(`${label} zero overflow orizzontale, nav senza overflow e a tutta larghezza`, await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth && document.querySelector("#nav").scrollWidth <= document.querySelector("#nav").clientWidth && Math.round(document.querySelector("#nav").getBoundingClientRect().width) === innerWidth));
       check(`${label} nav in vetro scuro e sfondo fisso`, (await p.evaluate(navIsDarkGlass)) && (await p.evaluate(() => getComputedStyle(document.querySelector(".bg")).position)) === "fixed");
       await p.context().close();
     }
@@ -119,6 +132,12 @@ try {
     await live.waitForFunction(() => { scrollTo({ top: document.querySelector(".stage").clientHeight, behavior: "instant" }); return document.querySelector("#nav.mini"); }, null, { timeout: 4000 }).catch(() => null);
     await live.waitForTimeout(900);
     check(`${path} la nav si abbassa scorrendo e resta a tutta larghezza`, (await live.$eval("#nav", (n) => n.getBoundingClientRect().height)) < topH && (await live.$eval("#nav", (n) => Math.round(n.getBoundingClientRect().width))) === 1440);
+    if (home || path.startsWith("/prezzi") || path.startsWith("/en/pricing")) {
+      const pose = () => live.$eval(".bg .a", (n) => getComputedStyle(n).transform);
+      const before = await pose();
+      await live.waitForTimeout(2800);
+      check(`${path} lo sfondo fisso cambia posa tra due scene (${before} -> ${await pose()})`, (await pose()) !== before);
+    }
     const navLinks = await live.$$eval("#links a", (nodes) => nodes.map((n) => n.getAttribute("href")));
     const order = await live.$$eval("section.scene", (nodes) => nodes.map((n) => n.id));
     let linkOk = navLinks.length > 0;
@@ -143,6 +162,17 @@ try {
     await direct.waitForTimeout(400);
     check(`${path} apertura diretta su #${order[2]}`, (await direct.locator("section.scene.on").getAttribute("id")) === order[2]);
 
+    if (home) {
+      const fam = await live.$$eval(".famlist a", (nodes) => nodes.map((n) => n.getAttribute("href")));
+      let famOk = fam.length === 4;
+      for (const href of fam) {
+        await live.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+        await live.waitForFunction(() => document.querySelector("section.scene.on")?.id === "top");
+        await live.click(`.famlist a[href="${href}"]`);
+        famOk &&= await live.waitForFunction((id) => document.querySelector("section.scene.on")?.id === id, href.slice(1), { timeout: 3000 }).then(() => true, () => false);
+      }
+      check(`${path} i 4 link della colonna servizi portano alla scena giusta`, famOk);
+    }
     const seqScene = await live.evaluate(() => [...document.querySelectorAll("section.scene")].findIndex((s) => s.querySelector("[data-seq]")));
     if (seqScene > 0) {
       await live.evaluate((n) => scrollTo({ top: n * document.querySelector(".stage").clientHeight, behavior: "instant" }), seqScene);
@@ -161,6 +191,10 @@ try {
     await still.waitForTimeout(600);
     check(`${path} reduced-motion: nessuna animazione, stato finale visibile`, (await still.evaluate(() => document.getAnimations().filter((a) => a instanceof CSSAnimation).length)) === 0 && (await still.$$eval("[data-seq]", (nodes) => nodes.every((n) => getComputedStyle(n).opacity === "1"))));
 
+    const landscape = await newPage({ viewport: { width: 740, height: 360 } });
+    await landscape.goto(url);
+    await landscape.waitForTimeout(400);
+    check(`${path} telefono in orizzontale (740x360): layout impilato con scroll normale, nessuna scena inerte`, await landscape.$$eval("section.scene", (nodes) => nodes.every((n, i) => { const s = getComputedStyle(n); return s.position !== "absolute" && s.opacity === "1" && !n.inert && n.getBoundingClientRect().height > 100; }) && getComputedStyle(document.documentElement).scrollSnapType === "none" && document.documentElement.scrollWidth <= document.documentElement.clientWidth));
     const plain = await newPage({ viewport: { width: 1280, height: 800 }, javaScriptEnabled: false });
     await plain.goto(url);
     check(`${path} senza JS le scene sono impilate e leggibili`, await plain.$$eval("section.scene", (nodes) => nodes.every((n, i) => { const s = getComputedStyle(n); const r = n.getBoundingClientRect(); return s.opacity === "1" && s.visibility === "visible" && s.position !== "absolute" && r.height > 100 && (i === 0 || r.top >= n.previousElementSibling.getBoundingClientRect().bottom - 1); })));
