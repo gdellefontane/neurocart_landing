@@ -1,30 +1,7 @@
 <!doctype html>
 <html lang="{{lang}}">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{p.title}}</title>
-  <meta name="description" content="{{p.desc}}" />
-  <link rel="canonical" href="{{@url}}" />
-  {{>pair-hreflang}}
-  <meta name="theme-color" content="#0A0613" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="{{meta.locale}}" />
-  <meta property="og:site_name" content="Neurocart" />
-  <meta property="og:url" content="{{@url}}" />
-  <meta property="og:title" content="{{p.title}}" />
-  <meta property="og:description" content="{{p.desc}}" />
-  <meta property="og:image" content="{{pg.og}}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="{{p.title}}" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{{p.title}}" />
-  <meta name="twitter:description" content="{{p.desc}}" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" href="/node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <script>document.documentElement.classList.add("js");</script>
+  {{>head}}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"{{pg.crumb}}","item":"https://www.neurocart.it{{pg.home}}"},{"@type":"ListItem","position":2,"name":"{{p.crumb}}","item":"{{@url}}"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"{{lang}}","mainEntity":[
     {"@type":"Question","name":"{{p.q1}}","acceptedAnswer":{"@type":"Answer","text":"{{p.a1}}"}},
@@ -33,97 +10,57 @@
     {"@type":"Question","name":"{{p.q4}}","acceptedAnswer":{"@type":"Answer","text":"{{p.a4}}"}},
     {"@type":"Question","name":"{{p.q5}}","acceptedAnswer":{"@type":"Answer","text":"{{p.a5}}"}}
   ]}</script>
-  <script type="module" src="/src/seo.ts"></script>
 </head>
-<body>
-  <header id="nav" class="nav scrolled">
-    <div class="wrap flex h-16 items-center justify-between gap-4 md:h-20">
-      <a href="{{pg.home}}" class="flex items-center gap-2 font-display text-xl font-bold"><span class="mark"></span>{{nav.01}}</a>
-      <div class="flex items-center gap-2">
-        {{>pair-switch}}
-        <a href="%VITE_APP_URL%/auth" class="btn btn-ghost hidden sm:inline-flex">{{nav.07}}</a>
-        <a href="{{pg.home}}#accesso" class="btn btn-primary h-11 whitespace-nowrap px-4 text-sm sm:h-12 sm:px-6 sm:text-base">{{nav.08}}</a>
+<body class="sc">
+  {{>chrome}}
+  <main class="scroller">
+    <div class="stage">
+    <section id="top" class="scene s1 on" style="--c:{{p.accent}}">
+      <div class="split">
+        <div>
+          <p class="ey">{{pg.eyebrow}}</p>
+          <h1>{{p.h1}}</h1>
+          <p class="lead">{{p.intro}}</p>
+          <div class="ctas"><a class="b p" href="{{pg.home}}#accesso">{{nav.08}}</a><a class="b" href="#come">{{pg.how}}</a></div>
+        </div>
+        {{>v-$id}}
       </div>
+    </section>
+
+    <section id="come" class="scene duo" data-nav="{{pg.how}}" style="--c:{{p.accent}}">
+      <h2>{{pg.how}}</h2>
+      <ol class="how full"><li><b>{{p.s1t}}</b><span>{{p.s1}}</span></li><li><b>{{p.s2t}}</b><span>{{p.s2}}</span></li><li><b>{{p.s3t}}</b><span>{{p.s3}}</span></li></ol>
+    </section>
+
+    <section id="cosa" class="scene duo" data-nav="{{pg.what}}" style="--c:{{p.accent}}">
+      <h2>{{pg.what}}</h2>
+      <ol class="how full"><li><b>{{p.b1t}}</b><span>{{p.b1}}</span></li><li><b>{{p.b2t}}</b><span>{{p.b2}}</span></li><li><b>{{p.b3t}}</b><span>{{p.b3}}</span></li></ol>
+    </section>
+
+    <section id="altro" class="scene duo" style="--c:{{p.accent}}">
+      <h2>{{pg.what2}}</h2>
+      <ol class="how full"><li><b>{{p.b4t}}</b><span>{{p.b4}}</span></li><li><b>{{p.b5t}}</b><span>{{p.b5}}</span></li><li><b>{{p.b6t}}</b><span>{{p.b6}}</span></li></ol>
+    </section>
+
+    <section id="faq" class="scene duo" data-nav="{{faq.01}}" style="--c:{{p.accent}}">
+      <h2>{{faq.01}}</h2>
+      <div><details name="faq"><summary>{{p.q1}}</summary><p>{{p.a1}}</p></details><details name="faq"><summary>{{p.q2}}</summary><p>{{p.a2}}</p></details><details name="faq"><summary>{{p.q3}}</summary><p>{{p.a3}}</p></details><details name="faq"><summary>{{p.q4}}</summary><p>{{p.a4}}</p></details><details name="faq"><summary>{{p.q5}}</summary><p>{{p.a5}}</p></details></div>
+    </section>
+
+    <section id="scopri" class="scene duo" style="--c:{{p.accent}}">
+      <h2>{{pg.also}}</h2>
+      <nav class="famlist">{{>also-$id-$lang}}</nav>
+    </section>
+
+    <section id="cta" class="scene s6" style="--c:{{p.accent}}">
+      <div class="calm">
+        <h2>{{pg.cta1}} <em>{{pg.cta2}}</em></h2>
+        <div class="ctas"><a class="b p" href="{{pg.home}}#accesso">{{nav.08}}</a><a class="b" href="mailto:sales@neurocart.it?subject=Demo%20Neurocart">{{cta.03}}</a></div>
+        <p class="fine">{{hero.06}}</p>
+      </div>
+      {{>foot}}
+    </section>
     </div>
-  </header>
-
-  <main id="top">
-    <section id="hero" class="night pb-20 pt-28 md:pt-40">
-      <div class="hero-graph" data-hero-bg aria-hidden="true"></div>
-      <div class="wrap w-full" data-hero-fade>
-        <div class="grid gap-12 lg:grid-cols-12 lg:items-center">
-          <div class="lg:col-span-7">
-            <p class="eyebrow">{{pg.eyebrow}}</p>
-            <h1 class="h1 text-[clamp(2.25rem,9vw,3.5rem)] [text-wrap:balance] lg:text-[clamp(3rem,4.6vw,5rem)]" data-split>{{p.h1}}</h1>
-            <p class="prose-p mt-8 text-lg text-cream/90 md:text-xl" data-reveal>{{p.intro}}</p>
-            <div class="mt-8 flex flex-col gap-3 sm:flex-row" data-reveal>
-              <a href="{{pg.home}}#accesso" class="btn btn-primary">{{nav.08}}</a>
-              <a href="#come" class="btn btn-ghost">{{pg.how}}</a>
-            </div>
-            <p class="muted mt-6 text-sm" data-reveal>{{hero.06}}</p>
-          </div>
-          <div class="vstage lg:col-span-5" data-on aria-hidden="true"><div class="vscene" style="--b2: {{p.accent}}">{{>v-$id}}</div></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="come" class="sec pb-0 pt-24 md:pt-32">
-      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
-        <div class="lg:col-span-5"><h2 class="h2" data-split>{{pg.how}}</h2></div>
-        <ol class="space-y-8 lg:col-span-6 lg:col-start-7" data-reveal-stagger>
-          <li class="flex gap-6"><span class="font-serif text-5xl text-primary">1</span><div><h3 class="font-display text-xl font-bold">{{p.s1t}}</h3><p class="mt-1">{{p.s1}}</p></div></li>
-          <li class="flex gap-6"><span class="font-serif text-5xl text-primary">2</span><div><h3 class="font-display text-xl font-bold">{{p.s2t}}</h3><p class="mt-1">{{p.s2}}</p></div></li>
-          <li class="flex gap-6"><span class="font-serif text-5xl text-primary">3</span><div><h3 class="font-display text-xl font-bold">{{p.s3t}}</h3><p class="mt-1">{{p.s3}}</p></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <section id="cosa" class="sec pb-0 pt-24 md:pt-32">
-      <div class="wrap">
-        <h2 class="h2 max-w-[18ch]" data-split>{{pg.what}}</h2>
-        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-          <article class="card"><p class="font-serif text-4xl text-primary">01</p><h3 class="mt-3">{{p.b1t}}</h3><p>{{p.b1}}</p></article>
-          <article class="card"><p class="font-serif text-4xl text-primary">02</p><h3 class="mt-3">{{p.b2t}}</h3><p>{{p.b2}}</p></article>
-          <article class="card"><p class="font-serif text-4xl text-primary">03</p><h3 class="mt-3">{{p.b3t}}</h3><p>{{p.b3}}</p></article>
-          <article class="card"><p class="font-serif text-4xl text-primary">04</p><h3 class="mt-3">{{p.b4t}}</h3><p>{{p.b4}}</p></article>
-          <article id="{{p.b5id}}" class="card"><p class="font-serif text-4xl text-primary">05</p><h3 class="mt-3">{{p.b5t}}</h3><p>{{p.b5}}</p></article>
-          <article class="card"><p class="font-serif text-4xl text-primary">06</p><h3 class="mt-3">{{p.b6t}}</h3><p>{{p.b6}}</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec pb-0 pt-24 md:pt-32" aria-labelledby="faq">
-      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
-        <h2 id="faq" class="h2 lg:col-span-5" data-split>{{faq.01}}</h2>
-        <div class="lg:col-span-6 lg:col-start-7" data-reveal>
-          <details><summary>{{p.q1}}</summary><p class="prose-p pb-6">{{p.a1}}</p></details>
-          <details><summary>{{p.q2}}</summary><p class="prose-p pb-6">{{p.a2}}</p></details>
-          <details><summary>{{p.q3}}</summary><p class="prose-p pb-6">{{p.a3}}</p></details>
-          <details><summary>{{p.q4}}</summary><p class="prose-p pb-6">{{p.a4}}</p></details>
-          <details><summary>{{p.q5}}</summary><p class="prose-p pb-6">{{p.a5}}</p></details>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec pb-24 pt-24 md:pt-32">
-      <div class="wrap">
-        <h2 class="h2" data-split>{{pg.also}}</h2>
-        <div class="also mt-10">{{>also-$id-$lang}}</div>
-      </div>
-    </section>
-
-    <section class="night py-16 md:py-24">
-      <div class="wrap">
-        <h2 class="h2 max-w-[18ch]" data-split>{{pg.cta1}} <em>{{pg.cta2}}</em></h2>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row" data-reveal>
-          <a href="{{pg.home}}#accesso" class="btn btn-primary">{{nav.08}}</a>
-          <a href="mailto:sales@neurocart.it?subject=Demo%20Neurocart" class="btn btn-ghost">{{cta.03}}</a>
-        </div>
-        <p class="muted mt-6 text-sm" data-reveal>{{hero.06}}</p>
-      </div>
-    </section>
   </main>
-
-  {{>footer}}
 </body>
 </html>

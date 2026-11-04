@@ -1,117 +1,91 @@
 <!doctype html>
 <html lang="{{lang}}">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Come aumentare lo scontrino medio su Shopify — Neurocart</title>
-  <meta name="description" content="Come aumentare lo scontrino medio su Shopify: soglia di spedizione, bundle, cross-sell, upsell e consigli in chat, con esempi concreti e come misurarli." />
-  <link rel="canonical" href="{{@url}}" />
-  <meta name="theme-color" content="#0A0613" />
-  <meta property="og:type" content="article" />
-  <meta property="og:locale" content="{{meta.locale}}" />
-  <meta property="og:site_name" content="Neurocart" />
-  <meta property="og:url" content="{{@url}}" />
-  <meta property="og:title" content="Come aumentare lo scontrino medio su Shopify — Neurocart" />
-  <meta property="og:description" content="Come aumentare lo scontrino medio su Shopify: soglia di spedizione, bundle, cross-sell, upsell e consigli in chat, con esempi concreti e come misurarli." />
-  <meta property="og:image" content="https://www.neurocart.it/og.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Come aumentare lo scontrino medio su Shopify — Neurocart" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Come aumentare lo scontrino medio su Shopify — Neurocart" />
-  <meta name="twitter:description" content="Come aumentare lo scontrino medio su Shopify: soglia di spedizione, bundle, cross-sell, upsell e consigli in chat, con esempi concreti e come misurarli." />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" href="/node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <script>document.documentElement.classList.add("js");</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Neurocart","item":"https://www.neurocart.it/"},{"@type":"ListItem","position":2,"name":"Come aumentare lo scontrino medio su Shopify","item":"{{@url}}"}]}</script>
+  {{>head}}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"{{pg.crumb}}","item":"https://www.neurocart.it/"},{"@type":"ListItem","position":2,"name":"Come aumentare lo scontrino medio su Shopify","item":"{{@url}}"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","inLanguage":"it","headline":"Come aumentare lo scontrino medio su Shopify","datePublished":"2026-11-03","dateModified":"2026-11-03","author":{"@type":"Organization","name":"AI-Commerce S.r.l."},"publisher":{"@type":"Organization","name":"AI-Commerce S.r.l.","logo":{"@type":"ImageObject","url":"https://www.neurocart.it/logo.svg"}},"mainEntityOfPage":"{{@url}}","image":"https://www.neurocart.it/og.jpg"}</script>
-  <script type="module" src="/src/seo.ts"></script>
 </head>
-<body>
-  <header id="nav" class="nav scrolled">
-    <div class="wrap flex h-16 items-center justify-between gap-4 md:h-20">
-      <a href="/" class="flex items-center gap-2 font-display text-xl font-bold"><span class="mark"></span>{{nav.01}}</a>
-      <div class="flex items-center gap-2">
-        <a href="%VITE_APP_URL%/auth" class="btn btn-ghost hidden sm:inline-flex">{{nav.07}}</a>
-        <a href="/#accesso" class="btn btn-primary h-11 whitespace-nowrap px-4 text-sm sm:h-12 sm:px-6 sm:text-base">{{nav.08}}</a>
-      </div>
-    </div>
-  </header>
-
-  <main id="top">
-    <section id="hero" class="night pb-16 pt-28 md:pt-40">
-      <div class="hero-graph" data-hero-bg aria-hidden="true"></div>
-      <div class="wrap w-full" data-hero-fade>
-        <p class="eyebrow">Guida per Shopify · 3 novembre 2026</p>
-        <h1 class="h1 max-w-[20ch] text-[clamp(2.25rem,9vw,3.5rem)] [text-wrap:balance] lg:text-[clamp(3rem,4.6vw,5rem)]" data-split>Come aumentare lo scontrino medio <em>su Shopify</em></h1>
-        <p class="prose-p mt-8 text-lg text-cream/90 md:text-xl" data-reveal>Sette strategie per aumentare le vendite del tuo negozio senza cercare nuovi clienti, ciascuna con un esempio concreto e con il modo di misurarla.</p>
+<body class="sc">
+  {{>chrome}}
+  <main class="scroller">
+    <div class="stage">
+    <section id="top" class="scene s6 on" style="--c:#FFA35C">
+      <div class="calm">
+        <p class="ey">Guida per Shopify · 3 novembre 2026</p>
+        <h1>Come aumentare lo scontrino medio <em>su Shopify</em></h1>
+        <p class="lead" style="margin-inline:auto">Sette strategie per aumentare le vendite del tuo negozio senza cercare nuovi clienti, ciascuna con un esempio concreto e con il modo di misurarla.</p>
       </div>
     </section>
 
-    <article class="article wrap py-16 md:py-24">
-      <p>Lo scontrino medio (in inglese AOV, <i>average order value</i>) è il totale delle vendite diviso per il numero di ordini. Alzarlo costa meno che portare nuovi visitatori: chi è già nel tuo negozio ha deciso di comprare, e il tuo lavoro è aiutarlo a scegliere meglio. Questa guida raccoglie le strategie che si applicano a un negozio Shopify, tutte, anche quelle che non richiedono nessuna app. Non servono tutte insieme: ne bastano due o tre, misurate bene.</p>
+    <section id="intro" class="scene guide" style="--c:#FFA35C">
+      <h2>Cos&rsquo;è lo scontrino medio</h2>
+      <div class="txt"><p>Lo scontrino medio (in inglese AOV, <i>average order value</i>) è il totale delle vendite diviso per il numero di ordini. Alzarlo costa meno che portare nuovi visitatori: chi è già nel tuo negozio ha deciso di comprare, e il tuo lavoro è aiutarlo a scegliere meglio. Questa guida raccoglie le strategie che si applicano a un negozio Shopify, tutte, anche quelle che non richiedono nessuna app. Non servono tutte insieme: ne bastano due o tre, misurate bene.</p></div>
+    </section>
 
+    <section id="s1" class="scene guide" data-nav="Le strategie" style="--c:#FFA35C">
       <h2>1. Parti dal numero giusto</h2>
-      <p>Prendi le vendite di un periodo e dividile per gli ordini dello stesso periodo. Se in un mese hai incassato 7.200 € con 120 ordini, il tuo scontrino medio è 60 €. È un esempio inventato, ma il calcolo è sempre questo, e Shopify mostra vendite e ordini nei suoi report.</p>
-      <p>Guarda anche i pezzi per ordine: se la maggior parte degli ordini ha un solo prodotto, hai molto spazio per i consigli. E confronta periodi comparabili: novembre con novembre, non con ottobre, perché i saldi e le feste cambiano il comportamento di chi compra.</p>
-      <p>Infine scomponi il numero: lo scontrino medio di chi arriva da una campagna social spesso è diverso da quello di chi torna da una mail, e un valore medio unico nasconde dove conviene intervenire. Se hai pochi ordini al mese, guarda un periodo più lungo, perché un singolo ordine molto grande sposta la media più di qualunque strategia.</p>
-
-      <h2>2. Soglia di spedizione gratuita</h2>
-      <p>È la leva più semplice. Se lo scontrino medio è 60 €, offri la spedizione gratuita da 75 €: al cliente con 55 € nel carrello manca un prodotto, e quel prodotto lo aggiunge volentieri. La soglia deve stare poco sopra lo scontrino medio. Se è troppo alta, il cliente rinuncia; se è troppo bassa, non cambia nulla.</p>
-      <p>Su Shopify imposti la spedizione gratuita sopra un importo dalle impostazioni di spedizione, creando una tariffa con condizione sul prezzo dell&rsquo;ordine. Poi scrivila dove il cliente la vede: nella barra in alto e nel carrello, con un messaggio come «Ti mancano 15 € per la spedizione gratuita». Controlla che il costo della spedizione resti sostenibile sui margini.</p>
-      <p>Un dettaglio che si dimentica: la soglia vale per il totale del carrello, quindi aggiorna il messaggio quando il cliente aggiunge o toglie un prodotto. Se la barra resta ferma, il cliente non si fida del numero e la leva perde forza.</p>
-
-      <h2>3. Bundle e kit</h2>
-      <p>Un bundle è un gruppo di prodotti venduto insieme a un prezzo leggermente inferiore alla somma. Esempio: shampoo e balsamo della stessa linea, oppure una macchina del caffè con le prime capsule. Funziona quando i prodotti si usano insieme davvero: guarda negli ordini passati quali prodotti compaiono spesso insieme e parti da quelli.</p>
-      <p>Su Shopify puoi creare il bundle come prodotto a sé oppure usare un&rsquo;app dedicata. Dagli un nome chiaro e una foto che mostri tutti i pezzi. Il cliente deve capire in due secondi cosa risparmia.</p>
-      <p>Un buon test: se per spiegare il bundle ti servono più di due righe, il bundle è troppo complicato. Meglio tre kit semplici di dieci combinazioni da decifrare.</p>
-
-      <h2>4. Cross-sell nel carrello</h2>
-      <p>Il cross-sell propone qualcosa che accompagna ciò che il cliente ha già scelto. È più efficace nel carrello, quando l&rsquo;intenzione di acquisto è alta. Esempio: nel carrello c&rsquo;è una giacca, e sotto compare un berretto. Ne bastano tre, di prezzo contenuto rispetto al carrello, e mai prodotti esauriti.</p>
-      <p>Sul carrello a pagina intera o sul cart drawer (il pannello che si apre quando si aggiunge un prodotto) la regola non cambia: l&rsquo;aggiunta deve essere un gesto piccolo, un tocco, senza ripetere la ricerca da capo.</p>
-
-      <h2>5. Upsell sulla pagina prodotto</h2>
-      <p>L&rsquo;upsell propone una versione migliore o più grande di ciò che il cliente sta guardando. Esempio: le capsule di caffè in confezione da 40 o da 80, con il prezzo al pezzo più basso nella seconda. Mostra il vantaggio per il cliente («costa meno per capsula»), non solo il prezzo più alto.</p>
-      <p>Una variante utile su Shopify sono le varianti stesse: ordina taglie e formati in modo che la scelta consigliata sia ben visibile, e usa la descrizione per spiegare quando conviene il formato maggiore.</p>
-
-      <h2>6. Upsell dopo l&rsquo;acquisto</h2>
-      <p>Quando l&rsquo;ordine è fatto, proporre qualcosa in più non rischia di far abbandonare l&rsquo;acquisto. Esempio: dopo una crema viso, la proposta del detergente della stessa linea, spedito nello stesso pacco. Lo puoi fare nella pagina di ringraziamento, nella mail di conferma o con un&rsquo;app per le offerte post-acquisto.</p>
-      <p>La regola è la stessa del carrello: pertinenza e prezzo contenuto. Un cliente appena soddisfatto accetta volentieri un consiglio coerente, e rifiuta qualunque cosa sembri casuale.</p>
-
-      <h2>7. Consigli in chat</h2>
-      <p>Un chatbot sul negozio consiglia come farebbe un commesso. Il cliente scrive «cerco un regalo sotto i 50 €», il chatbot propone tre prodotti, poi chiede cosa può servire insieme. L&rsquo;upsell diventa una risposta a una domanda, non un banner. Funziona perché il consiglio nasce dalla richiesta del cliente.</p>
-      <p>Perché sia utile, il chatbot deve conoscere il catalogo (taglie, prezzi, disponibilità) e passare la conversazione a una persona quando serve. Se il tuo negozio ha già un servizio clienti, la chat è anche un modo per sapere quali dubbi frenano l&rsquo;acquisto: le domande più frequenti ti dicono quali informazioni mancano nelle schede prodotto. Un chatbot che inventa prodotti fa più danni di nessun chatbot.</p>
-
-      <h2>8. Un omaggio sopra una certa cifra</h2>
-      <p>Funziona come la spedizione gratuita, ma con un regalo: un campione, una confezione di prova, un accessorio piccolo. Esempio: un omaggio per gli ordini da 80 € in su, comunicato nel carrello con la stessa barra di avanzamento. Il cliente non percepisce una spesa in più, percepisce un premio.</p>
-      <p>Scegli un omaggio che costi poco a te e abbia un valore evidente per chi lo riceve, e che inviti a un acquisto successivo: un formato di prova di un prodotto che non ha ancora comprato è la scelta migliore, perché presenta il catalogo mentre premia l&rsquo;ordine.</p>
-
-      <h2>9. Dove entra Neurocart</h2>
-      <p>Neurocart è un&rsquo;app Shopify che copre le strategie 4 e 7: <a href="/upsell-cross-sell-shopify/">cross-sell dal carrello, prodotti complementari e «acquistati insieme»</a> scelti dagli acquisti reali del tuo negozio, più un tipo Upsell che propone un articolo affine e più economico a chi ha già qualcosa nel carrello, e un <a href="/chatbot-shopify/">chatbot AI</a> che consiglia in chat. I blocchi si aggiungono dall&rsquo;editor del tema, senza codice, e la dashboard mostra click, ordini e ricavo attribuito ai consigli. L&rsquo;upsell verso una versione superiore, la pagina di ringraziamento, le mail, la soglia di spedizione e i bundle restano a te, con gli strumenti di Shopify.</p>
-
-      <h2>10. Errori da evitare</h2>
-      <p>Il primo errore è mostrare troppe offerte nello stesso momento: soglia, bundle, cross-sell e omaggio insieme nel carrello confondono, e un cliente confuso non compra. Introduci una leva alla volta e lasciala lavorare per qualche settimana.</p>
-      <p>Il secondo è consigliare prodotti che non c&rsquo;entrano. Un suggerimento fuori tema insegna al cliente a ignorare tutti i successivi. Il terzo è dimenticare il mobile: la maggior parte delle visite arriva da telefono, e un carrello in cui la barra della soglia o i prodotti consigliati si leggono male perde buona parte dell&rsquo;effetto. Prova ogni modifica sul tuo telefono prima di pubblicarla.</p>
-      <p>Il quarto è giudicare dal numero sbagliato. Uno scontrino medio più alto è una buona notizia solo se i ricavi totali non scendono: se per aumentarlo hai perso ordini, hai spostato il problema, non risolto.</p>
-
-      <h2>11. Come misurare</h2>
-      <p>Cambia una cosa alla volta e confronta quattro settimane prima e quattro dopo: scontrino medio, pezzi per ordine e tasso di conversione. Se lo scontrino sale ma la conversione scende, hai messo troppe offerte o troppo invasive. Se sale solo il numero di pezzi per ordine, il consiglio funziona, ma controlla che i prodotti aggiunti non abbiano un reso più alto della media.</p>
-      <p>Tieni un foglio con la data di ogni modifica. Fra tre mesi ti servirà per capire cosa ha funzionato davvero.</p>
-    </article>
-
-    <section class="night py-16 md:py-24">
-      <div class="wrap">
-        <h2 class="h2 max-w-[18ch]" data-split>{{pg.cta1}} <em>{{pg.cta2}}</em></h2>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row" data-reveal>
-          <a href="/#accesso" class="btn btn-primary">{{nav.08}}</a>
-          <a href="mailto:sales@neurocart.it?subject=Demo%20Neurocart" class="btn btn-ghost">{{cta.03}}</a>
-        </div>
-        <p class="muted mt-6 text-sm" data-reveal>{{hero.06}}</p>
-      </div>
+      <div class="txt"><p>Prendi le vendite di un periodo e dividile per gli ordini dello stesso periodo. Se in un mese hai incassato 7.200 € con 120 ordini, il tuo scontrino medio è 60 €. È un esempio inventato, ma il calcolo è sempre questo, e Shopify mostra vendite e ordini nei suoi report.</p><p>Guarda anche i pezzi per ordine: se la maggior parte degli ordini ha un solo prodotto, hai molto spazio per i consigli. E confronta periodi comparabili: novembre con novembre, non con ottobre, perché i saldi e le feste cambiano il comportamento di chi compra.</p><p>Infine scomponi il numero: lo scontrino medio di chi arriva da una campagna social spesso è diverso da quello di chi torna da una mail, e un valore medio unico nasconde dove conviene intervenire. Se hai pochi ordini al mese, guarda un periodo più lungo, perché un singolo ordine molto grande sposta la media più di qualunque strategia.</p></div>
     </section>
-  </main>
 
-  {{>footer}}
+    <section id="s2" class="scene guide" style="--c:#FFA35C">
+      <h2>2. Soglia di spedizione gratuita</h2>
+      <div class="txt"><p>È la leva più semplice. Se lo scontrino medio è 60 €, offri la spedizione gratuita da 75 €: al cliente con 55 € nel carrello manca un prodotto, e quel prodotto lo aggiunge volentieri. La soglia deve stare poco sopra lo scontrino medio. Se è troppo alta, il cliente rinuncia; se è troppo bassa, non cambia nulla.</p><p>Su Shopify imposti la spedizione gratuita sopra un importo dalle impostazioni di spedizione, creando una tariffa con condizione sul prezzo dell&rsquo;ordine. Poi scrivila dove il cliente la vede: nella barra in alto e nel carrello, con un messaggio come «Ti mancano 15 € per la spedizione gratuita». Controlla che il costo della spedizione resti sostenibile sui margini.</p><p>Un dettaglio che si dimentica: la soglia vale per il totale del carrello, quindi aggiorna il messaggio quando il cliente aggiunge o toglie un prodotto. Se la barra resta ferma, il cliente non si fida del numero e la leva perde forza.</p></div>
+    </section>
+
+    <section id="s3" class="scene guide" style="--c:#FFA35C">
+      <h2>3. Bundle e kit</h2>
+      <div class="txt"><p>Un bundle è un gruppo di prodotti venduto insieme a un prezzo leggermente inferiore alla somma. Esempio: shampoo e balsamo della stessa linea, oppure una macchina del caffè con le prime capsule. Funziona quando i prodotti si usano insieme davvero: guarda negli ordini passati quali prodotti compaiono spesso insieme e parti da quelli.</p><p>Su Shopify puoi creare il bundle come prodotto a sé oppure usare un&rsquo;app dedicata. Dagli un nome chiaro e una foto che mostri tutti i pezzi. Il cliente deve capire in due secondi cosa risparmia.</p><p>Un buon test: se per spiegare il bundle ti servono più di due righe, il bundle è troppo complicato. Meglio tre kit semplici di dieci combinazioni da decifrare.</p></div>
+    </section>
+
+    <section id="s4" class="scene guide" style="--c:#FFA35C">
+      <h2>4. Cross-sell nel carrello</h2>
+      <div class="txt"><p>Il cross-sell propone qualcosa che accompagna ciò che il cliente ha già scelto. È più efficace nel carrello, quando l&rsquo;intenzione di acquisto è alta. Esempio: nel carrello c&rsquo;è una giacca, e sotto compare un berretto. Ne bastano tre, di prezzo contenuto rispetto al carrello, e mai prodotti esauriti.</p><p>Sul carrello a pagina intera o sul cart drawer (il pannello che si apre quando si aggiunge un prodotto) la regola non cambia: l&rsquo;aggiunta deve essere un gesto piccolo, un tocco, senza ripetere la ricerca da capo.</p></div>
+    </section>
+
+    <section id="s5" class="scene guide" style="--c:#FFA35C">
+      <h2>5. Upsell sulla pagina prodotto</h2>
+      <div class="txt"><p>L&rsquo;upsell propone una versione migliore o più grande di ciò che il cliente sta guardando. Esempio: le capsule di caffè in confezione da 40 o da 80, con il prezzo al pezzo più basso nella seconda. Mostra il vantaggio per il cliente («costa meno per capsula»), non solo il prezzo più alto.</p><p>Una variante utile su Shopify sono le varianti stesse: ordina taglie e formati in modo che la scelta consigliata sia ben visibile, e usa la descrizione per spiegare quando conviene il formato maggiore.</p></div>
+    </section>
+
+    <section id="s6" class="scene guide" style="--c:#FFA35C">
+      <h2>6. Upsell dopo l&rsquo;acquisto</h2>
+      <div class="txt"><p>Quando l&rsquo;ordine è fatto, proporre qualcosa in più non rischia di far abbandonare l&rsquo;acquisto. Esempio: dopo una crema viso, la proposta del detergente della stessa linea, spedito nello stesso pacco. Lo puoi fare nella pagina di ringraziamento, nella mail di conferma o con un&rsquo;app per le offerte post-acquisto.</p><p>La regola è la stessa del carrello: pertinenza e prezzo contenuto. Un cliente appena soddisfatto accetta volentieri un consiglio coerente, e rifiuta qualunque cosa sembri casuale.</p></div>
+    </section>
+
+    <section id="s7" class="scene guide" style="--c:#FFA35C">
+      <h2>7. Consigli in chat</h2>
+      <div class="txt"><p>Un chatbot sul negozio consiglia come farebbe un commesso. Il cliente scrive «cerco un regalo sotto i 50 €», il chatbot propone tre prodotti, poi chiede cosa può servire insieme. L&rsquo;upsell diventa una risposta a una domanda, non un banner. Funziona perché il consiglio nasce dalla richiesta del cliente.</p><p>Perché sia utile, il chatbot deve conoscere il catalogo (taglie, prezzi, disponibilità) e passare la conversazione a una persona quando serve. Se il tuo negozio ha già un servizio clienti, la chat è anche un modo per sapere quali dubbi frenano l&rsquo;acquisto: le domande più frequenti ti dicono quali informazioni mancano nelle schede prodotto. Un chatbot che inventa prodotti fa più danni di nessun chatbot.</p></div>
+    </section>
+
+    <section id="s8" class="scene guide" style="--c:#FFA35C">
+      <h2>8. Un omaggio sopra una certa cifra</h2>
+      <div class="txt"><p>Funziona come la spedizione gratuita, ma con un regalo: un campione, una confezione di prova, un accessorio piccolo. Esempio: un omaggio per gli ordini da 80 € in su, comunicato nel carrello con la stessa barra di avanzamento. Il cliente non percepisce una spesa in più, percepisce un premio.</p><p>Scegli un omaggio che costi poco a te e abbia un valore evidente per chi lo riceve, e che inviti a un acquisto successivo: un formato di prova di un prodotto che non ha ancora comprato è la scelta migliore, perché presenta il catalogo mentre premia l&rsquo;ordine.</p></div>
+    </section>
+
+    <section id="s9" class="scene guide" data-nav="Dove entra Neurocart" style="--c:#FFA35C">
+      <h2>9. Dove entra Neurocart</h2>
+      <div class="txt"><p>Neurocart è un&rsquo;app Shopify che copre le strategie 4 e 7: <a href="/upsell-cross-sell-shopify/">cross-sell dal carrello, prodotti complementari e «acquistati insieme»</a> scelti dagli acquisti reali del tuo negozio, più un tipo Upsell che propone un articolo affine e più economico a chi ha già qualcosa nel carrello, e un <a href="/chatbot-shopify/">chatbot AI</a> che consiglia in chat. I blocchi si aggiungono dall&rsquo;editor del tema, senza codice, e la dashboard mostra click, ordini e ricavo attribuito ai consigli. L&rsquo;upsell verso una versione superiore, la pagina di ringraziamento, le mail, la soglia di spedizione e i bundle restano a te, con gli strumenti di Shopify.</p></div>
+    </section>
+
+    <section id="s10" class="scene guide" style="--c:#FFA35C">
+      <h2>10. Errori da evitare</h2>
+      <div class="txt"><p>Il primo errore è mostrare troppe offerte nello stesso momento: soglia, bundle, cross-sell e omaggio insieme nel carrello confondono, e un cliente confuso non compra. Introduci una leva alla volta e lasciala lavorare per qualche settimana.</p><p>Il secondo è consigliare prodotti che non c&rsquo;entrano. Un suggerimento fuori tema insegna al cliente a ignorare tutti i successivi. Il terzo è dimenticare il mobile: la maggior parte delle visite arriva da telefono, e un carrello in cui la barra della soglia o i prodotti consigliati si leggono male perde buona parte dell&rsquo;effetto. Prova ogni modifica sul tuo telefono prima di pubblicarla.</p><p>Il quarto è giudicare dal numero sbagliato. Uno scontrino medio più alto è una buona notizia solo se i ricavi totali non scendono: se per aumentarlo hai perso ordini, hai spostato il problema, non risolto.</p></div>
+    </section>
+
+    <section id="s11" class="scene guide" data-nav="Come misurare" style="--c:#FFA35C">
+      <h2>11. Come misurare</h2>
+      <div class="txt"><p>Cambia una cosa alla volta e confronta quattro settimane prima e quattro dopo: scontrino medio, pezzi per ordine e tasso di conversione. Se lo scontrino sale ma la conversione scende, hai messo troppe offerte o troppo invasive. Se sale solo il numero di pezzi per ordine, il consiglio funziona, ma controlla che i prodotti aggiunti non abbiano un reso più alto della media.</p><p>Tieni un foglio con la data di ogni modifica. Fra tre mesi ti servirà per capire cosa ha funzionato davvero.</p></div>
+    </section>
+
+    <section id="cta" class="scene s6" style="--c:#FFA35C">
+      <div class="calm">
+        <h2>{{pg.cta1}} <em>{{pg.cta2}}</em></h2>
+        <div class="ctas"><a class="b p" href="/#accesso">{{nav.08}}</a><a class="b" href="mailto:sales@neurocart.it?subject=Demo%20Neurocart">{{cta.03}}</a></div>
+        <p class="fine">{{hero.06}}</p>
+      </div>
+      {{>foot}}
+    </section>
+    </div>
+  </main>
 </body>
 </html>

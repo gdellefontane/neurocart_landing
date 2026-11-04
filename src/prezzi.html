@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+  {{>head}}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"{{pg.crumb}}","item":"https://www.neurocart.it{{pg.home}}"},{"@type":"ListItem","position":2,"name":"{{p.crumb}}","item":"{{@url}}"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"{{lang}}","mainEntity":[
+    {"@type":"Question","name":"{{pr.7q1}}","acceptedAnswer":{"@type":"Answer","text":"{{pr.7a1}}"}},
+    {"@type":"Question","name":"{{pr.7q2}}","acceptedAnswer":{"@type":"Answer","text":"{{pr.7a2}}"}},
+    {"@type":"Question","name":"{{pr.7q3}}","acceptedAnswer":{"@type":"Answer","text":"{{pr.7a3}}"}},
+    {"@type":"Question","name":"{{pr.7q4}}","acceptedAnswer":{"@type":"Answer","text":"{{pr.7a4}}"}}
+  ]}</script>
+</head>
+<body class="sc">
+  {{>chrome}}
+  <main class="scroller">
+    <div class="stage">
+    <section id="top" class="scene s6 on" data-nav="{{pr.n1}}" style="--c:#FFA35C">
+      <div class="calm">
+        <p class="ey">{{nav.05}}</p>
+        <h1>{{pr.1a}} <em>{{pr.1b}}</em></h1>
+        <ol class="three plain">
+          <li><b>{{pricing.02}}</b><big>{{pricing.base}} <small>{{pricing.03}}</small></big><span>{{pr.1p1}}</span></li>
+          <li class="pro"><b>{{pricing.05}}</b><big>{{pricing.07}} <small>{{pricing.03}}</small></big><span>{{pr.1p2}}</span></li>
+          <li><b>{{pricing.09}}</b><big>{{pricing.10}}</big><span>{{pricing.11}}</span></li>
+        </ol>
+        <p class="fine">{{pr.1f}}</p>
+        <div class="ctas"><a class="b p" href="{{pg.home}}#accesso">{{nav.08}}</a></div>
+      </div>
+    </section>
+
+    <section id="conversazioni" class="scene svc" data-nav="{{pr.n2}}" style="--c:#6FA6FF">
+      <div>
+        <h2>{{pr.2a}} <em>{{pr.2b}}</em></h2>
+        <ol class="how"><li><b>{{pr.2s1t}}</b><span>{{pr.2s1d}}</span></li><li><b>{{pr.2s2t}}</b><span>{{pr.2s2d}}</span></li></ol>
+      </div>
+      <div class="win" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><u>{{w.chat}}</u></div><div class="body chatb">
+<div class="bub u" data-seq="1">{{chat.10}}</div>
+<div class="bub bt" data-seq="2">{{pr.2m1}}</div>
+<div class="bub u" data-seq="3">{{chat.12}}</div>
+<div class="bub bt" data-seq="4">{{pr.2m2}}</div>
+<span class="note" data-seq="5">{{pr.2n}}</span>
+</div></div>
+    </section>
+
+    <section id="finite" class="scene svc" data-nav="{{pr.n3}}" style="--c:#B48CFF">
+      <div>
+        <h2>{{pr.3a}} <em>{{pr.3b}}</em></h2>
+        <ol class="how"><li><b>{{pr.3s1t}}</b><span>{{pr.3s1d}}</span></li><li><b>{{pr.3s2t}}</b><span>{{pr.3s2d}}</span></li><li><b>{{pr.3s3t}}</b><span>{{pr.3s3d}}</span></li><li><b>{{pr.3s4t}}</b><span>{{pr.3s4d}}</span></li></ol>
+      </div>
+      <div class="win fit" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><u>{{w.conv}}</u></div><div class="body">
+<div class="stat"><small>{{pr.3w1}}</small><b>112</b><span>{{pr.3w2}}</span></div>
+<div class="shop" data-seq="1"><span><b>{{pr.3w3}}</b><small>{{pr.3w4}}</small></span><span class="chip on">+10</span></div>
+<div class="tog" data-seq="2">{{pr.3w5}}<i></i></div>
+</div></div>
+    </section>
+
+    <section id="crediti" class="scene svc" data-nav="{{pr.n4}}" style="--c:#FFA35C">
+      <div>
+        <h2>{{pr.4a}} <em>{{pr.4b}}</em></h2>
+        <ol class="how"><li><b>{{pr.4s1t}}</b><span>{{pr.4s1d}}</span></li><li><b>{{pr.4s2t}}</b><span>{{pr.4s2d}}</span></li><li><b>{{pr.4s3t}}</b><span>{{pr.4s3d}}</span></li><li><b>{{pr.4s4t}}</b><span>{{pr.4s4d}}</span></li></ol>
+      </div>
+      <div class="win fit" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><u>{{w.credits}}</u></div><div class="body">
+<div class="stat"><small>{{pr.4w1}}</small><b>1.240</b></div>
+<div class="ledger">
+<div class="plus" data-seq="1">{{pr.4w2}}<b>+1.000</b></div>
+<div data-seq="2">{{pr.4w3}}<b>−12</b></div>
+<div data-seq="3">{{pr.4w4}}<b>−5</b></div>
+<div data-seq="4">{{pr.4w5}}<b>−500</b></div>
+</div>
+<div class="tog" data-seq="5">{{pr.4w6}}<i></i></div>
+</div></div>
+    </section>
+
+    <section id="listino" class="scene duo" data-nav="{{pr.n5}}" style="--c:#4CD3EC">
+      <div>
+        <h2>{{pr.5a}} <em>{{pr.5b}}</em></h2>
+        <p class="lead">{{pr.5l}}</p>
+      </div>
+      <ul class="rates"><li><div><b>{{pr.5r1t}}</b><span>{{pr.5r1d}}</span></div><em>{{pr.5r1v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.5r2t}}</b><span>{{pr.5r2d}}</span></div><em>{{pr.5r2v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.5r3t}}</b><span>{{pr.5r3d}}</span></div><em>{{pr.5r3v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.5r4t}}</b><span>{{pr.5r4d}}</span></div><em>{{pr.5r4v}}<small>{{pr.cr}}</small></em></li><li><div><b>{{pr.5r5t}}</b><span>{{pr.5r5d}}</span></div><em>{{pr.5r5v}}</em></li></ul>
+    </section>
+
+    <section id="negozi" class="scene svc" data-nav="{{pr.n6}}" style="--c:#6FA6FF">
+      <div>
+        <h2>{{pr.6a}} <em>{{pr.6b}}</em></h2>
+        <ol class="how"><li><b>{{pr.6s1t}}</b><span>{{pr.6s1d}}</span></li><li><b>{{pr.6s2t}}</b><span>{{pr.6s2d}}</span></li><li><b>{{pr.6s3t}}</b><span>{{pr.6s3d}}</span></li><li><b>{{pr.6s4t}}</b><span>{{pr.6s4d}}</span></li></ol>
+      </div>
+      {{>v-stores}}
+    </section>
+
+    <section id="domande" class="scene duo" data-nav="{{pr.n7}}" style="--c:#B48CFF">
+      <div>
+        <h2>{{pr.7a}} <em>{{pr.7b}}</em></h2>
+        <div class="ctas"><a class="b p" href="{{pg.home}}#accesso">{{nav.08}}</a><a class="b" href="mailto:sales@neurocart.it?subject=Demo%20Neurocart">{{cta.03}}</a></div>
+      </div>
+      <div><details name="faq"><summary>{{pr.7q1}}</summary><p>{{pr.7a1}}</p></details><details name="faq"><summary>{{pr.7q2}}</summary><p>{{pr.7a2}}</p></details><details name="faq"><summary>{{pr.7q3}}</summary><p>{{pr.7a3}}</p></details><details name="faq"><summary>{{pr.7q4}}</summary><p>{{pr.7a4}}</p></details></div>
+      {{>foot}}
+    </section>
+    </div>
+  </main>
+</body>
+</html>

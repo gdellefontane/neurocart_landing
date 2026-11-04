@@ -1,30 +1,7 @@
 <!doctype html>
 <html lang="{{lang}}">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{meta.title}}</title>
-  <meta name="description" content="{{meta.description}}" />
-  <link rel="canonical" href="{{@url}}" />
-  {{>pair-hreflang}}
-  <meta name="theme-color" content="#0A0613" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="{{meta.locale}}" />
-  <meta property="og:site_name" content="Neurocart" />
-  <meta property="og:url" content="{{@url}}" />
-  <meta property="og:title" content="{{meta.title}}" />
-  <meta property="og:description" content="{{meta.description}}" />
-  <meta property="og:image" content="{{meta.image}}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="{{meta.ogAlt}}" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{{meta.title}}" />
-  <meta name="twitter:description" content="{{meta.description}}" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" href="/node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <script>document.documentElement.classList.add("js");if(Date.now()>=Date.parse("%VITE_PILOT_CLOSE_AT%"))document.documentElement.dataset.pilot="closed";</script>
+  {{>head}}
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"AI-Commerce S.r.l.","brand":{"@type":"Brand","name":"Neurocart"},"url":"https://www.neurocart.it/","logo":"https://www.neurocart.it/logo.svg","vatID":"IT08978880725","email":"sales@neurocart.it","address":{"@type":"PostalAddress","streetAddress":"Via Giorgio de Chirico 37","postalCode":"70056","addressLocality":"Molfetta","addressRegion":"BA","addressCountry":"IT"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Neurocart","inLanguage":"{{lang}}","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"{{ld.app}}","offers":{"@type":"Offer","price":"79","priceCurrency":"EUR","priceSpecification":{"@type":"UnitPriceSpecification","price":"79","priceCurrency":"EUR","unitCode":"MON"}}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"{{lang}}","mainEntity":[
@@ -33,496 +10,162 @@
     {"@type":"Question","name":"{{faq.06}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.07}} {{faq.08}}"}},
     {"@type":"Question","name":"{{faq.09}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.10}}"}},
     {"@type":"Question","name":"{{faq.11}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.12}}"}},
-    {"@type":"Question","name":"{{faq.13}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.14}}"}}
+    {"@type":"Question","name":"{{faq.13}}","acceptedAnswer":{"@type":"Answer","text":"{{faq.14}} {{h.11l}}"}}
   ]}</script>
-  <script type="module" src="/src/main.ts"></script>
 </head>
-<body>
-  <header id="nav" class="nav scrolled">
-    <a class="band" href="/pilota-black-friday/?utm_source=neurocart&utm_medium=home&utm_campaign=pilota_bfcm" data-open>{{band.01}}</a>
-    <div class="wrap flex h-16 items-center justify-between gap-4 md:h-20">
-      <a href="#top" class="flex items-center gap-2 font-display text-xl font-bold"><span class="mark"></span>{{nav.01}}</a>
-      <nav class="hidden items-center gap-8 text-[0.95rem] lg:flex" aria-label="{{nav.aria}}">
-        <a href="#motore">{{nav.02}}</a><a href="#chat">{{nav.03}}</a><a href="#piattaforma">{{nav.04}}</a><a href="#prezzi">{{nav.05}}</a><a href="#in-arrivo">{{nav.06}}</a>
-      </nav>
-      <div class="flex items-center gap-2">
-        {{>pair-switch}}
-        <a href="%VITE_APP_URL%/auth" class="btn btn-ghost hidden sm:inline-flex">{{nav.07}}</a>
-        <a href="#accesso" class="btn btn-primary h-10 whitespace-nowrap px-4 text-sm sm:h-12 sm:px-6 sm:text-base" data-cta data-install="{{cta.install}}">{{nav.08}}</a>
+<body class="sc">
+  {{>chrome}}
+  <main class="scroller">
+    <div class="stage">
+    <section id="top" class="scene s1 on" style="--c:#B48CFF">
+      <div class="split">
+        <div>
+          <p class="ey">{{hero.01}}</p>
+          <h1>{{h.1a}} <em>{{h.1b}}</em></h1>
+          <p class="lead">{{h.1l}}</p>
+          <div class="ctas"><a class="b p" href="#accesso" data-cta data-install="{{cta.install}}">{{nav.08}}</a></div>
+        </div>
+        <nav class="famlist" aria-label="{{nav.aria}}"><a href="#vendi" style="--c:#B48CFF"><small>01 · {{h.n1}}</small><b>{{h.f1t}}</b><span>{{h.f1d}}</span><i aria-hidden="true">→</i></a><a href="#chat" style="--c:#6FA6FF"><small>02 · {{h.n2}}</small><b>{{h.f2t}}</b><span>{{h.f2d}}</span><i aria-hidden="true">→</i></a><a href="#contenuti" style="--c:#FFA35C"><small>03 · {{h.n3}}</small><b>{{h.f3t}}</b><span>{{h.f3d}}</span><i aria-hidden="true">→</i></a><a href="#dati" style="--c:#4CD3EC"><small>04 · {{h.n4}}</small><b>{{h.f4t}}</b><span>{{h.f4d}}</span><i aria-hidden="true">→</i></a></nav>
       </div>
+    </section>
+
+    <section id="vendi" class="scene svc" data-nav="{{h.n1}}" style="--c:#B48CFF">
+      <div>
+        <p class="lbl">01 · {{h.n1}} · {{h.how}}</p>
+        <h2>{{h.2a}} <em>{{h.2b}}</em></h2>
+        <ol class="how"><li><b>{{h.2s1t}}</b><span>{{h.2s1d}}</span></li><li><b>{{h.2s2t}}</b><span>{{h.2s2d}}</span></li><li><b>{{h.2s3t}}</b><span>{{h.2s3d}}</span></li><li><b>{{h.2s4t}}</b><span>{{h.2s4d}}</span></li></ol>
+        <a class="more" href="{{u.upsell}}">{{h.2m}} →</a>
+      </div>
+      {{>v-related}}
+    </section>
+
+    <section id="chat" class="scene svc" data-nav="{{h.n2}}" style="--c:#6FA6FF">
+      <div>
+        <p class="lbl">02 · {{h.n2}} · {{h.how}}</p>
+        <h2>{{h.3a}} <em>{{h.3b}}</em></h2>
+        <ol class="how"><li><b>{{h.3s1t}}</b><span>{{h.3s1d}}</span></li><li><b>{{h.3s2t}}</b><span>{{h.3s2d}}</span></li><li><b>{{h.3s3t}}</b><span>{{h.3s3d}}</span></li><li><b>{{h.3s4t}}</b><span>{{h.3s4d}}</span></li></ol>
+        <a class="more" href="{{u.chatbot}}">{{h.3m}} →</a>
+      </div>
+      {{>v-chatbot}}
+    </section>
+
+    <section id="contenuti" class="scene svc" data-nav="{{h.n3}}" style="--c:#FFA35C">
+      <div>
+        <p class="lbl">03 · {{h.n3}} · {{h.how}}</p>
+        <h2>{{h.4a}} <em>{{h.4b}}</em></h2>
+        <ol class="how"><li><b>{{h.4s1t}}</b><span>{{h.4s1d}}</span></li><li><b>{{h.4s2t}}</b><span>{{h.4s2d}}</span></li><li><b>{{h.4s3t}}</b><span>{{h.4s3d}}</span></li><li><b>{{h.4s4t}}</b><span>{{h.4s4d}}</span></li></ol>
+        <a class="more" href="{{u.content}}">{{h.4m}} →</a>
+      </div>
+      {{>v-content}}
+    </section>
+
+    <section id="dati" class="scene svc" data-nav="{{h.n4}}" style="--c:#4CD3EC">
+      <div>
+        <p class="lbl">04 · {{h.n4}} · {{h.how}}</p>
+        <h2>{{h.5a}} <em>{{h.5b}}</em></h2>
+        <ol class="how"><li><b>{{h.5s1t}}</b><span>{{h.5s1d}}</span></li><li><b>{{h.5s2t}}</b><span>{{h.5s2d}}</span></li><li><b>{{h.5s3t}}</b><span>{{h.5s3d}}</span></li><li><b>{{h.5s4t}}</b><span>{{h.5s4d}}</span></li></ol>
+        <a class="more" href="{{u.insights}}">{{h.5m}} →</a>
+      </div>
+      {{>v-insights}}
+    </section>
+
+    <section id="adesso" class="scene s6" style="--c:#FFA35C">
+      <div class="calm">
+        <p class="ey">{{h.6e}}</p>
+        <h2>{{h.6a}} <em>{{h.6b}}</em></h2>
+        <ol class="three plain nums">
+          <li><big>20{{numbers.pct}}</big><span>{{numbers.02}}</span><em>{{numbers.03}}</em></li>
+          <li><big>+50{{numbers.pct}}</big><span>{{numbers.04}}</span><em>{{numbers.05}}</em></li>
+          <li><big>87{{numbers.pct}}</big><span>{{numbers.06}}</span><em>{{numbers.07}}</em></li>
+        </ol>
+        <p class="fine">{{h.6l}}</p>
+      </div>
+    </section>
+
+    <section id="piattaforma" class="scene svc" style="--c:#6FA6FF">
+      <div>
+        <p class="lbl">{{h.7e}}</p>
+        <h2>{{h.7a}} <em>{{h.7b}}</em></h2>
+        <ol class="how nonum"><li><b>{{h.7s1t}}</b><span>{{h.7s1d}}</span></li><li><b>{{h.7s2t}}</b><span>{{h.7s2d}}</span></li><li><b>{{h.7s3t}}</b><span>{{h.7s3d}}</span></li><li><b>{{h.7s4t}}</b><span>{{h.7s4d}}</span></li></ol>
+      </div>
+      {{>v-stores}}
+    </section>
+
+    <section id="attiva" class="scene s6" style="--c:#B48CFF">
+      <div class="calm">
+        <p class="ey">{{h.8e}}</p>
+        <h2>{{h.8a}} <em>{{h.8b}}</em></h2>
+        <ol class="three"><li><b>{{h.8s1t}}</b><span>{{h.8s1d}}</span></li><li><b>{{h.8s2t}}</b><span>{{h.8s2d}}</span></li><li><b>{{h.8s3t}}</b><span>{{h.8s3d}}</span></li></ol>
+        <p class="fine">{{setup.06}}</p>
+      </div>
+    </section>
+
+    <section id="prezzi" class="scene s6" data-nav="{{nav.05}}" style="--c:#FFA35C">
+      <div class="calm">
+        <p class="ey">{{nav.05}}</p>
+        <h2>{{h.9a}} <em>{{h.9b}}</em></h2>
+        <ol class="three plain">
+          <li><b>{{pricing.02}}</b><big>{{pricing.base}}</big><span>{{h.9p1}}</span></li>
+          <li class="pro"><b>{{pricing.05}}</b><big>{{pricing.07}}</big><span>{{h.9p2}}</span></li>
+          <li><b>{{pricing.09}}</b><big>{{pricing.10}}</big><span>{{pricing.11}}</span></li>
+        </ol>
+        <p class="fine">{{h.9f}}</p>
+        <a class="lnk" href="{{u.pricing}}">{{h.9l}} →</a>
+      </div>
+    </section>
+
+    <section id="in-arrivo" class="scene s6" style="--c:#4CD3EC">
+      <div class="calm">
+        <p class="ey">{{nav.06}}</p>
+        <h2>{{h.10a}} <em>{{h.10b}}</em></h2>
+        <ol class="three plain soon">
+          <li><i class="tag">{{nav.06}}</i><b>{{soon.02}}</b><span>{{h.10d1}}</span></li>
+          <li><i class="tag">{{nav.06}}</i><b>{{soon.04}}</b><span>{{h.10d2}}</span></li>
+          <li><i class="tag">{{nav.06}}</i><b>{{soon.06}}</b><span>{{h.10d3}}</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="faq" class="scene duo" data-nav="{{nav.faq}}" style="--c:#B48CFF">
+      <h2>{{faq.01}}</h2>
+      <div><details name="faq"><summary>{{faq.02}}</summary><p>{{faq.03}}</p></details><details name="faq"><summary>{{faq.04}}</summary><p>{{faq.05}}</p></details><details name="faq"><summary>{{faq.06}}</summary><p>{{faq.07}} <a href="%VITE_APP_URL%/privacy">{{faq.08}}</a></p></details><details name="faq"><summary>{{faq.09}}</summary><p>{{faq.10}}</p></details><details name="faq"><summary>{{faq.11}}</summary><p>{{faq.12}}</p></details><details name="faq"><summary>{{faq.13}}</summary><p>{{faq.14}} <a href="{{u.pricing}}">{{h.11l}}</a></p></details></div>
+    </section>
+
+    <section id="accesso" class="scene duo" style="--c:#B48CFF">
+      <div>
+        <h2>{{cta.01}} <em>{{cta.02}}</em></h2>
+        <p class="fine">{{hero.06}}</p>
+      </div>
+      <form id="richiesta" class="form" data-ok="{{cta.ok}}" data-err="{{cta.err}}">
+        <p>{{cta.04}}</p>
+        <label for="email">{{cta.05}}</label>
+        <input id="email" name="email" type="email" required autocomplete="email" class="field" />
+        <label for="shopDomain">{{cta.07}}</label>
+        <input id="shopDomain" name="shopDomain" type="text" required autocomplete="off" placeholder="{{cta.07.placeholder}}" class="field" />
+        <label for="productRange">{{cta.08}}</label>
+        <select id="productRange" name="productRange" required class="field [&>option]:text-black">
+          <option value="" disabled selected>{{cta.08}}</option>
+          <option value="lte_100">{{cta.range.1}}</option>
+          <option value="100_500">{{cta.range.2}}</option>
+          <option value="500_2000">{{cta.range.3}}</option>
+          <option value="gt_2000">{{cta.range.4}}</option>
+        </select>
+        <div class="cf-turnstile" data-sitekey="%VITE_TURNSTILE_SITEKEY%"></div>
+        <label class="agree"><input type="checkbox" name="consent" required class="mt-1 size-4 accent-primary" /><span>{{cta.06}} <a href="%VITE_APP_URL%/privacy">{{faq.08}}</a></span></label>
+        <button type="submit" class="b p justify-center">{{nav.08}}</button>
+        <p role="status"></p>
+      </form>
+    </section>
+
+    <section id="contatti" class="scene s6" style="--c:#B48CFF">
+      <div class="calm">
+        <h2>{{h.12a}} <em>{{h.12b}}</em></h2>
+        <div class="ctas"><a class="b p" href="mailto:sales@neurocart.it?subject=Demo%20Neurocart">{{cta.03}}</a></div>
+      </div>
+      {{>foot}}
+    </section>
     </div>
-  </header>
-
-  <main id="top">
-    <section id="hero" class="night flex min-h-[100svh] items-center pb-16 pt-32">
-      <div class="hero-graph" data-hero-bg aria-hidden="true"></div>
-      <div class="wrap w-full" data-hero-fade>
-        <p class="eyebrow">{{hero.01}}</p>
-        <h1 class="h1" data-split>{{hero.02}}<br /> <em>{{hero.03}}</em></h1>
-        <div class="mt-10 grid gap-10 lg:grid-cols-12">
-          <div class="lg:col-span-6 lg:col-start-7">
-            <p class="prose-p text-lg text-cream/90 md:text-xl" data-reveal>{{hero.04}}</p>
-            <div class="mt-8 flex flex-wrap gap-3" data-reveal>
-              <a href="#accesso" class="btn btn-primary" data-cta data-install="{{cta.install}}">{{nav.08}}</a>
-              <a href="#motore" class="btn btn-ghost">{{hero.05}}</a>
-            </div>
-            <p class="muted mt-6 text-sm" data-reveal>{{hero.06}}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="night vet">
-      <div class="stagewrap">
-        <i class="halo"></i>
-        <section id="servizi" aria-roledescription="{{svc.role}}" aria-label="{{svc.aria}}">
-          <h2 class="sr-only">{{svc.title}}</h2>
-          <i class="vblob a"></i>
-          <i class="vblob b"></i>
-          <div class="vtop">
-            <div class="vrow">
-              <span class="vtop-label">{{svc.top}}</span>
-              <span class="vhint"><b>01</b><span>/ 11</span><span class="vchev" aria-hidden="true"><span>›</span><span>›</span><span>›</span></span></span>
-            </div>
-            <div class="vsegs">
-              <button type="button">{{svc.1.seg}}<u></u></button>
-              <button type="button">{{svc.2.seg}}<u></u></button>
-              <button type="button">{{svc.3.seg}}<u></u></button>
-              <button type="button">{{svc.4.seg}}<u></u></button>
-              <button type="button">{{svc.5.seg}}<u></u></button>
-              <button type="button">{{svc.6.seg}}<u></u></button>
-              <button type="button">{{svc.7.seg}}<u></u></button>
-              <button type="button">{{svc.8.seg}}<u></u></button>
-              <button type="button">{{svc.9.seg}}<u></u></button>
-              <button type="button">{{svc.10.seg}}<u></u></button>
-              <button type="button">{{svc.11.seg}}<u></u></button>
-            </div>
-            <button type="button" class="varr prev" aria-label="{{svc.prev}}">←</button>
-            <button type="button" class="varr next" aria-label="{{svc.next}}">→</button>
-          </div>
-          <div class="vtrack">
-          <article class="vs" data-on style="--b2:#9B6BFF" aria-label="{{svc.1.title}}">
-            <span class="vghost" aria-hidden="true">01</span>
-            <div class="vtext">
-              <span class="vlabel">01 · {{svc.1.pill}}</span>
-              <h3>{{svc.1.h}} <em>{{svc.1.hem}}</em></h3>
-              <p>{{svc.1.text}}</p>
-              <a class="vcta" href="{{svc.1.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.1.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-chatbot}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#F0589E" aria-label="{{svc.2.title}}">
-            <span class="vghost" aria-hidden="true">02</span>
-            <div class="vtext">
-              <span class="vlabel">02 · {{svc.2.pill}}</span>
-              <h3>{{svc.2.h}} <em>{{svc.2.hem}}</em></h3>
-              <p>{{svc.2.text}}</p>
-              <a class="vcta" href="{{svc.2.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.2.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-upsell}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#2BC4E0" aria-label="{{svc.3.title}}">
-            <span class="vghost" aria-hidden="true">03</span>
-            <div class="vtext">
-              <span class="vlabel">03 · {{svc.3.pill}}</span>
-              <h3>{{svc.3.h}} <em>{{svc.3.hem}}</em></h3>
-              <p>{{svc.3.text}}</p>
-              <a class="vcta" href="{{svc.3.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.3.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-related}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#A6D84A" aria-label="{{svc.4.title}}">
-            <span class="vghost" aria-hidden="true">04</span>
-            <div class="vtext">
-              <span class="vlabel">04 · {{svc.4.pill}}</span>
-              <h3>{{svc.4.h}} <em>{{svc.4.hem}}</em></h3>
-              <p>{{svc.4.text}}</p>
-              <a class="vcta" href="{{svc.4.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.4.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-operator}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#F08A3C" aria-label="{{svc.5.title}}">
-            <span class="vghost" aria-hidden="true">05</span>
-            <div class="vtext">
-              <span class="vlabel">05 · {{svc.5.pill}}</span>
-              <h3>{{svc.5.h}} <em>{{svc.5.hem}}</em></h3>
-              <p>{{svc.5.text}}</p>
-              <a class="vcta" href="{{svc.5.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.5.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-images}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#D26BE8" aria-label="{{svc.6.title}}">
-            <span class="vghost" aria-hidden="true">06</span>
-            <div class="vtext">
-              <span class="vlabel">06 · {{svc.6.pill}}</span>
-              <h3>{{svc.6.h}} <em>{{svc.6.hem}}</em></h3>
-              <p>{{svc.6.text}}</p>
-              <a class="vcta" href="{{svc.6.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.6.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-content}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#5B9BFF" aria-label="{{svc.7.title}}">
-            <span class="vghost" aria-hidden="true">07</span>
-            <div class="vtext">
-              <span class="vlabel">07 · {{svc.7.pill}}</span>
-              <h3>{{svc.7.h}} <em>{{svc.7.hem}}</em></h3>
-              <p>{{svc.7.text}}</p>
-              <a class="vcta" href="{{svc.7.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.7.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-dashboard}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#F5716A" aria-label="{{svc.8.title}}">
-            <span class="vghost" aria-hidden="true">08</span>
-            <div class="vtext">
-              <span class="vlabel">08 · {{svc.8.pill}}</span>
-              <h3>{{svc.8.h}} <em>{{svc.8.hem}}</em></h3>
-              <p>{{svc.8.text}}</p>
-              <a class="vcta" href="{{svc.8.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.8.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-ask}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#F2B83A" aria-label="{{svc.9.title}}">
-            <span class="vghost" aria-hidden="true">09</span>
-            <div class="vtext">
-              <span class="vlabel">09 · {{svc.9.pill}}</span>
-              <h3>{{svc.9.h}} <em>{{svc.9.hem}}</em></h3>
-              <p>{{svc.9.text}}</p>
-              <a class="vcta" href="{{svc.9.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.9.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-theme}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#8C8CFF" aria-label="{{svc.10.title}}">
-            <span class="vghost" aria-hidden="true">10</span>
-            <div class="vtext">
-              <span class="vlabel">10 · {{svc.10.pill}}</span>
-              <h3>{{svc.10.h}} <em>{{svc.10.hem}}</em></h3>
-              <p>{{svc.10.text}}</p>
-              <a class="vcta" href="{{svc.10.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.10.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-stores}}</div></div>
-          </article>
-          <article class="vs" style="--b2:#2BC08F" aria-label="{{svc.11.title}}">
-            <span class="vghost" aria-hidden="true">11</span>
-            <div class="vtext">
-              <span class="vlabel">11 · {{svc.11.pill}}</span>
-              <h3>{{svc.11.h}} <em>{{svc.11.hem}}</em></h3>
-              <p>{{svc.11.text}}</p>
-              <a class="vcta" href="{{svc.11.href}}">{{svc.more}} <span aria-hidden="true">→</span><span class="sr-only"> — {{svc.11.title}}</span></a>
-            </div>
-            <div class="vstage" aria-hidden="true"><div class="vscene">{{>v-insights}}</div></div>
-          </article>
-          <div class="vs" style="--b2:#9B6BFF" aria-hidden="true"></div>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <section class="sec">
-      <div class="wrap">
-        <h2 class="sr-only">{{numbers.01}}</h2>
-        <div class="grid gap-6 md:grid-cols-3" data-reveal-stagger>
-          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat"><span data-count="20">20</span>{{numbers.pct}}</p><p class="mt-3 max-w-[28ch]">{{numbers.02}}</p><p class="muted mt-6 text-xs">{{numbers.03}}</p></article>
-          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat">+<span data-count="50">50</span>{{numbers.pct}}</p><p class="mt-3 max-w-[28ch]">{{numbers.04}}</p><p class="muted mt-6 text-xs">{{numbers.05}}</p></article>
-          <article class="card stat-card"><i class="bar" data-grow></i><p class="stat"><span data-count="87">87</span>{{numbers.pct}}</p><p class="mt-3 max-w-[28ch]">{{numbers.06}}</p><p class="muted mt-6 text-xs">{{numbers.07}}</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="motore" class="night">
-      <div id="engine" class="pin">
-        <div class="stick">
-          <div class="engine-graph" aria-hidden="true">
-<svg class="graph" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><defs><filter id="glow"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-<line class="e e-sim" data-p="1" x1="120" y1="140" x2="260" y2="90" pathLength="1"/>
-<line class="e e-sim" data-p="1" x1="260" y1="90" x2="400" y2="170" pathLength="1"/>
-<line class="e e-sim" data-p="1" x1="400" y1="170" x2="540" y2="100" pathLength="1"/>
-<line class="e e-sim" data-p="1" x1="540" y1="100" x2="680" y2="160" pathLength="1"/>
-<line class="e e-sim" data-p="1" x1="180" y1="320" x2="330" y2="300" pathLength="1"/>
-<line class="e e-sim" data-p="1" x1="330" y1="300" x2="480" y2="330" pathLength="1"/>
-<line class="e e-buy" data-p="2" x1="90" y1="440" x2="180" y2="320" pathLength="1"/>
-<line class="e e-buy" data-p="2" x1="250" y1="470" x2="330" y2="300" pathLength="1"/>
-<line class="e e-buy" data-p="2" x1="250" y1="470" x2="400" y2="480" pathLength="1"/>
-<line class="e e-buy" data-p="2" x1="560" y1="480" x2="480" y2="330" pathLength="1"/>
-<line class="e e-buy" data-p="2" x1="560" y1="480" x2="400" y2="480" pathLength="1"/>
-<line class="e e-buy" data-p="2" x1="720" y1="440" x2="640" y2="310" pathLength="1"/>
-<line class="e e-buy" data-p="2" x1="720" y1="440" x2="480" y2="330" pathLength="1"/>
-<line class="e e-buy" data-p="2" x1="90" y1="440" x2="330" y2="300" pathLength="1"/>
-<line class="e e-rec" data-p="3" x1="400" y1="170" x2="330" y2="300" pathLength="1"/>
-<line class="e e-rec" data-p="3" x1="400" y1="170" x2="480" y2="330" pathLength="1"/>
-<line class="e e-rec" data-p="3" x1="540" y1="100" x2="480" y2="330" pathLength="1"/>
-<line class="e e-rec" data-p="3" x1="260" y1="90" x2="180" y2="320" pathLength="1"/>
-<circle class="n-prod" data-p="1" cx="120" cy="140" r="6"/>
-<circle class="n-prod" data-p="1" cx="260" cy="90" r="6"/>
-<circle class="n-prod" data-p="1" cx="400" cy="170" r="6"/>
-<circle class="n-prod" data-p="1" cx="540" cy="100" r="6"/>
-<circle class="n-prod" data-p="1" cx="680" cy="160" r="6"/>
-<circle class="n-prod" data-p="1" cx="180" cy="320" r="6"/>
-<circle class="n-prod" data-p="1" cx="330" cy="300" r="6"/>
-<circle class="n-prod" data-p="1" cx="480" cy="330" r="6"/>
-<circle class="n-prod" data-p="1" cx="640" cy="310" r="6"/>
-<circle class="n-prod" data-p="1" cx="400" cy="480" r="6"/>
-<circle class="n-user" data-p="2" cx="90" cy="440" r="5"/>
-<circle class="n-user" data-p="2" cx="250" cy="470" r="5"/>
-<circle class="n-user" data-p="2" cx="560" cy="480" r="5"/>
-<circle class="n-user" data-p="2" cx="720" cy="440" r="5"/>
-<g data-p="4"><circle class="n-prod" cx="120" cy="140" r="6"/><circle class="n-prod" cx="260" cy="90" r="6"/><circle class="n-prod" cx="400" cy="170" r="6"/><circle class="n-prod" cx="540" cy="100" r="6"/><circle class="n-prod" cx="680" cy="160" r="6"/><circle class="n-prod" cx="180" cy="320" r="6"/><circle class="n-prod" cx="330" cy="300" r="6"/><circle class="n-prod" cx="480" cy="330" r="6"/><circle class="n-prod" cx="640" cy="310" r="6"/><circle class="n-prod" cx="400" cy="480" r="6"/></g>
-</svg>
-          </div>
-          <div class="wrap grid w-full gap-8 lg:grid-cols-12 lg:gap-0">
-            <div class="lg:col-span-5">
-              <p class="eyebrow">{{engine.01}}</p>
-              <h2 class="h2" data-split>{{engine.02}}</h2>
-              <div class="rail4"><i class="track"><i class="fill"></i></i>
-                <ol>
-                  <li><span>01</span>{{engine.03}}</li>
-                  <li><span>02</span>{{engine.04}}</li>
-                  <li><span>03</span>{{engine.05}}</li>
-                  <li><span>04</span>{{engine.06}}</li>
-                </ol>
-              </div>
-            </div>
-            <div class="phases lg:col-span-6 lg:col-start-7">
-              <article data-p="1" class="cur on"><p class="font-display text-sm font-semibold text-dusk">01</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">{{engine.03}}</h3><p class="prose-p mt-4 text-cream/85">{{engine.07}}</p></article>
-              <article data-p="2"><p class="font-display text-sm font-semibold text-dusk">02</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">{{engine.04}}</h3><p class="prose-p mt-4 text-cream/85">{{engine.08}}</p></article>
-              <article data-p="3"><p class="font-display text-sm font-semibold text-dusk">03</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">{{engine.05}}</h3><p class="prose-p mt-4 text-cream/85">{{engine.09}}</p></article>
-              <article data-p="4"><p class="font-display text-sm font-semibold text-dusk">04</p><h3 class="mt-2 font-serif text-3xl md:text-4xl">{{engine.06}}</h3><p class="prose-p mt-4 text-cream/85">{{engine.10}}</p></article>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="wrap pb-24 md:pb-40">
-        <div class="why grid gap-8 md:grid-cols-3" data-reveal-stagger aria-hidden="true">
-          <div><article class="pcard"><div class="pimg"><img src="/img/jacket.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.11}}</b><span>{{engine.12}}</span></p><i class="pbrand">{{engine.13}}</i></div></article><span class="chip mt-4">{{engine.14}}</span></div>
-          <div><article class="pcard"><div class="pimg"><img src="/img/crewneck.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.15}}</b><span>{{engine.16}}</span></p><i class="pbrand">{{engine.13}}</i></div></article><span class="chip mt-4">{{engine.17}}</span></div>
-          <div><article class="pcard"><div class="pimg"><img src="/img/backpack.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.18}}</b><span>{{engine.19}}</span></p><i class="pbrand">{{engine.13}}</i></div></article><span class="chip mt-4">{{engine.20}}</span></div>
-        </div>
-        <p class="mt-16 max-w-[24ch] font-serif text-3xl md:text-5xl" data-reveal>{{engine.21}}</p>
-      </div>
-    </section>
-
-    <section id="consigli" class="sec">
-      <div class="wrap">
-        <p class="eyebrow">{{consigli.01}}</p>
-        <h2 class="h2 max-w-[18ch]" data-split>{{consigli.02}}</h2>
-        <div class="mt-16 grid gap-8 md:grid-cols-12 md:items-start">
-          <div class="tablist min-w-0 md:col-span-5" role="tablist" aria-orientation="vertical" aria-label="{{consigli.aria}}">
-            <i class="tabbar" aria-hidden="true"></i>
-              <button role="tab" type="button" id="tab-similar" aria-controls="consigli-panel" aria-selected="true" tabindex="0" data-scene="pdp" data-type="similar" data-label="{{consigli.lbl1}}"><span class="tabtitle">{{consigli.07}}</span><span class="tabtext"><span class="tabdesc">{{consigli.08}}</span><span class="chip">{{consigli.09}}</span></span></button>
-              <button role="tab" type="button" id="tab-together" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="pdp" data-type="together" data-label="{{consigli.lbl2}}"><span class="tabtitle">{{consigli.10}}</span><span class="tabtext"><span class="tabdesc">{{consigli.11}}</span><span class="chip">{{consigli.09}}</span></span></button>
-              <button role="tab" type="button" id="tab-complementary" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="pdp" data-type="complementary" data-label="{{consigli.lbl3}}"><span class="tabtitle">{{consigli.12}}</span><span class="tabtext"><span class="tabdesc">{{consigli.13}}</span><span class="chip">{{consigli.09}}</span></span></button>
-              <button role="tab" type="button" id="tab-new" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="home" data-type="new" data-label="{{consigli.lbl4}}"><span class="tabtitle">{{consigli.14}}</span><span class="tabtext"><span class="tabdesc">{{consigli.15}}</span><span class="chip">{{consigli.16}}</span></span></button>
-              <button role="tab" type="button" id="tab-cart" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="cart" data-type="cart" data-label="{{consigli.lbl5}}"><span class="tabtitle">{{consigli.17}}</span><span class="tabtext"><span class="tabdesc">{{consigli.18}}</span><span class="chip">{{consigli.19}}</span></span></button>
-              <button role="tab" type="button" id="tab-post" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="cart" data-type="post" data-label="{{consigli.lbl6}}"><span class="tabtitle">{{consigli.20}}</span><span class="tabtext"><span class="tabdesc">{{consigli.21}}</span><span class="chip">{{consigli.22}}</span></span></button>
-              <button role="tab" type="button" id="tab-foryou" aria-controls="consigli-panel" aria-selected="false" tabindex="-1" data-scene="account" data-type="foryou" data-label="{{consigli.lbl7}}"><span class="tabtitle">{{consigli.23}}</span><span class="tabtext"><span class="tabdesc">{{consigli.24}}</span><span class="chip">{{consigli.25}}</span></span></button>
-          </div>
-          <div role="tabpanel" id="consigli-panel" aria-labelledby="tab-similar" class="min-w-0 md:col-span-7">
-            <div class="stage frame" data-scene="pdp" data-type="similar" aria-hidden="true">
-              <div class="fakebar"><i></i><i></i><i></i></div>
-              <div class="scene">
-                <div class="ctx ctx-pdp"><div class="pimg"><img src="/img/jacket.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div><b>{{engine.11}}</b><p>{{engine.12}}</p></div></div>
-                <div class="ctx ctx-home"><i><img src="/img/hoodie.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></i><i><img src="/img/sneakers.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></i><i><img src="/img/sunnies.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></i><i><img src="/img/halfzip.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></i></div>
-                <div class="ctx ctx-cart"><p><span><img class="thumb" src="/img/crewneck.webp" alt="" width="800" height="1000" loading="lazy" decoding="async">{{engine.15}}</span><span>{{engine.16}}</span></p><p><span><img class="thumb" src="/img/backpack.webp" alt="" width="800" height="1000" loading="lazy" decoding="async">{{engine.18}}</span><span>{{engine.19}}</span></p><p><b>{{consigli.03}}</b><b>{{consigli.04}}</b></p></div>
-                <div class="ctx ctx-account"><b>{{consigli.06}}</b><p class="muted">{{consigli.26}}</p><div class="thumbs"><img src="/img/hoodie.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"><img src="/img/sunnies.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"><img src="/img/beanie.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div></div>
-              </div>
-              <div class="recs">
-                <p class="reclabel">{{consigli.lbl1}}</p>
-                <div class="rail">
-                  <article class="pcard"><div class="pimg"><img src="/img/jacket.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"><img class="alt" src="/img/beanie.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.11}}</b><span>{{engine.12}}</span></p><p class="alt"><b class="font-medium">{{engine.22}}</b><span>{{engine.23}}</span></p></div></article>
-                  <article class="pcard"><div class="pimg"><img src="/img/crewneck.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"><img class="alt" src="/img/sunnies.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.15}}</b><span>{{engine.16}}</span></p><p class="alt"><b class="font-medium">{{engine.24}}</b><span>{{engine.25}}</span></p></div></article>
-                  <article class="pcard"><div class="pimg"><img src="/img/backpack.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"><img class="alt" src="/img/sneakers.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.18}}</b><span>{{engine.19}}</span></p><p class="alt"><b class="font-medium">{{chat.08}}</b><span>{{chat.09}}</span></p></div></article>
-                </div>
-              </div>
-            </div>
-  
-            <p class="explain md:hidden"><span class="muted block text-base"></span><span class="chip mt-3"></span></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="chat" class="sec pt-0" data-preset="editorial">
-      <div class="wrap">
-        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
-          <div class="lg:col-span-5">
-            <p class="eyebrow">{{chat.01}}</p>
-            <h2 class="h2" data-split>{{chat.02}}</h2>
-          </div>
-          <div class="lg:col-span-6 lg:col-start-7" data-reveal>
-            <ul class="prose-p list-disc space-y-2 pl-5 marker:text-primary">
-              <li>{{chat.03}}</li>
-              <li>{{chat.04}}</li>
-              <li>{{chat.05}}</li>
-              <li>{{chat.06}}</li>
-              <li>{{chat.07}}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="mt-20 grid gap-8 lg:grid-cols-12" aria-hidden="true">
-          <div class="frame lg:col-span-7 lg:self-start" data-reveal>
-            <div class="rail">
-              <article class="pcard"><div class="pimg"><img src="/img/jacket.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.11}}</b><span>{{engine.12}}</span></p><i class="pbrand">{{engine.13}}</i></div></article>
-              <article class="pcard"><div class="pimg"><img src="/img/crewneck.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.15}}</b><span>{{engine.16}}</span></p><i class="pbrand">{{engine.13}}</i></div></article>
-              <article class="pcard"><div class="pimg"><img src="/img/backpack.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.18}}</b><span>{{engine.19}}</span></p><i class="pbrand">{{engine.13}}</i></div></article>
-              <article class="pcard"><div class="pimg"><img src="/img/sneakers.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{chat.08}}</b><span>{{chat.09}}</span></p><i class="pbrand">{{engine.13}}</i></div></article>
-            </div>
-          </div>
-          <div class="frame flex flex-col gap-3 p-5 lg:col-span-5" data-reveal>
-            <p class="bubble bubble-user">{{chat.10}}</p>
-            <p class="bubble bubble-bot">{{chat.11}}</p>
-            <div class="rail p-0"><article class="pcard"><div class="pimg"><img src="/img/jacket.webp" alt="" width="800" height="1000" loading="lazy" decoding="async"></div><div class="pmeta"><p><b class="font-medium">{{engine.11}}</b><span>{{engine.12}}</span></p><i class="pbrand">{{engine.13}}</i></div></article></div>
-            <p class="bubble bubble-user">{{chat.12}}</p>
-          </div>
-        </div>
-
-        <div class="mt-24 grid gap-10 lg:grid-cols-12 lg:gap-0">
-          <div class="lg:col-span-5">
-            <p class="eyebrow">{{chat.13}}</p>
-            <p class="prose-p" data-reveal>{{chat.14}}</p>
-          </div>
-          <div class="lg:col-span-6 lg:col-start-7">
-            <ul class="space-y-4" data-reveal-stagger>
-              <li data-for="editorial"><b class="font-display">{{chat.15}}</b> {{chat.16}}</li>
-              <li data-for="glass"><b class="font-display">{{chat.17}}</b> {{chat.18}}</li>
-              <li data-for="minimal"><b class="font-display">{{chat.19}}</b> {{chat.20}}</li>
-              <li data-for="frame"><b class="font-display">{{chat.21}}</b> {{chat.22}}</li>
-            </ul>
-            <p class="mt-8 font-serif text-2xl" data-reveal>{{chat.23}}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec pt-0" aria-labelledby="attivazione">
-      <div class="wrap">
-        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
-          <div class="lg:col-span-5">
-            <p class="eyebrow">{{setup.01}}</p>
-            <h2 id="attivazione" class="h2" data-split>{{setup.02}}</h2>
-          </div>
-          <div class="lg:col-span-6 lg:col-start-7">
-            <ol class="space-y-8" data-reveal-stagger>
-              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">1</span><p>{{setup.03}}</p></li>
-              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">2</span><p>{{setup.04}}</p></li>
-              <li class="flex gap-6"><span class="font-serif text-5xl text-primary">3</span><p>{{setup.05}}</p></li>
-            </ol>
-            <p class="muted mt-8 text-base" data-reveal>{{setup.06}}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="sec pt-0" aria-labelledby="umano">
-      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
-        <div class="lg:col-span-5">
-          <p class="eyebrow">{{human.01}}</p>
-          <h2 id="umano" class="h2" data-split>{{human.02}}</h2>
-        </div>
-        <p class="prose-p lg:col-span-6 lg:col-start-7" data-reveal>{{human.03}}</p>
-      </div>
-    </section>
-
-    <section id="piattaforma" class="sec pt-0">
-      <div class="wrap">
-        <div class="grid gap-10 lg:grid-cols-12 lg:gap-0">
-          <div class="lg:col-span-5">
-            <p class="eyebrow">{{platform.01}}</p>
-            <h2 class="h2" data-split>{{platform.02}}</h2>
-          </div>
-        </div>
-        <div class="mt-16 grid gap-6 md:grid-cols-2" data-reveal-stagger>
-          <article class="card"><h3>{{platform.03}}</h3><p>{{platform.04}}</p></article>
-          <article class="card"><h3>{{platform.05}}</h3><p>{{platform.06}}</p></article>
-          <article class="card">
-            <h3>{{platform.07}}</h3>
-            <div class="mb-4 grid grid-cols-2 gap-2" aria-hidden="true">
-              <div class="kpi">{{platform.08}}<b>{{platform.k1}}</b></div><div class="kpi">{{platform.09}}<b>{{platform.k2}}</b></div><div class="kpi">{{platform.10}}<b>96</b></div><div class="kpi">{{platform.11}}<b>{{platform.12}}</b></div>
-            </div>
-            <svg class="mb-4 h-10 w-full text-primary" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,32 25,26 50,30 75,18 100,22 125,12 150,16 175,6 200,9" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
-            <p>{{platform.13}}</p>
-          </article>
-          <article class="card"><h3>{{platform.14}}</h3><p>{{platform.15}}</p></article>
-          <article id="insights" class="card grid items-center gap-8 md:col-span-2 md:grid-cols-2">
-            <div><h3>{{platform.ins.t}}</h3><p>{{platform.ins.d}}</p></div>
-            <div class="vis" aria-hidden="true">{{>insights}}</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="prezzi" class="sec pt-0">
-      <div class="wrap">
-        <p class="eyebrow">{{nav.05}}</p>
-        <h2 class="h2 max-w-[20ch]" data-split>{{pricing.01}}</h2>
-        <div class="mt-16 grid gap-6 lg:grid-cols-3" data-reveal-stagger>
-          <article class="card"><h3>{{pricing.02}}</h3><p class="font-serif text-5xl">{{pricing.base}} <span class="font-sans text-base text-muted">{{pricing.03}}</span></p><p class="muted mt-4 text-base">{{pricing.04}}</p></article>
-          <article class="card border-2 border-accent"><h3 class="flex items-center justify-between">{{pricing.05}} <span class="badge">{{pricing.06}}</span></h3><p class="font-serif text-5xl">{{pricing.07}} <span class="font-sans text-base text-muted">{{pricing.03}}</span></p><p class="muted mt-4 text-base">{{pricing.08}}</p></article>
-          <article class="card"><h3>{{pricing.09}}</h3><p class="font-serif text-5xl">{{pricing.10}}</p><p class="muted mt-4 text-base">{{pricing.11}}</p></article>
-        </div>
-        <p class="muted mt-10 max-w-[68ch] text-base" data-reveal>{{pricing.12}}</p>
-      </div>
-    </section>
-
-    <section id="in-arrivo" class="sec pt-0">
-      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
-        <div class="lg:col-span-5">
-          <p class="eyebrow">{{nav.06}}</p>
-          <h2 class="h2" data-split>{{soon.01}}</h2>
-        </div>
-        <ul class="lg:col-span-6 lg:col-start-7" data-reveal-stagger>
-          <li class="flex flex-col gap-3 border-b border-line py-6"><span class="badge self-start">{{nav.06}}</span><p><b class="font-display">{{soon.02}}</b> {{soon.03}}</p></li>
-          <li class="flex flex-col gap-3 border-b border-line py-6"><span class="badge self-start">{{nav.06}}</span><p><b class="font-display">{{soon.04}}</b> {{soon.05}}</p></li>
-          <li class="flex flex-col gap-3 py-6"><span class="badge self-start">{{nav.06}}</span><p><b class="font-display">{{soon.06}}</b> {{soon.07}}</p></li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="sec pt-0" aria-labelledby="faq">
-      <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-0">
-        <h2 id="faq" class="h2 lg:col-span-5" data-split>{{faq.01}}</h2>
-        <div class="lg:col-span-6 lg:col-start-7" data-reveal>
-          <details><summary>{{faq.02}}</summary><p class="prose-p pb-6">{{faq.03}}</p></details>
-          <details><summary>{{faq.04}}</summary><p class="prose-p pb-6">{{faq.05}}</p></details>
-          <details><summary>{{faq.06}}</summary><p class="prose-p pb-6">{{faq.07}} <a class="text-primary underline" href="%VITE_APP_URL%/privacy">{{faq.08}}</a></p></details>
-          <details><summary>{{faq.09}}</summary><p class="prose-p pb-6">{{faq.10}}</p></details>
-          <details><summary>{{faq.11}}</summary><p class="prose-p pb-6">{{faq.12}}</p></details>
-          <details><summary>{{faq.13}}</summary><p class="prose-p pb-6">{{faq.14}}</p></details>
-        </div>
-      </div>
-    </section>
-
-    <section class="night sec">
-      <div class="wrap">
-        <h2 class="h2 max-w-[18ch]" data-split>{{cta.01}} <em>{{cta.02}}</em></h2>
-        <div class="mt-10 flex flex-wrap gap-3" data-reveal>
-          <a href="#accesso" class="btn btn-primary" data-cta data-install="{{cta.install}}">{{nav.08}}</a>
-          <a href="mailto:sales@neurocart.it?subject=Demo%20Neurocart" class="btn btn-ghost">{{cta.03}}</a>
-        </div>
-        <form id="accesso" class="card mt-20 max-w-xl" data-reveal data-ok="{{cta.ok}}" data-err="{{cta.err}}">
-          <h3 class="font-display">{{nav.08}}</h3>
-          <p class="muted mb-6 text-base">{{cta.04}}</p>
-          <label for="email" class="mb-2 block text-sm font-medium">{{cta.05}}</label>
-          <input id="email" name="email" type="email" required autocomplete="email" class="field" />
-          <label for="shopDomain" class="mb-2 mt-4 block text-sm font-medium">{{cta.07}}</label>
-          <input id="shopDomain" name="shopDomain" type="text" required autocomplete="off" placeholder="{{cta.07.placeholder}}" class="field" />
-          <label for="productRange" class="mb-2 mt-4 block text-sm font-medium">{{cta.08}}</label>
-          <select id="productRange" name="productRange" required class="field [&>option]:text-black">
-            <option value="" disabled selected>{{cta.08}}</option>
-            <option value="lte_100">{{cta.range.1}}</option>
-            <option value="100_500">{{cta.range.2}}</option>
-            <option value="500_2000">{{cta.range.3}}</option>
-            <option value="gt_2000">{{cta.range.4}}</option>
-          </select>
-          <div class="cf-turnstile mt-4" data-sitekey="%VITE_TURNSTILE_SITEKEY%"></div>
-          <label class="mt-4 flex items-start gap-3 text-sm"><input type="checkbox" name="consent" required class="mt-1 size-4 accent-primary" /><span>{{cta.06}} <a class="underline" href="%VITE_APP_URL%/privacy">{{faq.08}}</a></span></label>
-          <button type="submit" class="btn btn-primary mt-6">{{nav.08}}</button>
-          <p role="status" class="text-base"></p>
-        </form>
-      </div>
-    </section>
   </main>
-
-  {{>footer}}
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
 </body>
 </html>

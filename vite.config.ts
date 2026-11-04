@@ -7,15 +7,21 @@ const locales = Object.fromEntries(["it", "en"].map((lang) => [lang, JSON.parse(
 
 type Page = { template: string; lang: "it" | "en"; id?: string; pair?: string; listed?: false };
 const pages: Record<string, Page> = {
-  "": { template: "src/page.html", lang: "it", pair: "en" },
-  en: { template: "src/page.html", lang: "en", pair: "" },
+  "": { template: "src/page.html", lang: "it", id: "home", pair: "en" },
+  en: { template: "src/page.html", lang: "en", id: "home", pair: "" },
   "pilota-black-friday": { template: "src/pilota.html", lang: "it", id: "pilota", listed: false },
   "condizioni-pilota": { template: "src/condizioni.html", lang: "it", id: "condizioni", listed: false },
+  prezzi: { template: "src/prezzi.html", lang: "it", id: "pricing", pair: "en/pricing" },
   "chatbot-shopify": { template: "src/seo.html", lang: "it", id: "chatbot", pair: "en/shopify-ai-chatbot" },
   "upsell-cross-sell-shopify": { template: "src/seo.html", lang: "it", id: "upsell", pair: "en/shopify-upsell-cross-sell" },
-  "come-aumentare-scontrino-medio-shopify": { template: "src/guida.html", lang: "it" },
+  "contenuti-ai-shopify": { template: "src/seo.html", lang: "it", id: "content", pair: "en/shopify-ai-product-content" },
+  "insights-shopify": { template: "src/seo.html", lang: "it", id: "insights", pair: "en/shopify-ai-insights" },
+  "come-aumentare-scontrino-medio-shopify": { template: "src/guida.html", lang: "it", id: "guide" },
+  "en/pricing": { template: "src/prezzi.html", lang: "en", id: "pricing", pair: "prezzi" },
   "en/shopify-ai-chatbot": { template: "src/seo.html", lang: "en", id: "chatbot", pair: "chatbot-shopify" },
   "en/shopify-upsell-cross-sell": { template: "src/seo.html", lang: "en", id: "upsell", pair: "upsell-cross-sell-shopify" },
+  "en/shopify-ai-product-content": { template: "src/seo.html", lang: "en", id: "content", pair: "contenuti-ai-shopify" },
+  "en/shopify-ai-insights": { template: "src/seo.html", lang: "en", id: "insights", pair: "insights-shopify" },
   "en/shopify-related-products": { template: "src/seo.html", lang: "en", id: "related" },
 };
 
