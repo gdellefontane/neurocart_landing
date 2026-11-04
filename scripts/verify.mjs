@@ -219,7 +219,7 @@ try {
         const kids = [...el.children];
         const empty = (el.getBoundingClientRect().bottom - Math.max(...kids.map((k) => k.getBoundingClientRect().bottom))) / el.getBoundingClientRect().height;
         if (innerWidth >= 1440 && empty > 0.2) out.push(`${n + 1}:vuoto ${Math.round(empty * 100)}%`);
-        if (!(inside(scene) && inside(cta) && el.scrollHeight <= el.clientHeight + 1 && el.scrollWidth <= el.clientWidth + 1 && text.top >= top.bottom - 1 && stage.top >= top.bottom - 1)) out.push(n + 1);
+        if (!(inside(scene) && inside(cta) && el.scrollHeight <= el.clientHeight + 1 && el.scrollWidth <= el.clientWidth + 1 && [...el.querySelectorAll(".pc")].every((pc) => pc.scrollHeight <= pc.clientHeight + 1) && text.top >= top.bottom - 1 && stage.top >= top.bottom - 1)) out.push(n + 1);
       }
       return out;
     });
@@ -282,6 +282,7 @@ try {
       check(`${label} zero overflow orizzontale`, await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth));
       check(`${label} nav in vetro scuro semi-trasparente`, await page.evaluate(navIsDarkGlass));
       if (!guide) check(`${label} scena dell'hero in vetro (mai chiara) e prodotti da /img/cut/`, await page.evaluate(sceneIsGlass, "#hero .vscene"));
+      if (!guide) check(`${label} scena dell'hero e card prodotto non tagliate`, await page.evaluate(() => [document.querySelector("#hero .vscene"), ...document.querySelectorAll("#hero .vscene .pc")].every((el) => el.scrollHeight <= el.clientHeight + 1)));
       if (width === 390) {
         check(`${label} CTA e link interni raggiungibili`, (await Promise.all(links.map((href) => page.locator(`a[href="${href}"]`).count()))).every((n) => n > 0) && (await page.locator("footer .footlinks a").count()) >= 5);
         const targets = await page.$$eval("main a[href^='/'], header a[href^='/']", (nodes) => [...new Set(nodes.map((n) => n.getAttribute("href").split("#")[0]))]);
