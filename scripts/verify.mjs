@@ -18,7 +18,7 @@ const sceneFit = () => {
   const scene = document.querySelector("section.scene.on");
   const bad = [...scene.querySelectorAll("*")].filter((el) => {
     const r = el.getBoundingClientRect();
-    if (!r.width || !r.height || el.closest("svg") && el.tagName !== "svg" || el.closest(".cf-turnstile") || (el.closest("details:not([open])") && !el.closest("summary") && el.tagName !== "DETAILS")) return false;
+    if (!r.width || !r.height || el.closest("svg") && el.tagName !== "svg" || el.closest(".cf-turnstile") || (el.closest("details:not([open])") && !el.closest("summary") && el.tagName !== "DETAILS") || getComputedStyle(el.closest("#accesso > div:first-child") ?? el).clipPath !== "none") return false;
     return r.bottom > innerHeight + 1 || r.top < nav.bottom - 1 || r.left < -1 || r.right > innerWidth + 1;
   });
   const cut = [...scene.querySelectorAll(".body, .pc, .win")].filter((el) => el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1);
@@ -119,7 +119,7 @@ try {
         await p.click("form#richiesta button[type=submit]");
         await p.waitForFunction(() => document.querySelector("#richiesta [role=status]").textContent.length > 0);
         check(`${label} form in errore: testo nello status, form visibile e dentro lo schermo (Turnstile 300x65 incluso) (${await p.evaluate(sceneFit)})`, !(await p.evaluate(sceneFit)) && (await p.locator("#richiesta button[type=submit]").isVisible()) && (await p.evaluate(() => document.querySelector("#richiesta .cf-turnstile").getBoundingClientRect().height)) >= 65);
-        for (const need of ["consulting", "build"]) {
+        for (const need of ["consulting", "build", "migrate"]) {
           await p.check(`input[value=${need}]`, { force: true });
           check(`${label} modulo "${need}": dentro lo schermo con Turnstile 65px (${await p.evaluate(sceneFit)})`, !(await p.evaluate(sceneFit)) && (await p.locator("#richiesta button[type=submit]").isVisible()));
         }
@@ -184,6 +184,10 @@ try {
         famOk &&= await live.waitForFunction((id) => document.querySelector("section.scene.on")?.id === id, href.slice(1), { timeout: 3000 }).then(() => true, () => false);
       }
       check(`${path} i 4 link della colonna servizi portano alla scena giusta`, famOk);
+      await live.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+      await live.waitForFunction(() => document.querySelector("section.scene.on")?.id === "top");
+      await live.click('#top a[href="#partner"]');
+      check(`${path} il link secondario dell'hero porta alla scena partner`, await live.waitForFunction(() => document.querySelector("section.scene.on")?.id === "partner", null, { timeout: 3000 }).then(() => true, () => false));
     }
     const seqScene = await live.evaluate(() => [...document.querySelectorAll("section.scene")].findIndex((s) => s.querySelector("[data-seq]")));
     if (seqScene > 0) {
@@ -229,7 +233,11 @@ try {
     await closeAll();
   }
 
-  for (const { code, path, ok } of [{ code: "it", path: "/", ok: "Grazie" }, { code: "en", path: "/en/", ok: "Thank you" }]) {
+  const texts = {
+  it: { neurocart: ["Richiedi accesso", "Grazie. Ti scriviamo appena", "Il tuo negozio sa già"], consulting: ["Richiedi la consulenza", "Grazie. Ti scriviamo per fissare", "Il tuo negozio sa già"], build: ["Parliamone", "Grazie. Ti scriviamo per capire", "Iniziamo dal tuo negozio"] },
+  en: { neurocart: ["Request access", "Thank you. We'll write to you as soon", "Your store already"], consulting: ["Request the consultation", "Thank you. We'll write to you to schedule", "Your store already"], build: ["Let's talk", "Thank you. We'll write to understand", "Let's start with your store"] },
+};
+for (const { code, path, ok } of [{ code: "it", path: "/", ok: "Grazie" }, { code: "en", path: "/en/", ok: "Thank you" }]) {
     for (const [state, date] of Object.entries(states)) {
       const dated = await newPage();
       await dated.clock.setFixedTime(new Date(date));
@@ -243,7 +251,8 @@ try {
       return route.fulfill({ status: 200, contentType: "application/json", body: '{"ok":true}' });
     });
     await page.goto(`http://localhost:4173${path}#accesso`);
-    await page.waitForTimeout(300);
+    await page.waitForSelector("form#richiesta[data-ok]");
+    check(`${code} modulo: 4 scelte (neurocart, consulting, build, migrate), neurocart selezionata`, JSON.stringify(await page.$$eval("input[name=need]", (nodes) => nodes.map((n) => n.value))) === '["neurocart","consulting","build","migrate"]' && (await page.locator("input[value=neurocart]").isChecked()));
     await page.fill("#email", "test@example.com");
     await page.fill("#shopDomain", "demo.myshopify.com");
     await page.selectOption("#productRange", "100_500");
@@ -252,22 +261,22 @@ try {
     await page.click("form#richiesta button[type=submit]");
     await page.waitForSelector("form#richiesta.done");
     check(`${code} form: testo di successo, consenso e token Turnstile in turnstileToken`, (await page.locator("form#richiesta [role=status]").textContent()).startsWith(ok) && sent.consent === true && sent.source === "landing" && sent.turnstileToken === "tok" && !("cf-turnstile-response" in sent));
-    for (const [need, [domain, site]] of Object.entries({ neurocart: [true, false], consulting: [false, true], build: [false, false] })) {
+    for (const [need, [domain, site]] of Object.entries({ neurocart: [true, false], consulting: [false, true], build: [false, false], migrate: [false, true] })) {
       await page.reload();
-      await page.waitForTimeout(300);
+      await page.waitForSelector("form#richiesta[data-ok]");
       await page.check(`input[value=${need}]`, { force: true });
       await page.fill("#email", "test@example.com");
       await page.check("input[name=consent]");
       const state = await page.evaluate(() => ["#shopDomain", "#shopUrl", "#productRange"].map((id) => [!!document.querySelector(id).offsetParent, document.querySelector(id).required && !document.querySelector(id).disabled]));
-      const valid = () => page.$eval("#richiesta", (f) => f.checkValidity());
-      const [emptyValid] = [await valid()];
       if (domain) await page.fill("#shopDomain", "demo.myshopify.com");
       if (site) await page.fill("#shopUrl", "www.demo-shop.it");
       await page.selectOption("#productRange", "100_500");
       await page.$eval("#richiesta .cf-turnstile", (n) => n.insertAdjacentHTML("beforeend", '<input type="hidden" name="cf-turnstile-response" value="tok">'));
       await page.click("form#richiesta button[type=submit]");
       await page.waitForSelector("form#richiesta.done");
-      check(`${code} modulo "${need}": campi visibili e required giusti, payload con need e solo i campi pertinenti`, JSON.stringify(state) === JSON.stringify([[domain, domain], [site, false], [true, need === "neurocart"]]) && emptyValid === !domain && sent.need === need && ("shopDomain" in sent) === domain && sent.shopUrl === (site ? "www.demo-shop.it" : undefined) && sent.productRange === "100_500" && sent.turnstileToken === "tok");
+      check(`${code} modulo "${need}": campi visibili e required giusti, payload con need e solo i campi pertinenti`, JSON.stringify(state) === JSON.stringify([[domain, domain], [site, false], [true, need === "neurocart"]]) && sent.need === need && ("shopDomain" in sent) === domain && sent.shopUrl === (site ? "www.demo-shop.it" : undefined) && sent.productRange === "100_500" && sent.turnstileToken === "tok");
+      const [button, success, heading] = texts[code][need === "migrate" ? "build" : need];
+      check(`${code} modulo "${need}": titolo, pulsante e messaggio di successo della scelta`, (await page.locator("#accesso h2").textContent()).startsWith(heading) && (await page.locator("#richiesta button[type=submit]").textContent()) === button && (await page.locator("#richiesta [role=status]").textContent()).startsWith(success));
     }
     await page.evaluate(() => scrollTo({ top: [...document.querySelectorAll("section.scene")].findIndex((n) => n.id === "partner") * document.querySelector(".stage").clientHeight, behavior: "instant" }));
     await page.waitForFunction(() => document.querySelector("section.scene.on")?.id === "partner");

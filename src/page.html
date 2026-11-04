@@ -25,6 +25,7 @@
           <h1>{{h.1a}} <em>{{h.1b}}</em></h1>
           <p class="lead">{{h.1l}}</p>
           <div class="ctas"><a class="b p" href="#accesso" data-cta data-install="{{cta.install}}">{{nav.08}}</a></div>
+          <a class="more" href="#partner">{{h.1p}}</a>
         </div>
         <nav class="famlist" aria-label="{{h.fam}}"><a href="#vendi" style="--c:#B48CFF"><small>01 · {{h.n1}}</small><b>{{h.f1t}}</b><span>{{h.f1d}}</span><i aria-hidden="true">→</i></a><a href="#chat" style="--c:#6FA6FF"><small>02 · {{h.n2}}</small><b>{{h.f2t}}</b><span>{{h.f2d}}</span><i aria-hidden="true">→</i></a><a href="#contenuti" style="--c:#FFA35C"><small>03 · {{h.n3}}</small><b>{{h.f3t}}</b><span>{{h.f3d}}</span><i aria-hidden="true">→</i></a><a href="#dati" style="--c:#4CD3EC"><small>04 · {{h.n4}}</small><b>{{h.f4t}}</b><span>{{h.f4d}}</span><i aria-hidden="true">→</i></a></nav>
       </div>
@@ -141,19 +142,20 @@
       <div>
         <h2>{{cta.01}} <em>{{cta.02}}</em></h2>
       </div>
-      <form id="richiesta" class="form" data-ok="{{cta.ok}}" data-err="{{cta.err}}">
+      <form id="richiesta" class="form" data-err="{{cta.err}}">
         <p>{{cta.04}}</p>
         <label for="email">{{cta.05}}</label>
         <input id="email" name="email" type="email" required autocomplete="email" placeholder="{{cta.05}}" class="field" />
         <fieldset class="need"><legend>{{cta.need}}</legend>
-          <label class="pill"><input type="radio" name="need" value="neurocart" checked /><span>{{cta.need.1}}</span></label>
-          <label class="pill"><input type="radio" name="need" value="consulting" /><span>{{cta.need.2}}</span></label>
-          <label class="pill"><input type="radio" name="need" value="build" /><span>{{cta.need.3}}</span></label>
+          <label class="pill"><input type="radio" name="need" value="neurocart" checked data-t1="{{cta.01}}" data-t2="{{cta.02}}" data-btn="{{nav.08}}" data-ok="{{cta.ok}}" /><span>{{cta.need.1}}</span></label>
+          <label class="pill"><input type="radio" name="need" value="consulting" data-t1="{{cta.01}}" data-t2="{{cta.02}}" data-btn="{{cta.btn2}}" data-ok="{{cta.ok2}}" /><span>{{cta.need.2}}</span></label>
+          <label class="pill"><input type="radio" name="need" value="build" data-t1="{{cta.t1}}" data-t2="{{cta.t2}}" data-btn="{{h.13c}}" data-ok="{{cta.ok3}}" /><span>{{cta.need.3}}</span></label>
+          <label class="pill"><input type="radio" name="need" value="migrate" data-t1="{{cta.t1}}" data-t2="{{cta.t2}}" data-btn="{{h.13c}}" data-ok="{{cta.ok3}}" /><span>{{cta.need.4}}</span></label>
         </fieldset>
         <div class="slot">
           <div data-need="neurocart"><label for="shopDomain">{{cta.07}}</label>
           <input id="shopDomain" name="shopDomain" type="text" required autocomplete="off" placeholder="{{cta.07.placeholder}}" class="field" /></div>
-          <div data-need="consulting" hidden><label for="shopUrl">{{cta.site}}</label>
+          <div data-need="consulting migrate" hidden><label for="shopUrl">{{cta.site}}</label>
           <input id="shopUrl" name="shopUrl" type="text" pattern="\s*\S+\.\S+\s*" maxlength="255" autocomplete="url" placeholder="{{cta.site.placeholder}}" class="field" disabled /></div>
           <p data-need="build" hidden>{{cta.build}}</p>
         </div>
