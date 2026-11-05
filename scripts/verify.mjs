@@ -75,7 +75,7 @@ try {
     check(`${path} title <= 60 e description <= 155 (${title.length}/${description.length})`, title.length <= 60 && description.length <= 155 && title.length > 20 && description.length > 80);
     check(`${path} canonical su se stessa, hreflang ${pair ? "reciproci" : "assenti"}`, (await page.getAttribute("link[rel=canonical]", "href")) === `${base}${path}` && (await page.locator("link[rel=alternate][hreflang]").count()) === (pair ? 3 : 0) && (!pair || (await page.getAttribute("header a[hreflang]", "href")) === pair));
     const types = await page.$$eval('script[type="application/ld+json"]', (nodes) => nodes.map((n) => JSON.parse(n.textContent)["@type"]));
-    check(`${path} JSON-LD leggibile (${types.join(", ")})`, JSON.stringify(types) === JSON.stringify(ld ?? (guide ? ["BreadcrumbList", "Article"] : ["BreadcrumbList", "FAQPage"])));
+    check(`${path} JSON-LD leggibile (${types.join(", ")})`, JSON.stringify(types) === JSON.stringify(["WebPage", ...(ld ?? (guide ? ["BreadcrumbList", "Article"] : ["BreadcrumbList", "FAQPage"]))]));
     if (!guide) {
       const visible = await page.$$eval("details", (nodes) => nodes.map((d) => [d.querySelector("summary").textContent.trim(), d.querySelector("p").textContent.trim()]));
       const faq = await page.$$eval('script[type="application/ld+json"]', (nodes) => JSON.parse(nodes.at(-1).textContent).mainEntity.map((q) => [q.name, q.acceptedAnswer.text]));

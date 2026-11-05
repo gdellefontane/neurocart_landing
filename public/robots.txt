@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot-Image
+Disallow: /img/
+
 Sitemap: https://www.neurocart.it/sitemap.xml
