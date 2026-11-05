@@ -56,7 +56,7 @@ const pages = [
   { path: "/en/shopify-ai-insights/", code: "en", scenes: 7, h1: /shopify store's report/i, pair: "/insights-shopify/" },
   { path: "/come-aumentare-scontrino-medio-shopify/", code: "it", scenes: 14, h1: /come aumentare lo scontrino medio su shopify/i, guide: true },
 ];
-const viewports = [[1440, 900], [1280, 800], [1024, 768], [412, 839], [390, 844], [390, 664], [360, 640]];
+const viewports = [[1440, 900], [1536, 730], [1366, 625], [1280, 800], [1024, 768], [412, 839], [390, 844], [390, 664], [360, 640]];
 const states = { aperto: "2026-10-20T12:00:00+02:00", chiuso: "2026-10-26T00:00:00+01:00" };
 
 try {
